@@ -1,0 +1,57 @@
+@model Cleanup.Models.UserRegisterViewModel;
+    <div>
+        <div id="logo-wrap">
+        <img id="logo" src="/images/logo_shadow.png" alt="cleanup logo">
+        </div>
+<h1>Registration</h1>
+<div class="reg-form">
+    <form asp-controller="User" asp-action="Register" method="POST" enctype="multipart/form-data">
+        <table>
+            <tr>
+                <td></td>
+                <td><input class="form-control" asp-for="FirstName" placeholder="First Name"></td>
+                <td><span asp-validation-for="FirstName"></span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input class="form-control" asp-for="LastName" placeholder="Last Name"></td>
+                <td><span asp-validation-for="LastName"></span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input class="form-control" asp-for="UserName" placeholder="User Name"></td>
+                <td><span asp-validation-for="UserName"></span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input class="form-control" asp-for="Email" placeholder="Email"></td>
+                <td><span asp-validation-for="Email"></span></td>
+            </tr>
+            <tr>
+                <td><label asp-for="ProfilePic"></label></td>
+                <td><input type="file" name="ProfilePic"></td>
+                <td><span asp-validation-for="ProfilePic"></span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input class="form-control" type="password" asp-for="Password" placeholder="Password"></td>
+                <td><span asp-validation-for="Password"></span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input class="form-control" type="password" asp-for="PasswordConfirmation" placeholder="Confirm Password"></td>
+                <td><span asp-validation-for="PasswordConfirmation"></span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button style="width: 12em; margin: 0.3em;" class="btn btn-success" type="submit" class="btn btn-default">Sign Up</button></td>
+                <td></td>
+            </tr>
+        </table>
+    </form>
+    </div>
+    <p>Already registered? <a href="signin">Sign in</a></p>
+
+
+
+

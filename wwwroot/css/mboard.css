@@ -1,0 +1,15 @@
+*{
+    padding: 5px;
+    margin: 5px;
+}
+header{
+    height: 20%;
+    background-color: green;
+}
+article{
+    height: 70%
+}
+footer{
+    height: 10%;
+    background-color: greenyellow;
+}

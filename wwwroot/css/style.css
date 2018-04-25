@@ -1,0 +1,70 @@
+*{
+    font-family: 'Roboto', sans-serif;
+}
+body{
+    background: url(/images/bkg.png) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    
+}
+
+input{
+    text-align: center;
+    margin-top: 0.2em;
+}
+#reg-form, #log-form, .reg-form{
+    text-align: center;
+}
+form{
+    display: inline-block;
+}
+#logo{
+    margin-top: 10%;
+    width: 70%;
+    
+}
+#logo-wrap{
+    text-align: center;
+}
+.btn{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+#welcome{
+    text-align: center;
+    margin-bottom: 2em;
+}
+#sign-btn{
+    text-align: center;
+}
+.rotating { 
+    width: 40%;
+}
+
+.rotating {
+  -webkit-animation-name: rotate;
+  -webkit-animation-duration:25s;
+  -webkit-animation-iteration-count:infinite;
+  -webkit-animation-timing-function:linear;
+  -moz-animation-name: rotate;
+  -moz-animation-duration:25s;
+  -moz-animation-iteration-count:infinite;
+  -moz-animation-timing-function:linear;
+}
+
+@-webkit-keyframes rotate {
+  from {-webkit-transform:rotate(0deg);}
+  to {  -webkit-transform:rotate(360deg);}
+}
+
+@-moz-keyframes rotate {
+  from {-moz-transform:rotate(0deg);}
+  to {  -moz-transform:rotate(360deg);}
+}
+
+  #rotate{
+      margin-top: -30%;
+      text-align: center;
+       
+  }
