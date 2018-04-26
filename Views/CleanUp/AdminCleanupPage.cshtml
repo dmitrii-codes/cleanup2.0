@@ -1,0 +1,36 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <div>
+            <p>@ViewBag.cleanup.Title</p>
+            <p>@ViewBag.cleanup.DescriptionOfArea</p>
+            <p>@ViewBag.cleanup.DescriptionOfTrash</p>
+            <p>@ViewBag.cleanup.Value</p>
+            <p>@ViewBag.cleanup.MaxCleaners</p>
+            <p>@ViewBag.cleanup.Address</p>
+            <p>@ViewBag.cleanup.User.UserName</p>
+            @foreach(var image in @ViewBag.cleanup.Images)
+            {
+                <img src="@image.FileName" alt="">
+            }
+            @if(ViewBag.cleanup.Images.Count <= 5)
+            {
+                <form action="/approve/cleanup/@ViewBag.cleanup.CleanupId" method="Post">
+                    <p>Max Cleaners:</p>
+                    <input type="number" min="1" max="100" name="max">
+                    <p>Value of Cleanup:</p>
+                    <input type="number" min="10" max="100" name="value">
+                    <input type="submit">
+                </form>
+                <a href="/delete/cleanup/@ViewBag.cleanup.CleanupId">Delete Submission</a>
+            }
+            @else
+            {
+                <a href="/close/cleanup/@ViewBag.cleanup.CleanupId">Close event/Accept Report</a>
+                <a href="">Decline report</a>
+            }
+        </div>
+    </body>
+</html>

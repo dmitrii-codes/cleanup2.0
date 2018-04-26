@@ -158,7 +158,7 @@ namespace Cleanup
         }
         [HttpPost]
         [Route("approve/cleanup/{id}")]
-        public IActionResult ApproveCleanup(int id, int value)
+        public IActionResult ApproveCleanup(int id, int value, int max)
         {
             int? activeId = HttpContext.Session.GetInt32("activeUser");
             if(activeId != null) //Checked to make sure user is actually logged in
@@ -168,6 +168,7 @@ namespace Cleanup
                 if(possibleCleanup.Count == 1 && activeUser.UserLevel == 9) //Confirm that event exists and that user is admin
                 {
                     possibleCleanup[0].Pending = false;
+                    possibleCleanup[0].MaxCleaners = max;
                     possibleCleanup[0].Value = value;
                     _context.SaveChanges();
                     return RedirectToAction("Dashboard");
@@ -225,6 +226,56 @@ namespace Cleanup
                 {
                     //Code to change photo filename, ERIC LOOK HERE
                     return RedirectToAction("AddPhoto", new { id = possibleCleanup[0].CleanupId}); //After new photo added, redirect to photo add page so user can add more (up to 5 max)
+                }
+            }
+            return RedirectToAction("Index", "User");
+        }
+        [HttpGet]
+        [Route("admin/page")]
+        public IActionResult AdminPage()
+        {
+            int? activeId = HttpContext.Session.GetInt32("activeUser");
+            if(activeId != null)
+            {
+                User activeUser = _context.users.Single( u => u.UserId == (int)activeId);
+                if(activeUser.UserLevel == 9)
+                {
+                    ViewBag.allCleanups = _context.cleanups.Include( c => c.User ).Include( u => u.Images ).OrderBy( l => l.UpdatedAt ).ToList();
+                    return View();
+                }
+            }
+            return RedirectToAction("Index", "User");
+        }
+        [HttpGet]
+        [Route("admin/cleanup/{id}")]
+        public IActionResult AdminCleanupPage(int id)
+        {
+            int? activeId = HttpContext.Session.GetInt32("activeUser");
+            if(activeId != null)
+            {
+                User activeUser = _context.users.Single( u => u.UserId == (int)activeId);
+                List<CleanupEvent> possibleCleanup = _context.cleanups.Where( c => c.CleanupId == id).Include( c => c.Images ).Include( c => c.User ).ToList();
+                if(activeUser.UserLevel == 9 && possibleCleanup.Count == 1 && possibleCleanup[0].Pending == true)
+                {
+                    ViewBag.cleanup = possibleCleanup[0];
+                    return View();
+                }
+            }
+            return RedirectToAction("Index", "User");
+        }
+        [HttpGet]
+        [Route("decline/cleanup/{id}")]
+        public IActionResult DeclineCleanupReport(int id)
+        {
+            int? activeId = HttpContext.Session.GetInt32("activeUser");
+            if(activeId != null) //Checked to make sure user is actually logged in
+            {
+                User activeUser = _context.users.Single( u => u.UserId == (int)activeId);
+                List<CleanupEvent> possibleCleanup = _context.cleanups.Where( c => c.CleanupId == id).ToList();
+                if(possibleCleanup.Count == 1 && activeUser.UserLevel == 9 && possibleCleanup[0].Pending == true) //Confirm that event exists and that user is admin
+                {
+                    possibleCleanup[0].Pending = false;
+                    _context.SaveChanges();
                 }
             }
             return RedirectToAction("Index", "User");
