@@ -1,0 +1,30 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description of trash</th>
+                    <th>Username</th>
+                    <th>Image</th>
+                    <th>Submitted at</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var event in ViewBag.allCleanups)
+                {
+                    <tr>
+                        <td><a href="/admin/cleanup/@event.CleanupId">@event.Title</a></td>
+                        <td>@event.DescriptionOfTrash</td>
+                        <td>@event.User.Username</td>
+                        <td>@event.Images[0].FileName</td>
+                        <td>@event.UpdatedAt</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </body>
+</html>
