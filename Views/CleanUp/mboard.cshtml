@@ -1,10 +1,17 @@
+@Model 
 <link rel="stylesheet" href="~/css/mboard.css">
-<header>
-hey
-</header>
-<article>
-hi  
-</article>
+<header>@ViewBag.cleanup.Title</header>
+<div id="board">
+    @foreach(var each in ViewBag.messages){
+        <div class="post">
+            <p>@each.Sender.UserName</p>
+        </div>
+    }
+</div>
 <footer>
-yo
+    <form asp-action="" asp-controller="Cleanup" method="post">
+        <label asp-for=""></label>
+        <textarea asp-for cols="30" rows="10"></textarea>
+        <button type="submit">Post</button>
+    </form>
 </footer>

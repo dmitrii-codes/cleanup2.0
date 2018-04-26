@@ -21,16 +21,20 @@
         <div id="markerTitle_@i">@ViewBag.markers[i].Title</div>
         <div id="markerContent_@i">
             <div id="iw-container">
-                <div class="iw-title">@ViewBag.markers[i].Title</div>
+                <div class="iw-title"><a href="cleanup/@ViewBag.markers[i].CleanupId">@ViewBag.markers[i].Title</a></div>
                 <div class="iw-content">
                     <div class="iw-subTitle"></div>
                     <img src="http://maps.marnoto.com/en/5wayscustomizeinfowindow/images/vistalegre.jpg" alt="Porcelain Factory of Vista Alegre" height="115" width="83">
-                    
                     <div class="iw-subTitle">Rewards: @ViewBag.markers[i].Value</div>
                     <p>@ViewBag.markers[i].Address</p>
                     <p>Where: @ViewBag.markers[i].DescriptionOfArea</p>
                     <p>What: @ViewBag.markers[i].DescriptionOfTrash</p>
                     <p>Creator:&nbsp<a href="/user/@ViewBag.markers[i].UserId">@ViewBag.markers[i].User.FirstName @ViewBag.markers[i].User.LastName</a></p>
+                    <p style="display: inline-block">Attendees: @ViewBag.markers[i].CleaningUsers.Count/@ViewBag.markers[i].MaxCleaners</p>&nbsp;
+                    @if(ViewBag.markers[i].CleaningUsers.Count < ViewBag.markers[i].MaxCleaners){
+                        <a href="/join_event/@ViewBag.markers[i].CleanupId">Sign up</a>
+                    }
+                    <br>
                     <a href="/mboard/@ViewBag.markers[i].CleanupId">Message Board</a>
                     <br><br>
                 </div>
