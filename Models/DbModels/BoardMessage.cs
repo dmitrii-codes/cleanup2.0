@@ -9,6 +9,7 @@ namespace Cleanup.Models
     {
         [Key]
         public int BoardMessageId { get; set; }
+        [Required]
         public string Content{ get; set; }
         [ForeignKey("Sender")]
         public int SenderId { get; set; }
