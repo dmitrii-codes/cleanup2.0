@@ -97,6 +97,7 @@ nav {
 
 #username {
     color: #6d6d6d;
+    font-weight: 600;
     font-size: 20px;
     position: fixed;
     left: 70px;
