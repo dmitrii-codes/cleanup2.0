@@ -17,11 +17,16 @@ namespace Cleanup
         //message test
         [HttpGet]
         [Route("mboard/{id}")]
-        public IActionResult Test2(int id){
-            //retrive the messages by event with id and INCLUDE boardmessages;
-            ViewBag.messages = _context.boardmessages.Where(c => c.EventId == id).Include(m => m.Sender).ToList();
-            ViewBag.cleanup = _context.cleanups.Single(e => e.CleanupId == id);       
-            return View("mboard");
+        public IActionResult MBoard(int id){
+            int? activeId = HttpContext.Session.GetInt32("activeUser");
+            if(activeId != null) //Checked to make sure user is actually logged in
+            {  
+                //retrive the messages by event with id and INCLUDE boardmessages;
+                ViewBag.messages = _context.boardmessages.Where(c => c.EventId == id).OrderBy(c => c.CreatedAt).Include(m => m.Sender).ToList();
+                ViewBag.cleanup = _context.cleanups.Single(e => e.CleanupId == id);       
+                return View("mboard");
+            }
+            return RedirectToAction("Index", "User");
         }
 
         [HttpGet]
@@ -37,6 +42,31 @@ namespace Cleanup
                 User active = _context.users.Single(u => u.UserId == activeId);
                 ViewBag.active = active; 
                 return View("Dashboard");
+            }
+            return RedirectToAction("Index", "User");
+        }
+        [HttpPost]
+        [Route("postboardmessage/{id}")]
+        public IActionResult PostBoardMessage(int id, string content){
+            int? activeId = HttpContext.Session.GetInt32("activeUser");
+            if(activeId != null) //Checked to make sure user is actually logged in
+            {   
+                System.Console.WriteLine("dadsa----------------------sdsadsad");
+                System.Console.WriteLine(content);
+                if (content == null){
+                    ViewBag.error = "Content can't be empty";
+                    ViewBag.messages = _context.boardmessages.Where(c => c.EventId == id).OrderBy(c => c.CreatedAt).Include(m => m.Sender).ToList();
+                    ViewBag.cleanup = _context.cleanups.Single(e => e.CleanupId == id);      
+                    return View("mboard");
+                }
+                BoardMessage bm = new BoardMessage{
+                    SenderId = (int)HttpContext.Session.GetInt32("activeUser"),
+                    EventId = id,
+                    Content = content
+                };
+                _context.Add(bm);
+                _context.SaveChanges();
+                return RedirectToAction("MBoard");
             }
             return RedirectToAction("Index", "User");
         }

@@ -1,15 +1,45 @@
 *{
-    padding: 5px;
-    margin: 5px;
+    padding: 0px;
+    margin: 0px;
 }
 header{
-    height: 20%;
-    background-color: green;
+    position: absolute;
+    height: 10%;
+    width: 100%;
+    padding: 15px;
+    background-color: rgb(10, 200, 40);
 }
-article{
-    height: 70%
+header h2{
+    display: inline-block;
+    margin-right: 60%;
+}
+header a{
+    font-size: 20px;
+}
+#board{
+    position: absolute;
+    height: 80%;
+    width: 100%;
+    top:10%;
+    padding: 20px;
+    overflow-y: auto;
 }
 footer{
+    position: absolute;
     height: 10%;
-    background-color: greenyellow;
+    width: 100%;
+    top: 90%;
+    padding: 20px;
+    background-color: rgb(10, 200, 40);
+}
+fieldset{
+    border: 1px black solid;
+}
+.post img, .post p{
+    margin: 5px;
+    display: inline-block;
+}
+legend{
+    font-size: 15px;
+    margin-bottom: 3px;
 }

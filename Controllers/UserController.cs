@@ -149,6 +149,12 @@ namespace Cleanup
             }
             return RedirectToAction("Index");//Return to login page if failed attempt or user deletes themselves
         }
+        [HttpGet]
+        [Route("sendprivatemessage/{id}")]
+        public IActionResult PrivateMessages(int id){
+            // ViewBag.messages
+            return View();
+        }
         //New
         [HttpGet]
         [Route("update/user/{id}")]
