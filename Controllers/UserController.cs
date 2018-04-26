@@ -42,7 +42,7 @@ namespace Cleanup
         }
         [HttpPost]
         [Route("register")]
-        public IActionResult Register(UserRegisterViewModel model, IFormFile ProfilePic) //Register User Route //pass the file from the form
+        public IActionResult Register(UserRegisterViewModel model, IFormFile ProfilePic, double Latitude, double Longitude) //Register User Route //pass the file from the form
         {
             if (ModelState.IsValid)
             {
@@ -74,6 +74,8 @@ namespace Cleanup
                     activeUser.UserLevel = 9;//First user to admin
                     _context.SaveChanges();
                 }
+                HttpContext.Session.SetString("latitude", Latitude.ToString());
+                HttpContext.Session.SetString("longitude", Longitude.ToString());
                 HttpContext.Session.SetString("userName", activeUser.UserName);
                 HttpContext.Session.SetInt32("activeUser", activeUser.UserId);
                 TempData["pic"] = splitrootfile[1]; //for testing only to display the image path 
@@ -86,7 +88,7 @@ namespace Cleanup
         }
         [HttpPost]
         [Route("login")]
-        public IActionResult Login(UserLoginViewModel model) //Login Route
+        public IActionResult Login(UserLoginViewModel model, double Latitude, double Longitude) //Login Route
         {
             if (ModelState.IsValid){ //so we only check the db if user input the right information
                 List<User> possibleLogin = _context.users.Where( u => (string)u.UserName == (string)model.UserNameLogin).ToList(); //Check for existing username
@@ -95,6 +97,8 @@ namespace Cleanup
                     var Hasher = new PasswordHasher<User>();
                     if(0!= Hasher.VerifyHashedPassword(possibleLogin[0], possibleLogin[0].Password, model.PasswordLogin)) //Confirm hashed passsword
                     {
+                        HttpContext.Session.SetString("latitude", Latitude.ToString());
+                        HttpContext.Session.SetString("longitude", Longitude.ToString());
                         HttpContext.Session.SetInt32("activeUser", possibleLogin[0].UserId);
                         // return Redirect("/update/user/2");
                         return RedirectToAction("Dashboard", "Cleanup");//Go to actual site

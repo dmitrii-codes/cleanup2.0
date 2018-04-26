@@ -1,7 +1,6 @@
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
-        //initial location and zoom
-        center: { lat: parseFloat("47.617515"), lng: parseFloat("-122.201853") },
+        center: { lat: parseFloat($("#Latitude").html()), lng: parseFloat($("#Longitude").html()) },
         zoom: 10,
         styles: mapStyle,
         mapTypeId: google.maps.MapTypeId.ROADMAP,

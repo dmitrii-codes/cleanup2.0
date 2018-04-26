@@ -21,11 +21,13 @@
             <span asp-validation-for="DescriptionOfTrash"></span>
         </div>
         <div>
-            <input type="hidden" asp-for="Latitude" id="Lat" value="">
-            <input type="hidden" asp-for="Longitude" id="Lng" value="">
+            <label asp-for="Address"></label>
+            <input asp-for="Address">
+            <span asp-validation-for="Address"></span>
         </div>
         <div>
-            <input type="text" name="Address">
+            <input type="hidden" asp-for="Latitude" id="Lat" value="">
+            <input type="hidden" asp-for="Longitude" id="Lng" value="">
         </div>
         <input type="submit">
     </form>
