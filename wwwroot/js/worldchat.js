@@ -16,6 +16,11 @@ $(document).ready(function(){
     //any time the connection recieves a message it sends it back; the following code captures it and appends it to our div
     connection.on('SendMessage', data => {
         $(".messages").append("<div><p>" + data + "</p></div>");
+        $.ajax({ 
+                url: '@Url.Action("live", "Cleanup")',  
+                type: 'POST',    
+                data: data
+        });
     });
     //when a new connection is made, this will send a new message to hub with the connected user
     connection.start()
