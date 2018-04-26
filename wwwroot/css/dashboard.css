@@ -1,49 +1,144 @@
-
 #map {
     position: absolute;
     height: 100%;
     width: 100%;
+    z-index: -1;
 }
 
-.displayChat{
+.displayChat {
     display: none;
 }
-footer{
+
+.open-chat {
+    width: 50%;
+}
+.footer {
     border-top: 5px solid #555655;
     padding: 25px 10px 0px 10px;
-    height: 50px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
     background: url(/images/bkg.png);
     background-size: 100%;
-    position: fixed;
-    top: 90%;
     width: 100%;
     height: 10%;
 }
-nav{
+
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
     padding: 25px 10px 0px 10px;
-    height: 50px;
+    height: 65px;
     background: url(/images/bkg.png);
     background-size: 100%;
     border-bottom: 5px solid #555655;
-    
-}
-.btn{
-   
-    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
 }
 
-.open-chat.btn.btn-success{
-    
-}
-#capture{
-    position: absolute;
-    top: 84%;
-    height: 50px;
-    width: 100%;
-    
+#capture {
     text-align: center;
-    color: white;
+    margin: -16px auto;
 }
-#capture{
+
+#camera {
+    display: block;
+    height: auto;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+#chat-btn {
+    position: fixed;
+    left: 1%;
+    bottom: 15%;
+}
+
+#message-textbox,
+#message-send {
+    display: inline-block;
+    vertical-align: top;
+}
+
+#message-textbox {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 5px;
+    margin-left: 2%;
+    height: 20px;
+    width: 60%;
+    border-radius: 5px 0px 0px 5px;
+}
+
+#message-send {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 5px;
+    
+    border-radius: 0px 5px 5px 0px;
+}
+#message-close {
+    display: inline-block;
+    vertical-align: top;
+    width: 11%;
+    padding-left: 5px;
+    padding-bottom: 5px;
+   
+}
+
+#profilepic {
+    position: fixed;
+    left: 7px;
+    top: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 3px solid #6d6d6d;
+}
+
+#username {
+    color: #6d6d6d;
+    font-size: 20px;
+    position: fixed;
+    left: 70px;
+    top: 33px;
+}
+ul.nav-link li {
+    text-decoration: none;
+    list-style: none;
+    float:right;
+    vertical-align: top;
+    padding: 0em 1em;
+}
+.nav-link {
+    margin-right: 20px;
+}
+.icon {
+    width: 30px;
+}
+.score {
+    background-color: white;
+    border-radius: 50%;
     width: 100%;
+    height: 100%;
+    padding: 9px;
+    text-decoration: none;
+    font-weight: 600;
+    color: #6d6d6d;
+    
 }
+.chat-window {
+    border-top: 5px solid #6d6d6d;
+    width: 100%;
+    height: 30%;
+    position: fixed;
+    bottom: 70px;
+    left: 0;
+    background-color: white;    
+    
+}
+.messages{
+    padding-left: 5px;
+    overflow-y: scroll;
+    height: 60%; 
+}
+
