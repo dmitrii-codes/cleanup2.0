@@ -14,7 +14,7 @@ namespace Cleanup.Models
         [ForeignKey("Recipient")]
         public int RecipientId { get; set; }
         public User Recipient { get; set; }
-        public int ReadStatus { get; set; }
+        public bool ReadStatus { get; set; } = false;
     }
 }
 
