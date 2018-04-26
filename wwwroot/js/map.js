@@ -17,7 +17,7 @@ function initMap() {
     var locations = []
     var ids = []
     for (var i = 0; i < 2; i++) { //iterate through activities
-            locations.push({ lat: parseFloat($("#markerLng_" + i).html()), lng: parseFloat($("#markerLat_" + i).html()) })
+            locations.push({ lat: parseFloat($("#markerLat_" + i).html()), lng: parseFloat($("#markerLng_" + i).html()) })
             ids.push(i)
     }
     //markers creation
@@ -43,10 +43,11 @@ function initMap() {
     infoWindow.addListener('domready', function() {
         // Reference to the DIV that wraps the bottom of infowindow
         var iwOuter = $('.gm-style-iw');
+        iwOuter.children(':nth-child(1)').css({ 'display' : 'unset'});
         /* Since this div is in a position prior to .gm-div style-iw.
          * We use jQuery and create a iwBackground variable,
          * and took advantage of the existing reference .gm-style-iw for the previous div with .prev().
-        */
+        */        
         var iwBackground = iwOuter.prev();
         // Removes background shadow DIV
         iwBackground.children(':nth-child(2)').css({'display' : 'none'});
