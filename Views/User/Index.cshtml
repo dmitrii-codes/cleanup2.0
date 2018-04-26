@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,21 +7,20 @@
     <title>Document</title>
 </head>
 <body>
-    
-    @if(ViewBag.reg == null && ViewBag.log == null){
 
+    @if(ViewBag.reg == null && ViewBag.log == null){
     <div>
-        <div id="logo-wrap">
-        <img id="logo" src="/images/logo_shadow.png" alt="cleanup logo">
-        </div>
-    <div id="rotate">
+    <div class="logo-wrap">
+    <img class="logo" src="/images/logo_shadow.png" alt="cleanup logo">
+    </div>
+    <div class="rotate">
     <image class="rotating" src="/images/recycle.png" alt="rotate"></image>
     </div>
-    <div id="welcome">
+    <div class="welcome">
     <h2>Welcome to <strong>CleanUp</strong>!</h2>
     <i>Your way to a cleaner community.</i>
     </div>
-    <div id="sign-btn">
+    <div class="sign-btn">
     <a style="width: 12em; margin: 0.3em;" href="signup" class="btn btn-success">Sign Up</a>
     <a style="width: 12em; margin: 0.3em;" href="signin" class="btn btn-success">Sign In</a>
     </div>

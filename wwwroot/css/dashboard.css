@@ -1,18 +1,49 @@
+
 #map {
     position: absolute;
     height: 100%;
     width: 100%;
 }
-header{
-    position: absolute;
-    top: 0;
-    height: 10%;
-}
+
 .displayChat{
     display: none;
 }
 footer{
-    position: absolute;
+    border-top: 5px solid #555655;
+    padding: 25px 10px 0px 10px;
+    height: 50px;
+    background: url(/images/bkg.png);
+    background-size: 100%;
+    position: fixed;
     top: 90%;
+    width: 100%;
     height: 10%;
+}
+nav{
+    padding: 25px 10px 0px 10px;
+    height: 50px;
+    background: url(/images/bkg.png);
+    background-size: 100%;
+    border-bottom: 5px solid #555655;
+    
+}
+.btn{
+   
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+}
+
+.open-chat.btn.btn-success{
+    
+}
+#capture{
+    position: absolute;
+    top: 84%;
+    height: 50px;
+    width: 100%;
+    
+    text-align: center;
+    color: white;
+}
+#capture{
+    width: 100%;
 }
