@@ -17,6 +17,7 @@ namespace Cleanup.Models
         public int Value{get;set;}
         public int MaxCleaners{get;set;}
         public string Address{get;set;}
+        public int MaxCleaners{get;set;}
         public bool Pending{get;set;}
         [ForeignKey("User")]
         public int UserId { get; set; }

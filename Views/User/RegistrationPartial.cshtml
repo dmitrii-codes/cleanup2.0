@@ -1,46 +1,64 @@
 @model Cleanup.Models.UserRegisterViewModel;
-    <div>
-        <div id="logo-wrap">
-        <img id="logo" src="/images/logo_shadow.png" alt="cleanup logo">
-        </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    
+    <title>Document</title>
+</head>
+<div>
+    <div class="logo-wrap">
+    <img class="logo" src="/images/logo_shadow.png" alt="cleanup logo">
+    </div>
 <h1>Registration</h1>
+<div>
+                <span class="block" asp-validation-for="FirstName"></span>
+                <span class="block" asp-validation-for="LastName"></span>
+                <span class="block" asp-validation-for="UserName"></span>
+                <span class="block" asp-validation-for="Email"></span>
+                <span class="block" asp-validation-for="ProfilePic"></span>
+                <span class="block" asp-validation-for="Password"></span>
+                <span class="block" asp-validation-for="PasswordConfirmation"></span>
+</div>
 <div class="reg-form">
     <form asp-controller="User" asp-action="Register" method="POST" enctype="multipart/form-data">
         <table>
             <tr>
                 <td></td>
-                <td><input class="form-control" asp-for="FirstName" placeholder="First Name"></td>
-                <td><span asp-validation-for="FirstName"></span></td>
+                <td><input  class="form-control" asp-for="FirstName" placeholder="First Name"></td>
+                <td></td>
             </tr>
             <tr>
                 <td></td>
                 <td><input class="form-control" asp-for="LastName" placeholder="Last Name"></td>
-                <td><span asp-validation-for="LastName"></span></td>
+                <td></td>
             </tr>
             <tr>
                 <td></td>
                 <td><input class="form-control" asp-for="UserName" placeholder="User Name"></td>
-                <td><span asp-validation-for="UserName"></span></td>
+                <td></td>
             </tr>
             <tr>
                 <td></td>
                 <td><input class="form-control" asp-for="Email" placeholder="Email"></td>
-                <td><span asp-validation-for="Email"></span></td>
+                <td></td>
             </tr>
             <tr>
-                <td><label asp-for="ProfilePic"></label></td>
-                <td><input type="file" name="ProfilePic"></td>
-                <td><span asp-validation-for="ProfilePic"></span></td>
+                <td></td>
+                <td><input class="form-control" type="file" name="ProfilePic" placeholder="Profile Pic"></td>
+                <td></td>
             </tr>
             <tr>
                 <td></td>
                 <td><input class="form-control" type="password" asp-for="Password" placeholder="Password"></td>
-                <td><span asp-validation-for="Password"></span></td>
+                <td></td>
             </tr>
             <tr>
                 <td></td>
                 <td><input class="form-control" type="password" asp-for="PasswordConfirmation" placeholder="Confirm Password"></td>
-                <td><span asp-validation-for="PasswordConfirmation"></span></td>
+                <td></td>
             </tr>
             <tr>
                 <td></td>
@@ -49,8 +67,9 @@
             </tr>
         </table>
     </form>
-    </div>
+    
     <p>Already registered? <a href="signin">Sign in</a></p>
+    </div>
 
 
 

@@ -14,32 +14,19 @@ namespace Cleanup
         {
             _context = context;
         }
-
-        [HttpGet]
-        [Route("test")]
-        public IActionResult Test(){
-            List<Dictionary<string, string>> markers = new List<Dictionary<string, string>>();
-            Dictionary<string, string> dict1 = new Dictionary<string, string>();
-            Dictionary<string, string> dict2 = new Dictionary<string, string>();
-            dict1["title"] = "test1test1test1test1test1test1"; //maxlength = 30!
-            dict1["lng"] = "47.644710";
-            dict1["lat"] = "-122.205378";
-            dict1["mboard"] = "mboard/1";
-            dict2["title"] = "test2";
-            dict2["lng"] = "47.626203";
-            dict2["lat"] = "-122.201258";
-            dict2["mboard"] = "mboard/2";
-            markers.Add(dict1);
-            markers.Add(dict2);
-            ViewBag.markers = markers;
-            return View("dashboard");
-        }
         //message test
         [HttpGet]
         [Route("mboard/{id}")]
-        public IActionResult Test2(int id){
-            //retrive the messages by event with id and INCLUDE boardmessages;
-            return View("mboard");
+        public IActionResult MBoard(int id){
+            int? activeId = HttpContext.Session.GetInt32("activeUser");
+            if(activeId != null) //Checked to make sure user is actually logged in
+            {  
+                //retrive the messages by event with id and INCLUDE boardmessages;
+                ViewBag.messages = _context.boardmessages.Where(c => c.EventId == id).OrderBy(c => c.CreatedAt).Include(m => m.Sender).ToList();
+                ViewBag.cleanup = _context.cleanups.Single(e => e.CleanupId == id);       
+                return View("mboard");
+            }
+            return RedirectToAction("Index", "User");
         }
 
         [HttpGet]
@@ -50,11 +37,36 @@ namespace Cleanup
             if(activeId != null) //Checked to make sure user is actually logged in
             {
                 //getting all the events
-                var events = _context.cleanups.Where(cu => cu.Pending == false).Include(c => c.User).ToList();
+                var events = _context.cleanups.Where(c => c.Pending == false).Include(c => c.CleaningUsers).Include(c => c.User).ToList();
                 ViewBag.markers = events;
                 User active = _context.users.Single(u => u.UserId == activeId);
                 ViewBag.active = active; 
                 return View("Dashboard");
+            }
+            return RedirectToAction("Index", "User");
+        }
+        [HttpPost]
+        [Route("postboardmessage/{id}")]
+        public IActionResult PostBoardMessage(int id, string content){
+            int? activeId = HttpContext.Session.GetInt32("activeUser");
+            if(activeId != null) //Checked to make sure user is actually logged in
+            {   
+                System.Console.WriteLine("dadsa----------------------sdsadsad");
+                System.Console.WriteLine(content);
+                if (content == null){
+                    ViewBag.error = "Content can't be empty";
+                    ViewBag.messages = _context.boardmessages.Where(c => c.EventId == id).OrderBy(c => c.CreatedAt).Include(m => m.Sender).ToList();
+                    ViewBag.cleanup = _context.cleanups.Single(e => e.CleanupId == id);      
+                    return View("mboard");
+                }
+                BoardMessage bm = new BoardMessage{
+                    SenderId = (int)HttpContext.Session.GetInt32("activeUser"),
+                    EventId = id,
+                    Content = content
+                };
+                _context.Add(bm);
+                _context.SaveChanges();
+                return RedirectToAction("MBoard");
             }
             return RedirectToAction("Index", "User");
         }
