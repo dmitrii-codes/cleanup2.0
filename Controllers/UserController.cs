@@ -52,7 +52,7 @@ namespace Cleanup
                     String[] newfile = filename.Split("."); //creates an array of the file string before the period and after so we can add the randomized string
                     String newFileString = newfile[0] + filestring + "." + newfile[1]; //puts the string back together including the random string
                     String[] splitrootfile = newFileString.Split("wwwroot"); //creates a string with the path necessary to store and retrieve the image from the images folder 
-                    ProfilePic.CopyTo(new FileStream(newFileString, FileMode.Create)); //stores the new file into our full path which is what we made prior to splitting by wwwroot
+                    ProfilePic.CopyTo(new FileStream(newFileString, FileMode.Create)); 
                 User newUser = new User{ 
                     FirstName = model.FirstName,
                     LastName = model.LastName,

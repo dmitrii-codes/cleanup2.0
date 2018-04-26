@@ -1,20 +1,30 @@
-<link rel="stylesheet" href="~/css/dashboard.css">
-<link rel="stylesheet" href="~/css/map.css">
-<script src="/lib/signalr/signalr.js"></script>
-<script src="~/js/worldchat.js"></script>
-<header>
-    <p>@ViewBag.active.ProfilePic</p>
-    <p id="username">@ViewBag.active.FirstName</p>
+<head>
+    <link rel="stylesheet" href="~/css/dashboard.css">
+    <link rel="stylesheet" href="~/css/map.css">
+    <script src="/lib/signalr/signalr.js"></script>
+    <script src="~/js/worldchat.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+   <nav>
+    <div class="userData">
+    <span>@ViewBag.active.ProfilePic</span>
+    <span id="username">@ViewBag.active.FirstName</span>
+    <a style="float: right;" href="logout">Logout&nbsp;&nbsp;</a>
+    <a style="float: right;" href="#">Name&nbsp;&nbsp;</a>
+    <a style="float: right;" href="#">Score&nbsp;&nbsp;</a>
+    <a style="float: right;" href="#">Message&nbsp;&nbsp;</a>
+    </div>
+   </nav>
+
     <!-- 
     profile pic - LINK TO PROFILE SETTINGS
     name
     score
     messages icon - LINK TO MESSAGES
     -->
-    <!-- Don't delete:  -->
-</header>
-
-<div id="ghostContent" style="display: none">
+    
+ <div id="ghostContent" style="display: none">
     @for(int i = 0; i < ViewBag.markers.Count; i++){
         <div id="markerLng_@i">@ViewBag.markers[i].Longitude</div>
         <div id="markerLat_@i">@ViewBag.markers[i].Latitude</div>
@@ -44,15 +54,15 @@
     }
 </div>
 <div id="map"></div>
- 
+
 <footer>
-    <button class="open-chat">World Live Chat</button>
+    <button class="open-chat btn btn-success">World Live Chat</button>
     <div class="chat-window displayChat">
         <div class="messages">
             <form id="send-form" action="#">
                 Send a message: 
                 <input type="text" id="message-textbox" /> 
-                <button class="send-btn" type="submit">Send</button>
+                <button class="send-btn btn btn-success" type="submit">Send</button>
             </form>
         </div>
     </div>
@@ -62,10 +72,14 @@
     sleaderboard
      -->
 </footer>
+     <div id="capture">
+     <a href="#"><button id="capture" class="btn btn-success">Capture</button></a>
+    </div>
 <script src="~/js/map.js"></script>
 <!-- cluster api -->
 <script src="https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/src/markerclusterer.js"></script>
 <!-- maps api -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDTyblNr_Q6boR90WUWLlbhPVlc2u_6h8&callback=initMap" async defer></script> 
     
+
 

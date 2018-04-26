@@ -7,39 +7,54 @@ body{
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    
 }
-
 input{
     text-align: center;
     margin-top: 0.2em;
 }
-#reg-form, #log-form, .reg-form{
+
+.reg-form, .log-form, .reg-form, h1{
     text-align: center;
 }
 form{
     display: inline-block;
 }
-#logo{
-    margin-top: 10%;
+.logo{  
     width: 70%;
     
 }
-#logo-wrap{
+.logo-wrap{
     text-align: center;
 }
 .btn{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-#welcome{
+.welcome{
     text-align: center;
     margin-bottom: 2em;
 }
-#sign-btn{
+.sign-btn{
     text-align: center;
 }
 .rotating { 
-    width: 40%;
+    
+    width: 30%;
+}
+.rotate{
+    
+      margin-top: -25%;
+      text-align: center;
+       
+}
+.block{
+    color: red;
+    font-size: 1em;
+    text-align: center;
+    display: block;
+}
+.rotating { 
+    width: 25%;
+   
 }
 
 .rotating {
@@ -62,9 +77,3 @@ form{
   from {-moz-transform:rotate(0deg);}
   to {  -moz-transform:rotate(360deg);}
 }
-
-  #rotate{
-      margin-top: -30%;
-      text-align: center;
-       
-  }
