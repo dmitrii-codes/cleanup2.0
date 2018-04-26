@@ -11,25 +11,28 @@
     score
     messages icon - LINK TO MESSAGES
     -->
+    <!-- Don't delete:  -->
 </header>
 
 <div id="ghostContent" style="display: none">
     @for(int i = 0; i < ViewBag.markers.Count; i++){
-        <div id="markerLng_@i">@ViewBag.markers[i]["lng"]</div>
-        <div id="markerLat_@i">@ViewBag.markers[i]["lat"]</div>
-        <div id="markerTitle_@i">@ViewBag.markers[i]["title"]</div>
+        <div id="markerLng_@i">@ViewBag.markers[i].Longitude</div>
+        <div id="markerLat_@i">@ViewBag.markers[i].Latitude</div>
+        <div id="markerTitle_@i">@ViewBag.markers[i].Title</div>
         <div id="markerContent_@i">
             <div id="iw-container">
-                <div class="iw-title">@ViewBag.markers[i]["title"]</div>
+                <div class="iw-title">@ViewBag.markers[i].Title</div>
                 <div class="iw-content">
-                    <div class="iw-subTitle">History</div>
+                    <div class="iw-subTitle"></div>
                     <img src="http://maps.marnoto.com/en/5wayscustomizeinfowindow/images/vistalegre.jpg" alt="Porcelain Factory of Vista Alegre" height="115" width="83">
-                    <p>Founded in 1824, the Porcelain Factory of Vista Alegre was the first industrial unit dedicated to porcelain production in Portugal. For the foundation and success of this risky industrial development was crucial the spirit of persistence of its founder, José Ferreira Pinto Basto. Leading figure in Portuguese society of the nineteenth century farm owner, daring dealer, wisely incorporated the liberal ideas of the century, having become "the first example of free enterprise" in Portugal.</p>
-                    <div class="iw-subTitle">Contacts</div>
-                    <a href="@ViewBag.markers[i]["mboard"]">MESSAGE BOARD TEST</a>
-                    <p>VISTA ALEGRE ATLANTIS, SA<br>3830-292 Ílhavo - Portugal<br>
-                    <br>Phone. +351 234 320 600<br>e-mail: geral@vaa.pt<br>www: www.myvistaalegre.com</p>
-                    <br>
+                    
+                    <div class="iw-subTitle">Rewards: @ViewBag.markers[i].Value</div>
+                    <p>@ViewBag.markers[i].Address</p>
+                    <p>Where: @ViewBag.markers[i].DescriptionOfArea</p>
+                    <p>What: @ViewBag.markers[i].DescriptionOfTrash</p>
+                    <p>Creator:&nbsp<a href="/user/@ViewBag.markers[i].UserId">@ViewBag.markers[i].User.FirstName @ViewBag.markers[i].User.LastName</a></p>
+                    <a href="/mboard/@ViewBag.markers[i].CleanupId">Message Board</a>
+                    <br><br>
                 </div>
                 <div class="iw-bottom-gradient"></div>
             </div>

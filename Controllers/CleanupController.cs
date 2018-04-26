@@ -46,29 +46,14 @@ namespace Cleanup
         [Route("dashboard")] //Needs a legit Route
         public IActionResult Dashboard()
         {
-            //TEMP
-            List<Dictionary<string, string>> markers = new List<Dictionary<string, string>>();
-            Dictionary<string, string> dict1 = new Dictionary<string, string>();
-            Dictionary<string, string> dict2 = new Dictionary<string, string>();
-            dict1["title"] = "test1test1test1test1test1test1"; //maxlength = 30!
-            dict1["lng"] = "47.644710";
-            dict1["lat"] = "-122.205378";
-            dict1["mboard"] = "mboard/1";
-            dict2["title"] = "test2";
-            dict2["lng"] = "47.626203";
-            dict2["lat"] = "-122.201258";
-            dict2["mboard"] = "mboard/2";
-            markers.Add(dict1);
-            markers.Add(dict2);
-            ViewBag.markers = markers;
-            //ENDTEMP
             int? activeId = HttpContext.Session.GetInt32("activeUser");
             if(activeId != null) //Checked to make sure user is actually logged in
             {
+                //getting all the events
+                var events = _context.cleanups.Where(cu => cu.Pending == false).Include(c => c.User).ToList();
+                ViewBag.markers = events;
                 User active = _context.users.Single(u => u.UserId == activeId);
                 ViewBag.active = active; 
-
-                ViewBag.allCleanups = _context.cleanups.ToList(); //all registered cleanup's currently created.
                 return View("Dashboard");
             }
             return RedirectToAction("Index", "User");
