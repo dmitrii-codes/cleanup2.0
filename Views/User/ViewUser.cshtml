@@ -1,0 +1,7 @@
+<h2>@ViewBag.user.UserName</h2>
+@if(@ViewBag.user.UserId != @ViewBag.activeId){
+    <a href="sendprivatemessage/@ViewBag.user.UserId">Write a message</a>
+}
+else{
+    @Html.Partial("MessagesPartial")
+}

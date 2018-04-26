@@ -1,0 +1,20 @@
+<html>
+    <head></head>
+    <body>
+        <p>@ViewBag.Cleanup.Title</p>
+        <div>
+            @foreach(var image in ViewBag.Cleanup.Images)
+            {
+                <div><img src="@image.FileName" alt=""></div>
+            }
+        </div>
+        @if((ViewBag.Cleanup.Images.Count <= 5 && ViewBag.Cleanup.Pending == true) || ViewBag.Cleanup.Pending == false)
+        {
+            <form action="/add/photos/cleanup/@ViewBag.Cleanup.CleanupId" method="POST" enctype="multipart/form-data">
+                <input class="form-control" type="file" name="pic" placeholder="Profile Pic">
+                <input type="Submit" value="Add Photo">
+            </form>
+        }
+        <a href="NEEDS ROUTE TO BE MADE">Finished Adding Photos</a>
+    </body>
+</html>

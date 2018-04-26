@@ -1,7 +1,6 @@
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
-        //initial location and zoom
-        center: { lat: parseFloat("47.617515"), lng: parseFloat("-122.201853") },
+        center: { lat: parseFloat($("#Latitude").html()), lng: parseFloat($("#Longitude").html()) },
         zoom: 10,
         styles: mapStyle,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -16,7 +15,7 @@ function initMap() {
     //markers init
     var locations = []
     var ids = []
-    for (var i = 0; i < 2; i++) { //iterate through activities
+    for (var i = 0; i < $("#markersCount").html(); i++) { //iterate through activities
             locations.push({ lat: parseFloat($("#markerLat_" + i).html()), lng: parseFloat($("#markerLng_" + i).html()) })
             ids.push(i)
     }

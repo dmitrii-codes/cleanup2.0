@@ -1,12 +1,42 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <script src="~/js/location.js"></script>
+    <script src="~/js/geocoding.js"></script>
 </head>
 <body>
-    
+    @model Cleanup.Models.CleanupViewModel
+    <form asp-controller="Cleanup" asp-action="AddCleanup" method="POST" id="newcleanup">
+        <div>
+            <label asp-for="Title"></label>
+            <input asp-for="Title">
+            <span asp-validation-for="Title"></span>
+        </div>
+        <div>
+            <label asp-for="DescriptionOfArea"></label>
+            <input asp-for="DescriptionOfArea">
+            <span asp-validation-for="DescriptionOfArea"></span>
+        </div>
+        <div>
+            <label asp-for="DescriptionOfTrash"></label>
+            <input asp-for="DescriptionOfTrash">
+            <span asp-validation-for="DescriptionOfTrash"></span>
+        </div>
+        <div> 
+            <label asp-for="Address"></label> 
+            <input asp-for="Address" id="address" placeholder="optional"> 
+            <span asp-validation-for="Address"></span> 
+        </div>
+        <div>
+            <label asp-for="Address"></label>
+            <input asp-for="Address">
+            <span asp-validation-for="Address"></span>
+        </div>
+        <div>
+            <input type="hidden" asp-for="Latitude" id="Lat" value="">
+            <input type="hidden" asp-for="Longitude" id="Lng" value="">
+        </div>
+        <input type="submit">
+    </form>
 </body>
 </html>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDTyblNr_Q6boR90WUWLlbhPVlc2u_6h8" async defer></script> 

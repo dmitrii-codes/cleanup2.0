@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cleanup
 {
@@ -45,7 +46,7 @@ namespace Cleanup
         }
         [HttpPost]
         [Route("register")]
-        public IActionResult Register(UserRegisterViewModel model, IFormFile ProfilePic) //Register User Route //pass the file from the form
+        public IActionResult Register(UserRegisterViewModel model, IFormFile ProfilePic, double Latitude, double Longitude) //Register User Route //pass the file from the form
         {
             if (ModelState.IsValid)
             {
@@ -55,7 +56,7 @@ namespace Cleanup
                     String[] newfile = filename.Split("."); //creates an array of the file string before the period and after so we can add the randomized string
                     String newFileString = newfile[0] + filestring + "." + newfile[1]; //puts the string back together including the random string
                     String[] splitrootfile = newFileString.Split("wwwroot"); //creates a string with the path necessary to store and retrieve the image from the images folder 
-                    ProfilePic.CopyTo(new FileStream(newFileString, FileMode.Create)); //stores the new file into our full path which is what we made prior to splitting by wwwroot
+                    ProfilePic.CopyTo(new FileStream(newFileString, FileMode.Create)); 
                 User newUser = new User{ 
                     FirstName = model.FirstName,
                     LastName = model.LastName,
@@ -77,6 +78,8 @@ namespace Cleanup
                     activeUser.UserLevel = 9;//First user to admin
                     _context.SaveChanges();
                 }
+                HttpContext.Session.SetString("latitude", Latitude.ToString());
+                HttpContext.Session.SetString("longitude", Longitude.ToString());
                 HttpContext.Session.SetString("userName", activeUser.UserName);
                 HttpContext.Session.SetInt32("activeUser", activeUser.UserId);
                 TempData["pic"] = splitrootfile[1]; //for testing only to display the image path 
@@ -89,7 +92,7 @@ namespace Cleanup
         }
         [HttpPost]
         [Route("login")]
-        public IActionResult Login(UserLoginViewModel model) //Login Route
+        public IActionResult Login(UserLoginViewModel model, double Latitude, double Longitude) //Login Route
         {
             if (ModelState.IsValid){ //so we only check the db if user input the right information
                 List<User> possibleLogin = _context.users.Where( u => (string)u.UserName == (string)model.UserNameLogin).ToList(); //Check for existing username
@@ -98,6 +101,8 @@ namespace Cleanup
                     var Hasher = new PasswordHasher<User>();
                     if(0!= Hasher.VerifyHashedPassword(possibleLogin[0], possibleLogin[0].Password, model.PasswordLogin)) //Confirm hashed passsword
                     {
+                        HttpContext.Session.SetString("latitude", Latitude.ToString());
+                        HttpContext.Session.SetString("longitude", Longitude.ToString());
                         HttpContext.Session.SetInt32("activeUser", possibleLogin[0].UserId);
                         // return Redirect("/update/user/2");
                         return RedirectToAction("Dashboard", "Cleanup");//Go to actual site
@@ -118,6 +123,8 @@ namespace Cleanup
                 if(possibleUser.Count == 1)
                 {
                     ViewBag.user = possibleUser[0];
+                    ViewBag.activeId = activeId;
+                    ViewBag.unread = _context.privatemessages.Where(m => m.RecipientId == id && m.ReadStatus == false).ToList().Count;
                     return View();
                 }
             }
@@ -151,6 +158,50 @@ namespace Cleanup
                 }
             }
             return RedirectToAction("Index");//Return to login page if failed attempt or user deletes themselves
+        }
+        [HttpGet]
+        [Route("sendprivatemessage/{id}")]
+        public IActionResult PrivateMessages(int id){
+            
+            // ViewBag.messages
+            int? activeId = HttpContext.Session.GetInt32("activeUser");
+            if(activeId != null) //Checked to make sure user is actually logged in
+                {
+                    ViewBag.recipient = _context.users.Where(u => u.UserId == id).Single();
+                    var messages = _context.privatemessages.Where(m => m.SenderId == activeId && m.RecipientId == id).OrderBy(m => m.CreatedAt).Include(m => m.Sender).Include(m => m.Recipient).ToList();
+                    var unread = messages.Where(m => m.RecipientId == activeId && m.ReadStatus == false).ToList();
+                    foreach(var msg in unread){
+                        msg.ReadStatus = true;
+                    }
+                    ViewBag.messages = messages;
+                    _context.SaveChanges();
+                    return View();
+                }
+            return RedirectToAction("Index");//Return to login page if failed attempt or user deletes themselves
+        }
+        [HttpPost]
+        [Route("postprivatemessage/{id}")]
+        public IActionResult PostPrivateMessage(int id, string content){
+            int? activeId = HttpContext.Session.GetInt32("activeUser");
+            if(activeId != null) //Checked to make sure user is actually logged in
+            {   
+                if (content == null){
+                    ViewBag.error = "Content can't be empty";
+                    ViewBag.messages = _context.privatemessages.Where(m => m.SenderId == activeId && m.RecipientId == id).OrderBy(m => m.CreatedAt).Include(m => m.Sender).Include(m => m.Recipient).ToList();
+                    ViewBag.recipient = _context.users.Where(u => u.UserId == id).Single();      
+                    return View("privatemessages");
+                }
+                PrivateMessage pm = new PrivateMessage{
+                    SenderId = (int)HttpContext.Session.GetInt32("activeUser"),
+                    RecipientId = id,
+                    Content = content,
+                    ReadStatus = false
+                };
+                _context.Add(pm);
+                _context.SaveChanges();
+                return RedirectToAction("PrivateMessages");
+            }
+            return RedirectToAction("Index", "User");
         }
         //New
         [HttpGet]

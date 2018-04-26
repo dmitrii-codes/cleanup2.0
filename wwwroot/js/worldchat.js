@@ -3,6 +3,10 @@ $(document).ready(function(){
         $(".chat-window").removeClass("displayChat");
         $(".open-chat").addClass("displayChat");
     });
+    $("#message-close").click(function(){
+        $(".open-chat").removeClass("displayChat");
+        $(".chat-window").addClass("displayChat");
+    });
     //when the send button is clicked, run this function to send the message to the hub conection
     $(".send-btn").click(function(){
         let enteredTxt = $("#message-textbox").val();
@@ -15,12 +19,13 @@ $(document).ready(function(){
     let connection = new signalR.HubConnection('/hubs/chat');
     //any time the connection recieves a message it sends it back; the following code captures it and appends it to our div
     connection.on('SendMessage', data => {
-        $(".messages").append("<div><p>" + data + "</p></div>");
-        $.ajax({ 
+    $.ajax({ 
                 url: '@Url.Action("live", "Cleanup")',  
                 type: 'POST',    
                 data: data
         });
+        $(".messages").append("<p>" + data + "</p>");
+        $(".messages").scrollTop($(".messages")[0].scrollHeight);
     });
     //when a new connection is made, this will send a new message to hub with the connected user
     connection.start()

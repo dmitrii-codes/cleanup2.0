@@ -1,26 +1,44 @@
 @model Cleanup.Models.UserLoginViewModel;
-    <div>
-        <div id="logo-wrap">
-        <img id="logo" src="/images/logo_shadow.png" alt="cleanup logo">
-        </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <script src="~/js/location.js"></script>
+    <title>Document</title>
+</head>
+<div class="log-form">
+    <div class="logo-wrap">
+    <img class="logo" src="/images/logo_shadow.png" alt="cleanup logo">
+    </div>
+    <div class="rotate">
+    <image class="rotating" src="/images/recycle.png" alt="rotate"></image>
+    </div>
 <h1>Login</h1>
+<div>
 @if (ViewBag.error != null){
-        <span>@ViewBag.error</span>
+        <span class="block">@ViewBag.error</span>
     }
+</div>
 <form asp-controller="User" asp-action="Login" method="POST">
     <table>
-        <tr>
-            <td></td>
-            <td><input class="form-control" asp-for="UserNameLogin" placeholder="Username"></td>
+        <tr> 
+            <td><input class="form-control"  asp-for="UserNameLogin" placeholder="Username"></td>
         </tr>
         <tr>
-            <td></td>
-            <td><input class="form-control" asp-for="PasswordLogin" placeholder="Password"></td>
+            <td><input class="form-control"  asp-for="PasswordLogin" placeholder="Password"></td>
         </tr>
         <tr>
-            <td></td>
+                <td><input type="hidden" id="Lat" name="Latitude"></td>
+                <td><input type="hidden" id="Lng" name="Longitude"></td>
+        </tr>
+        <tr>
+            
             <td><button style="width: 12em; margin: 0.3em;" type="submit" class="btn btn-success">Sign In</button></td>
         </tr>
     </table>
 </form>
+
 <p>Don't have the account? <a href="signup">Register</a></p>
+</div>
