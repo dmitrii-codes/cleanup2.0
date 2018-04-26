@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cleanup
 {
@@ -119,6 +120,8 @@ namespace Cleanup
                 if(possibleUser.Count == 1)
                 {
                     ViewBag.user = possibleUser[0];
+                    ViewBag.activeId = activeId;
+                    ViewBag.unread = _context.privatemessages.Where(m => m.RecipientId == id && m.ReadStatus == false).ToList().Count;
                     return View();
                 }
             }
@@ -156,8 +159,46 @@ namespace Cleanup
         [HttpGet]
         [Route("sendprivatemessage/{id}")]
         public IActionResult PrivateMessages(int id){
+            
             // ViewBag.messages
-            return View();
+            int? activeId = HttpContext.Session.GetInt32("activeUser");
+            if(activeId != null) //Checked to make sure user is actually logged in
+                {
+                    ViewBag.recipient = _context.users.Where(u => u.UserId == id).Single();
+                    var messages = _context.privatemessages.Where(m => m.SenderId == activeId && m.RecipientId == id).OrderBy(m => m.CreatedAt).Include(m => m.Sender).Include(m => m.Recipient).ToList();
+                    var unread = messages.Where(m => m.RecipientId == activeId && m.ReadStatus == false).ToList();
+                    foreach(var msg in unread){
+                        msg.ReadStatus = true;
+                    }
+                    ViewBag.messages = messages;
+                    _context.SaveChanges();
+                    return View();
+                }
+            return RedirectToAction("Index");//Return to login page if failed attempt or user deletes themselves
+        }
+        [HttpPost]
+        [Route("postprivatemessage/{id}")]
+        public IActionResult PostPrivateMessage(int id, string content){
+            int? activeId = HttpContext.Session.GetInt32("activeUser");
+            if(activeId != null) //Checked to make sure user is actually logged in
+            {   
+                if (content == null){
+                    ViewBag.error = "Content can't be empty";
+                    ViewBag.messages = _context.privatemessages.Where(m => m.SenderId == activeId && m.RecipientId == id).OrderBy(m => m.CreatedAt).Include(m => m.Sender).Include(m => m.Recipient).ToList();
+                    ViewBag.recipient = _context.users.Where(u => u.UserId == id).Single();      
+                    return View("privatemessages");
+                }
+                PrivateMessage pm = new PrivateMessage{
+                    SenderId = (int)HttpContext.Session.GetInt32("activeUser"),
+                    RecipientId = id,
+                    Content = content,
+                    ReadStatus = false
+                };
+                _context.Add(pm);
+                _context.SaveChanges();
+                return RedirectToAction("PrivateMessages");
+            }
+            return RedirectToAction("Index", "User");
         }
         //New
         [HttpGet]

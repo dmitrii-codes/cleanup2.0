@@ -1,10 +1,11 @@
 <html lang="en">
 <head>
     <script src="~/js/location.js"></script>
+    <script src="~/js/geocoding.js"></script>
 </head>
 <body>
     @model Cleanup.Models.CleanupViewModel
-    <form asp-controller="Cleanup" asp-action="AddCleanup">
+    <form asp-controller="Cleanup" asp-action="AddCleanup" method="POST" id="newcleanup">
         <div>
             <label asp-for="Title"></label>
             <input asp-for="Title">
@@ -20,6 +21,11 @@
             <input asp-for="DescriptionOfTrash">
             <span asp-validation-for="DescriptionOfTrash"></span>
         </div>
+        <div> 
+            <label asp-for="Address"></label> 
+            <input asp-for="Address" id="address" placeholder="optional"> 
+            <span asp-validation-for="Address"></span> 
+        </div>
         <div>
             <label asp-for="Address"></label>
             <input asp-for="Address">
@@ -33,3 +39,4 @@
     </form>
 </body>
 </html>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDTyblNr_Q6boR90WUWLlbhPVlc2u_6h8" async defer></script> 

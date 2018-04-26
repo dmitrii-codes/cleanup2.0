@@ -58,8 +58,6 @@ namespace Cleanup
             int? activeId = HttpContext.Session.GetInt32("activeUser");
             if(activeId != null) //Checked to make sure user is actually logged in
             {   
-                System.Console.WriteLine("dadsa----------------------sdsadsad");
-                System.Console.WriteLine(content);
                 if (content == null){
                     ViewBag.error = "Content can't be empty";
                     ViewBag.messages = _context.boardmessages.Where(c => c.EventId == id).OrderBy(c => c.CreatedAt).Include(m => m.Sender).ToList();
@@ -108,6 +106,7 @@ namespace Cleanup
                             Pending = true,
                             Value = 0,
                             MaxCleaners = 0,
+                            Address = model.Address,
                             Latitude = model.Latitude,
                             Longitude = model.Longitude
                         };

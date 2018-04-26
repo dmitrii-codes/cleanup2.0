@@ -8,12 +8,15 @@
 </head>
    <nav>
     <div class="userData">
-    <span>@ViewBag.active.ProfilePic</span>
+    <span><a href=""><img class="rounded-circle" id="profilepic" src="@ViewBag.active.ProfilePic" alt=""></a></span>
     <span id="username">@ViewBag.active.FirstName</span>
-    <a style="float: right;" href="logout">Logout&nbsp;&nbsp;</a>
-    <a style="float: right;" href="#">Name&nbsp;&nbsp;</a>
-    <a style="float: right;" href="#">Score&nbsp;&nbsp;</a>
-    <a style="float: right;" href="#">Message&nbsp;&nbsp;</a>
+       
+        <ul class="nav-link">
+            <li><a href="logout"><img class="icon" src="/images/logout.png" alt="logout"></a></li>
+            <li><a href="#"><img class="icon" src="/images/message.png" alt="message"></a></li>
+            <li><a href="#" class="score">155</a></li>
+        </ul>
+       
     </div>
    </nav>
 
@@ -52,32 +55,47 @@
             </div>
         </div>
     }
-
     <div id="Latitude">@ViewBag.Latitude</div>
     <div id="Longitude">@ViewBag.Longitude</div>
+    <div id="markersCount">@ViewBag.markers.Count</div>
 </div>
 <div id="map"></div>
 
-<footer>
-    <button class="open-chat btn btn-success">World Live Chat</button>
+<div id="chat-btn">
+    <img class="open-chat" src="/images/chat.png" alt="chat">
     <div class="chat-window displayChat">
         <div class="messages">
-            <form id="send-form" action="#">
-                Send a message: 
-                <input type="text" id="message-textbox" /> 
-                <button class="send-btn btn btn-success" type="submit">Send</button>
-            </form>
+            
         </div>
+        <form id="send-form" action="#">
+                <table>
+                    <tr>  
+                        <td>
+                        <input class="form-control form-control-sm" type="text" id="message-textbox"/>
+                        <button id="message-send" class="send-btn btn btn-success" type="submit">Send</button>
+                        <img id="message-close" src="/images/close.png" alt="close chat">
+                        </td>
+                    </tr>   
+                </table>
+            </form>
     </div>
+</div>
+<div class="footer">
+    <div id="capture">
+     <a href="#"><img id="camera" class="rounded-circle" src="/images/camera.png" alt="camera button"></a>
+    </div>
+    
+</div>
     <!-- 
     chat button
     new event BUTTON with tokens on it - LINK TO FORM TO CREATE THE EVENT
     sleaderboard
      -->
-</footer>
-     <div id="capture">
-     <a href="#"><button id="capture" class="btn btn-success">Capture</button></a>
-    </div>
+
+
+
+
+
 <script src="~/js/map.js"></script>
 <!-- cluster api -->
 <script src="https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/src/markerclusterer.js"></script>

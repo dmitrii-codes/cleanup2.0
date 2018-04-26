@@ -15,7 +15,7 @@ function initMap() {
     //markers init
     var locations = []
     var ids = []
-    for (var i = 0; i < 2; i++) { //iterate through activities
+    for (var i = 0; i < $("#markersCount").html(); i++) { //iterate through activities
             locations.push({ lat: parseFloat($("#markerLat_" + i).html()), lng: parseFloat($("#markerLng_" + i).html()) })
             ids.push(i)
     }

@@ -1,6 +1,7 @@
 <script src="~/js/mboard.js"></script>
+<link rel="stylesheet" href="~/css/mboard.css">
 
-<header><h2>Chat with</h2><a href="/dashboard"></a></header>
+<header><h2>Chat with @ViewBag.recipient.UserName (@ViewBag.recipient.FirstName @ViewBag.recipient.LastName)</h2><a href="/user/@ViewBag.recipient.UserId">Back to profile</a></header>
 
 <div id="board">
     @foreach(var each in ViewBag.messages){
@@ -14,8 +15,8 @@
 </div>
 
 <footer>
-    <form action="/postboardmessage/@ViewBag.cleanup.CleanupId" method="post">
+    <form action="/postprivatemessage/@ViewBag.recipient.UserId" method="post">
         <textarea name="content" cols="50" rows="2" placeholder="@ViewBag.error"></textarea>
-        <button type="submit" class="btn btn-default">Post</button>
+        <button type="submit" class="btn btn-default">Post</button><a href="/sendprivatemessage/@ViewBag.recipient.UserId" class="btn btn-default">Refresh</a>
     </form>
 </footer>
