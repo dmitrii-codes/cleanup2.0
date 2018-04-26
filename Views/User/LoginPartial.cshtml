@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="~/css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <script src="~/js/location.js"></script>
     <title>Document</title>
 </head>
 <div class="log-form">
@@ -27,6 +28,10 @@
         </tr>
         <tr>
             <td><input class="form-control"  asp-for="PasswordLogin" placeholder="Password"></td>
+        </tr>
+        <tr>
+                <td><input type="hidden" id="Lat" name="Latitude"></td>
+                <td><input type="hidden" id="Lng" name="Longitude"></td>
         </tr>
         <tr>
             
