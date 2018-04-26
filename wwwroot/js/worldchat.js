@@ -19,6 +19,11 @@ $(document).ready(function(){
     let connection = new signalR.HubConnection('/hubs/chat');
     //any time the connection recieves a message it sends it back; the following code captures it and appends it to our div
     connection.on('SendMessage', data => {
+    $.ajax({ 
+                url: '@Url.Action("live", "Cleanup")',  
+                type: 'POST',    
+                data: data
+        });
         $(".messages").append("<p>" + data + "</p>");
         $(".messages").scrollTop($(".messages")[0].scrollHeight);
     });

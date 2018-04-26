@@ -11,5 +11,7 @@ namespace Cleanup.Models
         public DbSet<PrivateMessage> privatemessages {get;set;}
         public DbSet<BoardMessage> boardmessages {get;set;}
         public DbSet<Image> images {get;set;}
+
+        public DbSet<Live> livemessages {get; set;}
     }
 }

@@ -26,7 +26,10 @@ namespace Cleanup
         [Route("")]
         public IActionResult Index() //Display Welcome page
         {
-            HttpContext.Session.Clear();
+            int? active = HttpContext.Session.GetInt32("activeUser");
+            if(active != null){
+                return RedirectToAction("Dashboard", "Cleanup");
+            }
             return View();
         }
         [HttpGet]

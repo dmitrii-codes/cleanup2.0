@@ -338,6 +338,69 @@ namespace Cleanup
             }
             return RedirectToAction("Index", "User");
         }
+        [HttpGet]
+        [Route("profile/{id}")]
+        public IActionResult viewprofile(int id){
+            int? activeuser = HttpContext.Session.GetInt32("activeUser");
+            if(activeuser != null){
+                List<User> active = _context.users.Where(u => u.UserId == id).Include(c => c.CleanupEvent).Include(cr => cr.CreatedCleanups).ToList();;
+                if(active.Count < 1){
+                    return RedirectToAction("Index", "User");
+                }
+                ViewBag.active = active[0];
+                if(active[0].UserId == activeuser){
+                    ViewBag.edit = true; 
+                }
+                else{
+                    ViewBag.edit = false; 
+                }
+                return View();
+            }
+            return RedirectToAction("Index", "User");
+        }
+
+        [HttpGet]
+        [Route("leaderboard")]
+        public IActionResult leaderboard(){
+            int? activeuser = HttpContext.Session.GetInt32("activeUser");
+            if(activeuser != null){
+                List<User> toptokens = _context.users.OrderByDescending(t => t.Token).ToList();
+                List<User> topscore = _context.users.OrderByDescending(s => s.Score).ToList();
+                ViewBag.tokens = toptokens;
+                ViewBag.score = topscore;
+                if(topscore.Count < 3){
+                    ViewBag.scorecount = topscore.Count; 
+                }
+                else{
+                    ViewBag.scorecount = 3; 
+                }
+                if(toptokens.Count < 3){
+                    ViewBag.tokencount = toptokens.Count;  
+                }
+                else{
+                    ViewBag.tokencount = 3; 
+                }
+                return View();
+            }
+            return RedirectToAction("Index", "User");
+        }
+
+        [HttpGet]
+        [Route("logout")]
+        public IActionResult logout(){
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "User");
+        }
+
+        // [HttpPost]
+        // [Route("live")]
+        // public ActionResult live(string data){
+        //     Live newmsg = new Live{
+        //         Messages = data
+        //     };
+        //     _context.Add(newmsg);
+        //     _context.SaveChanges();
+        // }
         public String GetRandString(){ // create a random string for storing more randomized file names
             Random rand = new Random();
             String Str = "";

@@ -1,0 +1,54 @@
+<style>
+    .profile-pic{
+        width: 100px; 
+        height: 100px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+    .profile-main{
+        border: 2px solid black; 
+    }
+    .profile-details{
+        margin-top: 10px; 
+        border: 2px solid rgb(29, 6, 6); 
+    }
+</style>
+<div class="container">
+
+    <div class="profile-main">
+        <img class="profile-pic" src="@ViewBag.active.ProfilePic" alt="">
+        <h3>@ViewBag.active.FirstName @ViewBag.active.LastName</h3>
+        <h3>@ViewBag.active.UserName</h3>
+        @if(ViewBag.edit == true){
+            <a href="/update/user/@ViewBag.active.UserId"><button class="btn-primary">Edit</button></a>
+        }
+        else{
+            <a href="/message"><button>Message</button></a> <!-- add proper message route -->
+        }
+    </div>
+    <div class="profile-details">
+        <h2>Score: @ViewBag.active.Score</h2>
+        <h2>Tokens: @ViewBag.active.Token</h2>
+        <h2>Attending: </h2>
+        @if(@ViewBag.active.CleanupEvent != null){
+        <div>
+            <h4>@ViewBag.active.CleanupEvent.Title</h4>
+            <p>@ViewBag.active.CleanupEvent.DescriptionOfArea</p>
+            <p>@ViewBag.active.CleanupEvent.DescriptionOfTrash</p>
+        </div>
+        }
+        else{
+            <p>None</p>
+        }
+        <h2>Created: </h2>
+        @if(@ViewBag.active.CreatedCleanups.Count > 0){
+        <div>
+            <p>@ViewBag.active.CreatedCleanups.Count</p>
+        </div>
+        }
+        else{
+            <p>None</p>
+        }
+    </div>
+
+</div>
