@@ -18,8 +18,10 @@
     <p>@ViewBag.cleanup.User.UserName</p>
     @foreach(var image in @ViewBag.cleanup.Images)
     {
-        <img class="img-file" src="@image.FileName" alt="">
+
+        <a href="@image.FileName"><img src="@image.FileName" alt="Image Not Found"></a>
     }
+    
     @if(ViewBag.cleanup.Images.Count <= 5)
     {
         <form action="/approve/cleanup/@ViewBag.cleanup.CleanupId" method="Post">

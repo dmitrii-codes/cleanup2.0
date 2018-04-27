@@ -10,12 +10,6 @@
     </div>
 </nav>
 <p>@ViewBag.Cleanup.Title</p>
-<div>
-    @foreach(var image in ViewBag.Cleanup.Images)
-    {
-        <div class="img-photo"><img id="img-photo" src="@image.FileName" alt=""></div>
-    }
-</div>
 @if((ViewBag.Cleanup.Images.Count < 5 && ViewBag.Cleanup.Pending == true) || (ViewBag.Cleanup.Pending == false && ViewBag.Attending))
 {
     @if(ViewBag.Cleanup.Images.Count < 5 && ViewBag.Cleanup.Pending == true)
@@ -31,6 +25,12 @@
         <input class="btn btn-success" id="addPhoto" type="Submit" value="Add Photo">
     </form>
 }
+<div>
+    @foreach(var image in ViewBag.Cleanup.Images)
+    {
+        <div><img src="@image.FileName" alt=""></div>
+    }
+</div>
 <div class="complete">
 <a href="/set/cleanup/status/@ViewBag.Cleanup.CleanupId">Completed adding Photos?</a>
 </div>

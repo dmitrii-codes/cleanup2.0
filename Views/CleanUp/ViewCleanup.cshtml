@@ -1,16 +1,66 @@
+ <link rel="stylesheet" href="~/css/user.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/user.css">
 
-<p>@ViewBag.cleanup.Title</p>
-<p>@ViewBag.cleanup.DescriptionOfArea</p>
-<p>@ViewBag.cleanup.DescriptionOfTrash</p>
-<p>@ViewBag.cleanup.Value</p>
-<p>@ViewBag.cleanup.MaxCleaners</p>
-<p>@ViewBag.cleanup.Address</p>
-<p>@ViewBag.cleanup.User.UserName</p>
-@foreach(var image in @ViewBag.cleanup.Images)
-{
-    <img src="@image.FileName" alt="">
-}
-@if(ViewBag.attending)
-{
-    <a href="/add/photos/cleanup/@ViewBag.cleanup.CleanupId">Submit report of a job well done!</a>
-}
+<nav>
+    <div class="userData">
+        <span>
+            <a href="/profile/@ViewBag.active.UserId">
+                <img class="rounded-circle" id="profilepic" src="@ViewBag.active.ProfilePic" alt="">
+            </a>
+        </span>
+        <span id="username">@ViewBag.active.FirstName</span>
+
+        <ul class="nav-link">
+            <li>
+                <a href="logout">
+                    <img class="icon" src="/images/logout.png" alt="logout">
+                </a>
+            </li>
+            <li>
+                <a href="dashboard">
+                    <img class="icon" src="/images/dash.png" alt="dashboard">
+                </a>
+            </li>
+            <li>
+            </li>
+            <li>
+                <a href="/leaderboard" class="score">@ViewBag.active.Score</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="user-data">
+    <h3>@ViewBag.cleanup.Title</h3>
+    <h4>Address:</h4>
+    <p>@ViewBag.cleanup.Address</p>
+    <h4>What to Look for:</h4>
+    <p>@ViewBag.cleanup.DescriptionOfArea</p>
+    <h4>What to be prepared for:</h4>
+    <p>@ViewBag.cleanup.DescriptionOfTrash</p>
+    <h4>Reward:</h4>
+    <p>@ViewBag.cleanup.Value</p>
+    <h4>Maximum number of cleaners needed:</h4>
+    <p>@ViewBag.cleanup.MaxCleaners</p>
+    <h4>Posting created by:</h4>
+    <p>@ViewBag.cleanup.User.UserName</p>
+    <div id="img-holder">
+        @foreach(var image in @ViewBag.cleanup.Images)
+        {
+            <a href="@image.FileName"><img class="pic" src="@image.FileName" alt=""></a>
+        }
+        
+    </div>
+    @if(ViewBag.attending)
+    {
+        <div>
+            <a href="/add/photos/cleanup/@ViewBag.cleanup.CleanupId">Submit report of a job well done!</a>
+        </div>
+        
+    }
+    
+</div>
+<div class="footer">
+</div>

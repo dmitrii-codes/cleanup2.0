@@ -169,6 +169,7 @@ namespace Cleanup
                             break;
                         }
                     }
+                    ViewBag.active = _context.users.Single( u => u.UserId == (int)activeId);
                     ViewBag.cleanup = possibleCleanup[0];
                     ViewBag.attending = attending;
                     return View();
@@ -284,10 +285,17 @@ namespace Cleanup
                             break;
                         }
                     }
+                    if(pic == null)
+                    {
+                        ViewBag.error = "Image not attached, please try again";
+                        return View("AddPhoto");
+                    }
                     if (pic != null && (ActiveUserAttending || (int)activeId == possibleCleanup[0].UserId)){ //aka if a picture was uploaded
                         var filename = Path.Combine(HE.WebRootPath + "/images/trash", Path.GetFileName(pic.FileName)); //stores a string of where the new file root should be
                         String filestring = GetRandString(); //returns a string of numbers to randomize the file names
-                        String[] newfile = filename.Split("."); //creates an array of the file string before the period and after so we can add the randomized string
+                        String[] newfile = {"",""}; //creates an array of the file string before the period and after so we can add the randomized string
+                        newfile[0] = filename.Substring(0,filename.Length-4);
+                        newfile[1] = filename.Substring(filename.Length-3);
                         String newFileString = newfile[0] + filestring + "." + newfile[1]; //puts the string back together including the random string
                         String[] splitrootfile = newFileString.Split("wwwroot"); //creates a string with the path necessary to store and retrieve the image from the images folder 
                         pic.CopyTo(new FileStream(newFileString, FileMode.Create));
@@ -426,8 +434,8 @@ namespace Cleanup
         public IActionResult leaderboard(){
             int? activeuser = HttpContext.Session.GetInt32("activeUser");
             if(activeuser != null){
-                List<User> toptokens = _context.users.OrderByDescending(t => t.Token).ToList();
-                List<User> topscore = _context.users.OrderByDescending(s => s.Score).ToList();
+                List<User> toptokens = _context.users.Where( u => u.UserLevel == 0).OrderByDescending(t => t.Token).ToList();
+                List<User> topscore = _context.users.Where( u => u.UserLevel == 0).OrderByDescending(s => s.Score).ToList();
                 User active = _context.users.Single(u => u.UserId == activeuser);
                 ViewBag.active = active;
                 ViewBag.tokens = toptokens;
@@ -473,16 +481,13 @@ namespace Cleanup
             }
             return RedirectToAction("Index", "User");
         }
-
-        // [HttpPost]
-        // [Route("live")]
-        // public ActionResult live(string data){
-        //     Live newmsg = new Live{
-        //         Messages = data
-        //     };
-        //     _context.Add(newmsg);
-        //     _context.SaveChanges();
-        // }
+        [HttpGet]
+        [Route("image/{filename}")]
+        public IActionResult Image(string filename)
+        {
+            ViewBag.filename = filename;
+            return View();
+        }
         public String GetRandString(){ // create a random string for storing more randomized file names
             Random rand = new Random();
             String Str = "";
