@@ -1,11 +1,9 @@
-<head>
     <link rel="stylesheet" href="~/css/user.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="~/js/inbox.js"></script>
+    <script src="~/js/worldchat.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-</head>
-<body>
-    
 
 <nav>
     <div class="userData">
@@ -28,16 +26,24 @@
                 </a>
             </li>
             <li>
-                <a href="#">
-                    <img class="icon" src="/images/message.png" alt="message">3
-                </a>
+            <div id="msg-btn">
+                <img class="open-msg icon" src="/images/message.png" alt="messages">
+                <div class="msg-window displayMsg">
+                    <div class="msg-users"></div>
+                    @foreach(var each in ViewBag.msgUsers){
+                        <a href="/sendprivatemessage/@each.UserId">@each.FirstName</a>
+                    } 
+                    </div>
+                </div>
+            <span id="pend-messages" class="display-message">@ViewBag.unread</span>
             </li>
             <li>
-                <a href="#" class="score">155</a>
+                <a href="/leaderboard" class="score">@ViewBag.active.Score</a>
             </li>
         </ul>
     </div>
 </nav>
+
 <div class="user-data">
 
     <div class="profile-main">
@@ -86,8 +92,6 @@
             <p>None</p>
         }
     </div>
-
 </div>
 <div class="footer">
 </div>
-</body>

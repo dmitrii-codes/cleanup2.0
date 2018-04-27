@@ -1,21 +1,15 @@
-<html>
-    <head></head>
-    <body>
-        <p>@ViewBag.cleanup.Title</p>
-            <p>@ViewBag.cleanup.DescriptionOfArea</p>
-            <p>@ViewBag.cleanup.DescriptionOfTrash</p>
-            <p>@ViewBag.cleanup.Value</p>
-            <p>@ViewBag.cleanup.MaxCleaners</p>
-            <p>@ViewBag.cleanup.Address</p>
-            <p>@ViewBag.cleanup.User.UserName</p>
-            @foreach(var image in @ViewBag.cleanup.Images)
-            {
-                <img src="@image.FileName" alt="">
-            }
-            @if(ViewBag.attending)
-            {
-                <a href="/add/photos/cleanup/@ViewBag.cleanup.CleanupId">Submit report of a job well done!</a>
-            }
-        </div>
-    </body>
-</html>
+<p>@ViewBag.cleanup.Title</p>
+<p>@ViewBag.cleanup.DescriptionOfArea</p>
+<p>@ViewBag.cleanup.DescriptionOfTrash</p>
+<p>@ViewBag.cleanup.Value</p>
+<p>@ViewBag.cleanup.MaxCleaners</p>
+<p>@ViewBag.cleanup.Address</p>
+<p>@ViewBag.cleanup.User.UserName</p>
+@foreach(var image in @ViewBag.cleanup.Images)
+{
+    <img src="@image.FileName" alt="">
+}
+@if(ViewBag.attending)
+{
+    <a href="/add/photos/cleanup/@ViewBag.cleanup.CleanupId">Submit report of a job well done!</a>
+}

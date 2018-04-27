@@ -25,17 +25,15 @@
                     <img class="icon" src="/images/dash.png" alt="dashboard">
                 </a>
             </li>
+
             <li>
-                <a href="#">
-                    <img class="icon" src="/images/message.png" alt="message">3
-                </a>
-            </li>
-            <li>
-                <a href="#" class="score">155</a>
+                <a href="/leaderboard" class="score">@ViewBag.active.Score</a>
             </li>
         </ul>
     </div>
 </nav>
+<div class="user-data">
+<h1>Top 3 Scores: </h1>
 <div>
     <button id="scorer-btn">Top Scorers</button><button id="token-btn">Most Tokens</button>
     <div class="scores-leaders">
@@ -64,5 +62,6 @@
             }
         </div>
     </div>
+</div>
 </div>
 <div class="footer"></div>

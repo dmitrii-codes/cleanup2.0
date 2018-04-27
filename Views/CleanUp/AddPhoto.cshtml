@@ -1,20 +1,24 @@
-<html>
-    <head></head>
-    <body>
-        <p>@ViewBag.Cleanup.Title</p>
-        <div>
-            @foreach(var image in ViewBag.Cleanup.Images)
-            {
-                <div><img src="@image.FileName" alt=""></div>
-            }
-        </div>
-        @if((ViewBag.Cleanup.Images.Count < 5 && ViewBag.Cleanup.Pending == true) || (ViewBag.Cleanup.Pending == false && ViewBag.Attending))
-        {
-            <form action="/add/photos/cleanup/@ViewBag.Cleanup.CleanupId" method="POST" enctype="multipart/form-data">
-                <input class="form-control" type="file" name="pic" placeholder="Profile Pic">
-                <input type="Submit" value="Add Photo">
-            </form>
-        }
-        <a href="/set/cleanup/status/@ViewBag.Cleanup.CleanupId">Completed adding Photos?</a>
-    </body>
-</html>
+<p>@ViewBag.Cleanup.Title</p>
+<div>
+    @foreach(var image in ViewBag.Cleanup.Images)
+    {
+        <div><img src="@image.FileName" alt=""></div>
+    }
+</div>
+@if((ViewBag.Cleanup.Images.Count < 5 && ViewBag.Cleanup.Pending == true) || (ViewBag.Cleanup.Pending == false && ViewBag.Attending))
+{
+    @if(ViewBag.Cleanup.Images.Count < 5 && ViewBag.Cleanup.Pending == true)
+    {
+        <p>Please Add 4-5 images that best demonstrate that litter that you have found</p>
+    }
+    @if(ViewBag.Cleanup.Pending == false && ViewBag.Attending)
+    {
+        <p>Please try to recreate the original images so your work can be judged accurately!</p>
+    }
+    <form action="/add/photos/cleanup/@ViewBag.Cleanup.CleanupId" method="POST" enctype="multipart/form-data">
+        <input class="form-control" type="file" name="pic" placeholder="Profile Pic">
+        <input type="Submit" value="Add Photo">
+    </form>
+}
+
+<a href="/set/cleanup/status/@ViewBag.Cleanup.CleanupId">Completed adding Photos?</a>
