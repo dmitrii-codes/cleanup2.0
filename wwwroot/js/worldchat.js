@@ -27,4 +27,7 @@ $(document).ready(function(){
         $(".messages").append("<p>" + data + "</p>");
         $(".messages").scrollTop($(".messages")[0].scrollHeight);
     });
+    $(".display-message").click(function(){
+        $(".display-message").hide()
+    });
 });

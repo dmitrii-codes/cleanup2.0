@@ -36,15 +36,6 @@ namespace Cleanup.Models
         public int Token{get;set;}
         [Range(0,9)]
         public int UserLevel{get;set;}
-        // [MinLength(8)]
-        // [Display(Name="Password:")]
-        // [Required(ErrorMessage="Password must not be blank")]
-        // [RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$", ErrorMessage="Password must contain at least 1 number, 1 letter, and a special character")]
-        // public string Password{get;set;}
-        // [Compare("Password", ErrorMessage="Password Confirmation must match")]
-        // [Display(Name="Confirm Password:")]
-        // [Required(ErrorMessage="Password Confirmation must not be blank")]
-        // public string PasswordConfirmation{get;set;}
         [Display(Name="Profile Photo:")]
         public string ProfilePic{get;set;}
     }
