@@ -7,11 +7,11 @@ $(document).ready(function(){
             if (response["status"]=="OK"){
                 $('#Lat').val(response["results"][0]["geometry"]["location"]["lat"]);
                 $('#Lng').val(response["results"][0]["geometry"]["location"]["lng"]);
-                $(this).unbind('submit').submit(); // continue
+                $('#newcleanup').unbind('submit').submit(); // continue
             }
             else{
                 alert('Geocode was not successful for the following reason: ' + status);
-                $(this).unbind('submit').submit(); // continue
+                $('#newcleanup').unbind('submit').submit(); // continue
             }
             });
         }
@@ -23,7 +23,7 @@ $(document).ready(function(){
                 }
                 else{
                     alert('Geocode was not successful for the following reason: ' + status);
-                    $(this).unbind('submit').submit(); // continue
+                    $('#newcleanup').unbind('submit').submit(); // continue
                 }
             });
         }
