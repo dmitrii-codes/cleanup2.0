@@ -1,0 +1,10 @@
+#img-holder{
+    display: inline-block;
+    height: 100%;
+    width: 40%;
+}
+.pic{
+    display: inline-block;
+    height: 20%;
+    width: 80%;
+}
