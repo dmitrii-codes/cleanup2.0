@@ -38,6 +38,12 @@ body {
     font-weight: 600;
 
 }
+.display-message {
+    display: inline-block;
+}
+.displayChat {
+    display: none;
+}
 
 .footer {
     border-top: 5px solid #555655;
@@ -124,7 +130,7 @@ h1 {
 #pend-messages {
     position: fixed;
     top: 36px;
-    right: 92px;
+    right: 127px;
     color: white;
 }
 
