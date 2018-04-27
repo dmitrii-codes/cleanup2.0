@@ -412,6 +412,7 @@ namespace Cleanup
                 else{
                     ViewBag.edit = false; 
                 }
+                ViewBag.active = _context.users.Single(u => u.UserId == activeuser);
                 return View();
             }
             return RedirectToAction("Index", "User");
