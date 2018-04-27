@@ -1,19 +1,15 @@
 <script src="~/js/location.js"></script>
 <script src="~/js/geocoding.js"></script>
-<link rel="stylesheet" href="~/css/newcleanup.css">
+<link rel="stylesheet" href="~/css/update.css">
 
-<div  id="ghostContent" style="display:none">
-    <div id="remainingTokens">@ViewBag.remainingTokens</div>
-</div>
-@model Cleanup.Models.CleanupViewModel
-<nav>
+ <nav>
     <div class="userData">
         <span>
-            <a href="/profile/@ViewBag.user.UserId">
-                <img class="rounded-circle" id="profilepic" src="@ViewBag.user.ProfilePic" alt="">
+            <a href="/profile/@ViewBag.active.UserId">
+                <img class="rounded-circle" id="profilepic" src="@ViewBag.active.ProfilePic" alt="">
             </a>
         </span>
-        <span id="username">@ViewBag.user.FirstName</span>
+        <span id="username">@ViewBag.active.FirstName</span>
 
         <ul class="nav-link">
             <li>
@@ -28,39 +24,45 @@
             </li>
            
             <li>
-                <a href="/leaderboard" class="score">@ViewBag.user.Score</a>
+                <a href="/leaderboard" class="score">@ViewBag.active.Score</a>
             </li>
         </ul>
     </div>
 </nav>
+
+<div  id="ghostContent" style="display:none">
+    <div id="remainingTokens">@ViewBag.remainingTokens</div>
+</div>
+@model Cleanup.Models.CleanupViewModel
 <form asp-controller="Cleanup" asp-action="AddCleanup" method="POST" id="newcleanup">
-    <table>
-        <tr>
-            <td><label asp-for="Title"></label></td>
-            <td><input asp-for="Title"></td>
-            <td><span asp-validation-for="Title"></span></td>
-        </tr>  
-        <tr>
-            <td><label asp-for="DescriptionOfArea"></label></td>
-            <td><input asp-for="DescriptionOfArea"></td>
-            <td><span asp-validation-for="DescriptionOfArea"></span></td>
-        </tr>
-        <tr>
-            <td><label asp-for="DescriptionOfTrash"></label></td>
-            <td><input asp-for="DescriptionOfTrash"></td>
-            <td><span asp-validation-for="DescriptionOfTrash"></span></td>
-        </tr>      
-        <tr>
-            <td><label asp-for="Address"></label></td>
-            <td><input asp-for="Address" id="address" placeholder="optional"></td>
-            <td><span asp-validation-for="Address"></span></td>
-        </tr>
-        <tr>
-            <td><input type="hidden" asp-for="Latitude" id="Lat" value=""></td>
-            <td><button type="submit" class="btn btn-success">Add photos!</button></td>
-            <td><input type="hidden" asp-for="Longitude" id="Lng" value=""></td>
-        </tr>
-    </table>
+    <div class="newCleanup">
+        <input class="form-control" asp-for="Title"placeholder="Title">
+        <span asp-validation-for="Title"></span>
+    </div>
+    <div class="newCleanup">
+        
+        <input class="form-control" asp-for="DescriptionOfArea" placeholder="Describe what to look for">
+        <span asp-validation-for="DescriptionOfArea"></span>
+    </div>
+    <div class="newCleanup">
+        
+        <input class="form-control" asp-for="DescriptionOfTrash" placeholder="description of litter">
+        <span asp-validation-for="DescriptionOfTrash"></span>
+    </div>
+    <div class="newCleanup"> 
+       
+        <input class="form-control" asp-for="Address" id="address" placeholder="address(optional)"> 
+        <span asp-validation-for="Address"></span> 
+    </div>
+    <div>
+        <input type="hidden" asp-for="Latitude" id="Lat" value="">
+        <input type="hidden" asp-for="Longitude" id="Lng" value="">
+    </div>
+    <div id="cleanUp-btn">
+        <button class="btn btn-secondary" id="submit-btn" type="submit">Add Photo</button>
+        
+    </div>
+    
 </form>
-<footer></footer>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDTyblNr_Q6boR90WUWLlbhPVlc2u_6h8" async defer></script> 
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDTyblNr_Q6boR90WUWLlbhPVlc2u_6h8" async defer></script>
+<div class="footer"></div>

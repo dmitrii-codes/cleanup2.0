@@ -1,8 +1,15 @@
 <script src="~/js/mboard.js"></script>
 <link rel="stylesheet" href="~/css/mboard.css">
 
-<header><h2>Chat with @ViewBag.recipient.UserName (@ViewBag.recipient.FirstName @ViewBag.recipient.LastName)</h2><a href="/user/@ViewBag.recipient.UserId">Back to profile</a></header>
 
+<nav>
+    <div class="userData">
+<h5 id="chat-data"><strong>Chat with @ViewBag.recipient.UserName (@ViewBag.recipient.FirstName @ViewBag.recipient.LastName)</strong></h5>
+<a href="/user/@ViewBag.recipient.UserId"><img class="icon" src="/images/logout.png" alt="back"></a>
+<a href="/dashboard"><img class="icon" src="/images/dash.png" alt="dashboard"></a>
+
+    </div>
+</nav>
 <div id="board">
     @foreach(var each in ViewBag.messages){
         <div class="post">
@@ -14,9 +21,13 @@
     }
 </div>
 
-<footer>
+<div class="footer">
     <form action="/postprivatemessage/@ViewBag.recipient.UserId" method="post">
-        <textarea name="content" cols="50" rows="2" placeholder="@ViewBag.error"></textarea>
-        <button type="submit" class="btn btn-default">Post</button><a href="/sendprivatemessage/@ViewBag.recipient.UserId" class="btn btn-default">Refresh</a>
+        <textarea id="textarea" class="form-control" name="content" cols="50" rows="2" placeholder="@ViewBag.error"></textarea>
+        <div id="post-btn">
+            <button id="post" type="submit" class="btn btn-success">Post</button>
+            <a id="refresh" href="/sendprivatemessage/@ViewBag.recipient.UserId" class="btn btn-warning">Refresh</a>
+        </div>
+        
     </form>
-</footer>
+</div>

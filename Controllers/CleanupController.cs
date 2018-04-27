@@ -104,6 +104,8 @@ namespace Cleanup
             {
                 ViewBag.user = _context.users.SingleOrDefault( u => u.UserId == (int)activeId);
                 ViewBag.remainingTokens = _context.users.Single( u => u.UserId == (int)activeId ).Token;
+                User active = _context.users.Single(u => u.UserId == activeId);
+                ViewBag.active = active;
                 return View();
             }
             return RedirectToAction("Index", "User");
