@@ -34,7 +34,7 @@
     <div id="remainingTokens">@ViewBag.remainingTokens</div>
 </div>
 @model Cleanup.Models.CleanupViewModel
-<form asp-controller="Cleanup" asp-action="AddCleanup" method="POST" id="newcleanup">
+<form asp-controller="Cleanup" asp-action="AddCleanup" method="POST" id="newCleanup">
     <div class="newCleanup">
         <input class="form-control" asp-for="Title"placeholder="Title">
         <span asp-validation-for="Title"></span>
