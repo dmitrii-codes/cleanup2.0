@@ -397,10 +397,10 @@ namespace Cleanup
                 if(profile[0].UserId == activeuser){
                     ViewBag.edit = true; 
                     ViewBag.unread = _context.privatemessages.Where(m => m.RecipientId == id && m.ReadStatus == false).ToList().Count;
-                    var inboxMsg = active[0].SentToUser.Concat(active[0].Received);
+                    var inboxMsg = profile[0].SentToUser.Concat(profile[0].Received);
                     List<User> msgUsers = new List<User>();
                     foreach(var each in inboxMsg){
-                    if (each.RecipientId == active[0].UserId){
+                    if (each.RecipientId == profile[0].UserId){
                         msgUsers.Add(each.Sender);
                     }
                     else{
