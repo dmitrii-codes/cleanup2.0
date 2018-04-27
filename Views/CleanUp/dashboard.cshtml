@@ -103,14 +103,14 @@
 </div>
 <div class="footer">
     <div id="capture">
-        @if(ViewBag.active.UserLevel != 9) {
-        <a href="/add/cleanup">
-            <img id="camera" class="rounded-circle" src="/images/camera.png" alt="camera button">
-        </a>
-        } else {
-        <a href="/admin/page">
-            <img id="camera" class="rounded-circle" src="/images/cog.png" alt="camera button">
-        </a>
+        @if(ViewBag.active.UserLevel != 9 && ViewBag.active.Token > 0)
+        {
+            <a href="/add/cleanup"><img id="camera" class="rounded-circle" src="/images/camera.png" alt="camera button"></a>
+        }
+        else if(ViewBag.active.UserLevel == 9)
+        {
+            <a href="/admin/page"><img id="camera" class="rounded-circle" src="/images/cog.png" alt="camera button"></a>
+
         }
 
     </div>

@@ -1,32 +1,25 @@
-<html>
-    <head>
-
-    </head>
-    <body>
-        <table>
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Description of trash</th>
-                    <th>Username</th>
-                    <th>Image</th>
-                    <th>Submitted at</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach(var cleanup in @ViewBag.allCleanups)
-                {
-                    <tr>
-                        <td><a href="/admin/cleanup/@cleanup.CleanupId">@cleanup.Title</a></td>
-                        <td>@cleanup.DescriptionOfTrash</td>
-                        <td>@cleanup.User.UserName</td>
-                        @if(@cleanup.Images.Count > 0){
-                            <td> <img src="@cleanup.Images[0].FileName" alt=""> </td>
-                        }
-                        <td>@cleanup.UpdatedAt</td>
-                    </tr>
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description of trash</th>
+            <th>Username</th>
+            <th>Image</th>
+            <th>Submitted at</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var cleanup in @ViewBag.allCleanups)
+        {
+            <tr>
+                <td><a href="/admin/cleanup/@cleanup.CleanupId">@cleanup.Title</a></td>
+                <td>@cleanup.DescriptionOfTrash</td>
+                <td>@cleanup.User.UserName</td>
+                @if(@cleanup.Images.Count > 0){
+                    <td> <img src="@cleanup.Images[0].FileName" alt=""> </td>
                 }
-            </tbody>
-        </table>
-    </body>
-</html>
+                <td>@cleanup.UpdatedAt</td>
+            </tr>
+        }
+    </tbody>
+</table>

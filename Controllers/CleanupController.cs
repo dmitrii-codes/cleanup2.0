@@ -102,6 +102,7 @@ namespace Cleanup
             int? activeId = HttpContext.Session.GetInt32("activeUser");
             if(activeId != null) //Checked to make sure user is actually logged in
             {
+                ViewBag.remainingTokens = _context.users.Single( u => u.UserId == (int)activeId ).Token;
                 return View();
             }
             return RedirectToAction("Index", "User");
@@ -227,8 +228,9 @@ namespace Cleanup
                     {
                         cleaninguser.Score += possibleCleanup[0].Value;
                         cleaninguser.Token += 1;
-                        return RedirectToAction("DeleteCleanup", new { id = possibleCleanup[0].CleanupId});
                     }
+                    _context.SaveChanges();
+                    return RedirectToAction("DeleteCleanup", new { id = possibleCleanup[0].CleanupId});
                 }
             }
             return RedirectToAction("Index", "User");
@@ -279,7 +281,7 @@ namespace Cleanup
                         }
                     }
                     if (pic != null && (ActiveUserAttending || (int)activeId == possibleCleanup[0].UserId)){ //aka if a picture was uploaded
-                        var filename = Path.Combine(HE.WebRootPath + "/images", Path.GetFileName(pic.FileName)); //stores a string of where the new file root should be
+                        var filename = Path.Combine(HE.WebRootPath + "/images/trash", Path.GetFileName(pic.FileName)); //stores a string of where the new file root should be
                         String filestring = GetRandString(); //returns a string of numbers to randomize the file names
                         String[] newfile = filename.Split("."); //creates an array of the file string before the period and after so we can add the randomized string
                         String newFileString = newfile[0] + filestring + "." + newfile[1]; //puts the string back together including the random string

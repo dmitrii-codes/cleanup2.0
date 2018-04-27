@@ -51,7 +51,7 @@ namespace Cleanup
             if (ModelState.IsValid)
             {
                 if (ProfilePic != null){ //aka if a picture was uploaded
-                    var filename = Path.Combine(HE.WebRootPath + "/images", Path.GetFileName(ProfilePic.FileName)); //stores a string of where the new file root should be
+                    var filename = Path.Combine(HE.WebRootPath + "/images/profile", Path.GetFileName(ProfilePic.FileName)); //stores a string of where the new file root should be
                     String filestring = GetRandString(); //returns a string of numbers to randomize the file names
                     String[] newfile = filename.Split("."); //creates an array of the file string before the period and after so we can add the randomized string
                     String newFileString = newfile[0] + filestring + "." + newfile[1]; //puts the string back together including the random string
@@ -111,24 +111,6 @@ namespace Cleanup
             } 
             ViewBag.error = "Incorrect Login Information"; //Failed login attempt error message
             return View("LoginPartial"); //Failed login attempt goes here
-        }
-        [HttpGet]
-        [Route("user/{id}")]
-        public IActionResult ViewUser(int id)
-        {
-            int? activeId = HttpContext.Session.GetInt32("activeUser");
-            if(activeId != null) //Checked to make sure user is actually logged in
-            {
-                List<User> possibleUser = _context.users.Where( u => u.UserId == id).ToList();
-                if(possibleUser.Count == 1)
-                {
-                    ViewBag.user = possibleUser[0];
-                    ViewBag.activeId = activeId;
-                    ViewBag.unread = _context.privatemessages.Where(m => m.RecipientId == id && m.ReadStatus == false).ToList().Count;
-                    return View();
-                }
-            }
-            return RedirectToAction("Index");
         }
         [HttpGet]
         [Route("delete/user/{id}")]
