@@ -2,6 +2,7 @@
     <link rel="stylesheet" href="~/css/user.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="~/js/inbox.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 </head>
 <body>
@@ -28,9 +29,16 @@
                 </a>
             </li>
             <li>
-                <a href="#">
-                    <img class="icon" src="/images/message.png" alt="message">
-                </a>
+            <div id="msg-btn">
+                <img class="open-msg icon" src="/images/message.png" alt="messages">
+                <div class="msg-window displayMsg">
+                    <div class="msg-users"></div>
+                    @foreach(var each in ViewBag.msgUsers){
+                        <a href="/sendprivatemessage/@each.UserId">@each.FirstName</a>
+                    } 
+                    </div>
+                </div>
+            @ViewBag.unread
             </li>
             <li>
                 <a href="#" class="score">@ViewBag.active.Score</a>
