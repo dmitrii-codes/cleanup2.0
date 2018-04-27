@@ -28,7 +28,8 @@
             <li>
             <div id="msg-btn">
                 <img class="open-msg icon" src="/images/message.png" alt="messages">
-                <div class="msg-window displayMsg">
+                <div class="msg-window hide-display">
+                    <button id="close-msg">close</button>
                     <div class="msg-users"></div>
                     @foreach(var each in ViewBag.msgUsers){
                         <a href="/sendprivatemessage/@each.UserId">@each.FirstName</a>

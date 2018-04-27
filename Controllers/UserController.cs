@@ -53,7 +53,9 @@ namespace Cleanup
                 if (ProfilePic != null){ //aka if a picture was uploaded
                     var filename = Path.Combine(HE.WebRootPath + "/images/profile", Path.GetFileName(ProfilePic.FileName)); //stores a string of where the new file root should be
                     String filestring = GetRandString(); //returns a string of numbers to randomize the file names
-                    String[] newfile = filename.Split("."); //creates an array of the file string before the period and after so we can add the randomized string
+                    String[] newfile = {"",""}; //creates an array of the file string before the period and after so we can add the randomized string
+                    newfile[0] = filename.Substring(0,filename.Length-4);
+                    newfile[1] = filename.Substring(filename.Length-3);
                     String newFileString = newfile[0] + filestring + "." + newfile[1]; //puts the string back together including the random string
                     String[] splitrootfile = newFileString.Split("wwwroot"); //creates a string with the path necessary to store and retrieve the image from the images folder 
                     ProfilePic.CopyTo(new FileStream(newFileString, FileMode.Create)); 
@@ -222,7 +224,6 @@ namespace Cleanup
                         updatedUser.LastName = model.LastName;
                         updatedUser.UserName = model.UserName;
                         updatedUser.Email = model.Email;
-                        updatedUser.ProfilePic = model.ProfilePic;
                         if(activeUser.UserLevel == 9)
                         {
                             updatedUser.Score = model.Score;

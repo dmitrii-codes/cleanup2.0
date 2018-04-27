@@ -1,24 +1,37 @@
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/update.css">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+<nav>
+    <div class="userData">
+       <h3 id="chat-data"><strong>Add Photos</strong></h3>
+    <a href="/logout"><img style="float: right;" class="icon" src="/images/logout.png" alt="logout"></a>
+    <a href="/dashboard"><img style="float: right; margin-right: 20px" class="icon" src="/images/dash.png" alt="dashboard"></a>
+    </div>
+</nav>
 <p>@ViewBag.Cleanup.Title</p>
+@if((ViewBag.Cleanup.Images.Count < 5 && ViewBag.Cleanup.Pending == true) || (ViewBag.Cleanup.Pending == false && ViewBag.Attending))
+{
+    @if(ViewBag.Cleanup.Images.Count < 5 && ViewBag.Cleanup.Pending == true)
+    {
+        <p class="text">Please Add 4-5 images that best demonstrate that litter that you have found</p>
+    }
+    @if(ViewBag.Cleanup.Pending == false && ViewBag.Attending)
+    {
+        <p class="text">Please try to recreate the original images so your work can be judged accurately!</p>
+    }
+    <form action="/add/photos/cleanup/@ViewBag.Cleanup.CleanupId" method="POST" enctype="multipart/form-data">
+        <input id="pickFile" class="form-control" type="file" name="pic" placeholder="Profile Pic">
+        <input class="btn btn-success" id="addPhoto" type="Submit" value="Add Photo">
+    </form>
+}
 <div>
     @foreach(var image in ViewBag.Cleanup.Images)
     {
         <div><img src="@image.FileName" alt=""></div>
     }
 </div>
-@if((ViewBag.Cleanup.Images.Count < 5 && ViewBag.Cleanup.Pending == true) || (ViewBag.Cleanup.Pending == false && ViewBag.Attending))
-{
-    @if(ViewBag.Cleanup.Images.Count < 5 && ViewBag.Cleanup.Pending == true)
-    {
-        <p>Please Add 4-5 images that best demonstrate that litter that you have found</p>
-    }
-    @if(ViewBag.Cleanup.Pending == false && ViewBag.Attending)
-    {
-        <p>Please try to recreate the original images so your work can be judged accurately!</p>
-    }
-    <form action="/add/photos/cleanup/@ViewBag.Cleanup.CleanupId" method="POST" enctype="multipart/form-data">
-        <input class="form-control" type="file" name="pic" placeholder="Profile Pic">
-        <input type="Submit" value="Add Photo">
-    </form>
-}
-
+<div class="complete">
 <a href="/set/cleanup/status/@ViewBag.Cleanup.CleanupId">Completed adding Photos?</a>
+</div>
+<div class="footer"></div>

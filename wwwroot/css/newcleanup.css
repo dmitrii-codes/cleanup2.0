@@ -6,7 +6,6 @@ body {
     -o-background-size: cover;
     background-size: cover;
 }
-
 .profile-pic{
     width: 100px; 
     height: 100px;
@@ -21,13 +20,13 @@ body {
     display: block;
 }
 .profile-main{
-    margin-top: 10px;
+    margin-top: 100px;
 }
 .profile-details{
     margin-top: 10px; 
    
 }
-.edit-btn {
+.update-btn {
     margin: 5px 0px 5px 0px;
     display: block;
     width: 120px;
@@ -38,14 +37,8 @@ body {
     font-weight: 600;
 
 }
-.display-message {
-    display: inline-block;
-}
-.displayChat {
-    display: none;
-}
 
-.footer {
+footer {
     border-top: 5px solid #555655;
     padding: 25px 10px 0px 10px;
     position: absolute;
@@ -114,14 +107,15 @@ ul.nav-link li {
     font-weight: 600;
     color: #6d6d6d;
     
-}   
-
+}
+span{
+    color:red;
+}
 .messages{
     padding-left: 5px;
-    overflow-y: auto;
     height: 60%; 
 }
-.user-data {
+form {
     top: 90px;
     height: calc(100% - 180px);
     width: 100%;
@@ -129,28 +123,18 @@ ul.nav-link li {
     overflow-y: scroll;
     padding-left: 10px;
     padding-bottom: 10px;
+    padding-left: 10px;
+}
+button{
+    margin: 5px;
+}
+#user-form {
+    margin-left: 8px;
+    margin-top: 100px;
+}
+input {
+    margin: 3px 0px 0px 3px;
 }
 h1 {
     color: #6d6d6d;
 }
-#pend-messages {
-    position: fixed;
-    top: 36px;
-    right: 127px;
-    color: white;
-}
-
-.hide-display{
-    display: none; 
-}
-.msg-window {
-    border-top: 5px solid #6d6d6d;
-    width: 15%;
-    height: 15%;
-    position: fixed;
-    top: 86px;
-    right: 0;
-    background-color: white;    
-    
-}
-
