@@ -26,7 +26,7 @@
             </div>
             @ViewBag.unread
             </li>
-            <li><a href="leaderboard" class="score">155</a></li>
+            <li><a href="leaderboard" class="score">@ViewBag.active.Score</a></li>
         </ul>
        
     </div>
@@ -42,15 +42,18 @@
                 <div class="iw-title"><a href="cleanup/@ViewBag.markers[i].CleanupId">@ViewBag.markers[i].Title</a></div>
                 <div class="iw-content">
                     <div class="iw-subTitle"></div>
-                    <img src="http://maps.marnoto.com/en/5wayscustomizeinfowindow/images/vistalegre.jpg" alt="Porcelain Factory of Vista Alegre" height="115" width="83">
+                    @if(@ViewBag.markers[i].Images.Count >0 )
+                    {
+                        <img src="@ViewBag.markers[i].Images[0].FileName" alt="Porcelain Factory of Vista Alegre" height="115" width="83">
+                    }
                     <div class="iw-subTitle">Rewards: @ViewBag.markers[i].Value</div>
                     <p>@ViewBag.markers[i].Address</p>
                     <p>Where: @ViewBag.markers[i].DescriptionOfArea</p>
                     <p>What: @ViewBag.markers[i].DescriptionOfTrash</p>
-                    <p>Creator:&nbsp<a href="/user/@ViewBag.markers[i].UserId">@ViewBag.markers[i].User.FirstName @ViewBag.markers[i].User.LastName</a></p>
+                    <p>Creator:&nbsp<a href="/profile/@ViewBag.markers[i].UserId">@ViewBag.markers[i].User.FirstName @ViewBag.markers[i].User.LastName</a></p>
                     <p style="display: inline-block">Attendees: @ViewBag.markers[i].CleaningUsers.Count/@ViewBag.markers[i].MaxCleaners</p>&nbsp;
                     @if(ViewBag.markers[i].CleaningUsers.Count < ViewBag.markers[i].MaxCleaners){
-                        <a href="/join_event/@ViewBag.markers[i].CleanupId">Sign up</a>
+                        <a href="/join/@ViewBag.markers[i].CleanupId">Sign up</a>
                     }
                     <br>
                     <a href="/mboard/@ViewBag.markers[i].CleanupId">Message Board</a>
@@ -89,7 +92,15 @@
 </div>
 <div class="footer">
     <div id="capture">
-     <a href="#"><img id="camera" class="rounded-circle" src="/images/camera.png" alt="camera button"></a>
+        @if(ViewBag.active.UserLevel != 9)
+        {
+            <a href="/add/cleanup"><img id="camera" class="rounded-circle" src="/images/camera.png" alt="camera button"></a>
+        }
+        else
+        {
+            <a href="/admin/page"><img id="camera" class="rounded-circle" src="/images/cog.png" alt="camera button"></a>
+        }
+     
     </div>
     
 </div>

@@ -42,7 +42,7 @@ namespace Cleanup
             if(activeId != null) //Checked to make sure user is actually logged in
             {
                 //getting all the events
-                var events = _context.cleanups.Where(c => c.Pending == false).Include(c => c.CleaningUsers).Include(c => c.User).ToList();
+                var events = _context.cleanups.Where(c => c.Pending == false).Include(c => c.CleaningUsers).Include(c => c.User).Include( c => c.Images).ToList();
                 ViewBag.markers = events;
                 ViewBag.Latitude = HttpContext.Session.GetString("latitude");
                 ViewBag.Longitude = HttpContext.Session.GetString("longitude");
@@ -152,10 +152,20 @@ namespace Cleanup
             int? activeId = HttpContext.Session.GetInt32("activeUser");
             if(activeId != null) //Checked to make sure user is actually logged in
             {
-                List<CleanupEvent> possibleCleanup = _context.cleanups.Where( c => c.CleanupId == id).Include( c => c.Images ).Include( c => c.CleaningUsers).ToList();
+                List<CleanupEvent> possibleCleanup = _context.cleanups.Where( c => c.CleanupId == id).Include( c => c.User ).Include( c => c.Images ).Include( c => c.CleaningUsers).ToList();
                 if(possibleCleanup.Count == 1)
                 {
-                    ViewBag.viewedCleanup = possibleCleanup[0];
+                    bool attending = false;
+                    foreach(var user in possibleCleanup[0].CleaningUsers)
+                    {
+                        if(user.UserId == (int)activeId)
+                        {
+                            attending = true;
+                            break;
+                        }
+                    }
+                    ViewBag.cleanup = possibleCleanup[0];
+                    ViewBag.attending = attending;
                     return View();
                 }
             }
@@ -213,10 +223,9 @@ namespace Cleanup
                 List<CleanupEvent> possibleCleanup = _context.cleanups.Where( c => c.CleanupId == id).Include( c => c.CleaningUsers ).ToList();
                 if(possibleCleanup.Count == 1 && activeUser.UserLevel == 9) //Confirm that event exists and that user is admin
                 {
-                    int scoreEarned = (possibleCleanup[0].Value/possibleCleanup[0].CleaningUsers.Count);
                     foreach(User cleaninguser in possibleCleanup[0].CleaningUsers)
                     {
-                        cleaninguser.Score = scoreEarned;
+                        cleaninguser.Score += possibleCleanup[0].Value;
                         cleaninguser.Token += 1;
                         return RedirectToAction("DeleteCleanup", new { id = possibleCleanup[0].CleanupId});
                     }
@@ -231,9 +240,19 @@ namespace Cleanup
             int? activeId = HttpContext.Session.GetInt32("activeUser");
             if(activeId != null) //Checked to make sure user is actually logged in
             {
-                List<CleanupEvent> possibleCleanup = _context.cleanups.Where( c => c.CleanupId == id).Include( c => c.Images ).ToList();
+                List<CleanupEvent> possibleCleanup = _context.cleanups.Where( c => c.CleanupId == id).Include( c => c.CleaningUsers ).Include( c => c.Images ).ToList();
                 if(possibleCleanup.Count == 1)
                 {
+                    bool ActiveUserAttending = false;
+                    foreach(var user in possibleCleanup[0].CleaningUsers)
+                    {
+                        if ((int)activeId == user.UserId)
+                        {
+                            ActiveUserAttending = true;
+                            break;
+                        }
+                    }
+                    ViewBag.Attending = ActiveUserAttending;
                     ViewBag.Cleanup = possibleCleanup[0];
                     return View();
                 }
@@ -288,7 +307,7 @@ namespace Cleanup
                 User activeUser = _context.users.Single( u => u.UserId == (int)activeId);
                 if(activeUser.UserLevel == 9)
                 {
-                    ViewBag.allCleanups = _context.cleanups.Include( c => c.User ).Include( u => u.Images ).OrderBy( l => l.UpdatedAt ).ToList();
+                    ViewBag.allCleanups = _context.cleanups.Where( c => c.Pending == true ).Include( c => c.User ).Include( c => c.Images ).OrderBy( c => c.UpdatedAt ).ToList();
                     return View();
                 }
             }
@@ -374,11 +393,11 @@ namespace Cleanup
                 else{
                     ViewBag.edit = false; 
                 }
+                ViewBag.unread = _context.privatemessages.Where(m => m.RecipientId == id && m.ReadStatus == false).ToList().Count;
                 return View();
             }
             return RedirectToAction("Index", "User");
         }
-
         [HttpGet]
         [Route("leaderboard")]
         public IActionResult leaderboard(){
@@ -413,6 +432,34 @@ namespace Cleanup
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "User");
         }
+        [HttpGet]
+        [Route("join/{id}")]
+        public IActionResult Join(int id)
+        {
+            int? activeuser = HttpContext.Session.GetInt32("activeUser");
+            if(activeuser != null)
+            {
+                List<CleanupEvent> possibleCleanup = _context.cleanups.Where( c => c.CleanupId == id).Include( c => c.CleaningUsers ).ToList();
+                if(possibleCleanup.Count == 1 && possibleCleanup[0].CleaningUsers.Count < possibleCleanup[0].MaxCleaners)
+                {
+                    User joiningUser = _context.users.Single( u => u.UserId == (int)activeuser);
+                    joiningUser.CleanupEventId = possibleCleanup[0].CleanupId;
+                    _context.SaveChanges();
+                    return RedirectToAction("ViewCleanup", new { id = possibleCleanup[0].CleanupId });
+                }
+            }
+            return RedirectToAction("Index", "User");
+        }
+
+        // [HttpPost]
+        // [Route("live")]
+        // public ActionResult live(string data){
+        //     Live newmsg = new Live{
+        //         Messages = data
+        //     };
+        //     _context.Add(newmsg);
+        //     _context.SaveChanges();
+        // }
         public String GetRandString(){ // create a random string for storing more randomized file names
             Random rand = new Random();
             String Str = "";
