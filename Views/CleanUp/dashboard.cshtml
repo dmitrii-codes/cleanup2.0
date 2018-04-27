@@ -54,7 +54,7 @@
         <div class="iw-content">
             <div class="iw-subTitle"></div>
             @if(@ViewBag.markers[i].Images.Count >0 ) {
-            <img src="@ViewBag.markers[i].Images[0].FileName" alt="Porcelain Factory of Vista Alegre" height="115" width="83"> }
+             <a href="cleanup/@ViewBag.markers[i].CleanupId"><img src="@ViewBag.markers[i].Images[0].FileName" alt="Porcelain Factory of Vista Alegre" height="115" width="83"></a>}
             <div class="iw-subTitle">Rewards: @ViewBag.markers[i].Value</div>
             <p>@ViewBag.markers[i].Address</p>
             <p>Where: @ViewBag.markers[i].DescriptionOfArea</p>
@@ -69,6 +69,7 @@
                 <a href="/mboard/@ViewBag.markers[i].CleanupId">Message Board</a>
                 <br>
                 <br>
+                
         </div>
         <div class="iw-bottom-gradient"></div>
     </div>

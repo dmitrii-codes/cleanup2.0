@@ -113,14 +113,16 @@ ul.nav-link li {
 
     margin-top: 75px;
 }
-.newCleanup {
+#newCleanup {
     margin: 3px auto;
+    margin-top: 10em;
+    margin-bottom: 10em;
     width: 90%;
 }
 #cleanUp-btn {
     text-align: center;
     width: 90%;
-    margin: 0 auto;
+    margin: 5px auto;
 }
 .messages{
     padding-left: 5px;
