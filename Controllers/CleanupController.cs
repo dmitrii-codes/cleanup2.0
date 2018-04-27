@@ -48,6 +48,8 @@ namespace Cleanup
                 ViewBag.Longitude = HttpContext.Session.GetString("longitude");
                 User active = _context.users.Single(u => u.UserId == activeId);
                 ViewBag.active = active; 
+                List<Live> livemessages = _context.livemessages.OrderBy(c => c.CreatedAt).ToList();
+                ViewBag.liveMsg = livemessages; 
                 return View("Dashboard");
             }
             return RedirectToAction("Index", "User");
@@ -391,16 +393,6 @@ namespace Cleanup
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "User");
         }
-
-        // [HttpPost]
-        // [Route("live")]
-        // public ActionResult live(string data){
-        //     Live newmsg = new Live{
-        //         Messages = data
-        //     };
-        //     _context.Add(newmsg);
-        //     _context.SaveChanges();
-        // }
         public String GetRandString(){ // create a random string for storing more randomized file names
             Random rand = new Random();
             String Str = "";
