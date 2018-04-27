@@ -103,6 +103,9 @@ namespace Cleanup
             if(activeId != null) //Checked to make sure user is actually logged in
             {
                 ViewBag.remainingTokens = _context.users.Single( u => u.UserId == (int)activeId ).Token;
+                if(ViewBag.remainingTokens < 1){
+                    return RedirectToAction("Dashboard");
+                }
                 return View();
             }
             return RedirectToAction("Index", "User");
