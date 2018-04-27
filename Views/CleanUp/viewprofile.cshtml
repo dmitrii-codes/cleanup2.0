@@ -1,54 +1,84 @@
-<style>
-    .profile-pic{
-        width: 100px; 
-        height: 100px;
-        object-fit: cover;
-        border-radius: 50%;
-    }
-    .profile-main{
-        border: 2px solid black; 
-    }
-    .profile-details{
-        margin-top: 10px; 
-        border: 2px solid rgb(29, 6, 6); 
-    }
-</style>
-<div class="container">
+<head>
+    <link rel="stylesheet" href="~/css/user.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+</head>
+<body>
+    
+
+<nav>
+    <div class="userData">
+        <span>
+            <a href="/profile/@ViewBag.active.UserId">
+                <img class="rounded-circle" id="profilepic" src="@ViewBag.active.ProfilePic" alt="">
+            </a>
+        </span>
+        <span id="username">@ViewBag.active.FirstName</span>
+
+        <ul class="nav-link">
+            <li>
+                <a href="logout">
+                    <img class="icon" src="/images/logout.png" alt="logout">
+                </a>
+            </li>
+            <li>
+                <a href="dashboard">
+                    <img class="icon" src="/images/dash.png" alt="dashboard">
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img class="icon" src="/images/message.png" alt="message">3
+                </a>
+            </li>
+            <li>
+                <a href="#" class="score">155</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="user-data">
 
     <div class="profile-main">
         <img class="profile-pic" src="@ViewBag.active.ProfilePic" alt="">
-        <h3>@ViewBag.active.FirstName @ViewBag.active.LastName</h3>
-        <h3>@ViewBag.active.UserName</h3>
+        <h3 style="margin-left: 10px;" class="editInfo">@ViewBag.active.FirstName @ViewBag.active.LastName</h3>
+        <h3 class="username"><strong>@ViewBag.active.UserName</strong></h3>
         @if(ViewBag.edit == true){
-            <a href="/update/user/@ViewBag.active.UserId"><button class="btn-primary">Edit</button></a>
-        }
-        else{
-            <a href="/message"><button>Message</button></a> <!-- add proper message route -->
+        <a href="/update/user/@ViewBag.active.UserId">
+            <button class="edit-btn">Edit</button>
+        </a>
+        } else{
+        <a href="/message">
+            <button>Message</button>
+        </a>
+        <!-- add proper message route -->
         }
     </div>
     <div class="profile-details">
-        <h2>Score: @ViewBag.active.Score</h2>
-        <h2>Tokens: @ViewBag.active.Token</h2>
-        <h2>Attending: </h2>
+        <h3><strong>Score:</strong> @ViewBag.active.Score</h3>
+        <h3><strong>Tokens:</strong> @ViewBag.active.Token</h3>
+        <h3><strong>Attending:</strong> </h3>
         @if(@ViewBag.active.CleanupEvent != null){
         <div>
             <h4>@ViewBag.active.CleanupEvent.Title</h4>
             <p>@ViewBag.active.CleanupEvent.DescriptionOfArea</p>
             <p>@ViewBag.active.CleanupEvent.DescriptionOfTrash</p>
         </div>
+        } else{
+        <p>None</p>
         }
-        else{
-            <p>None</p>
-        }
-        <h2>Created: </h2>
+        <h3><strong>Created:</strong> </h3>
         @if(@ViewBag.active.CreatedCleanups.Count > 0){
         <div>
             <p>@ViewBag.active.CreatedCleanups.Count</p>
         </div>
-        }
-        else{
-            <p>None</p>
+        } else{
+        <p>None</p>
         }
     </div>
 
 </div>
+<div class="footer">
+</div>
+</body>

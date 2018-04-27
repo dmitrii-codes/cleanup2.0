@@ -8,25 +8,18 @@
 </head>
    <nav>
     <div class="userData">
-    <span><a href=""><img class="rounded-circle" id="profilepic" src="@ViewBag.active.ProfilePic" alt=""></a></span>
+    <span><a href="/profile/@ViewBag.active.UserId"><img class="rounded-circle" id="profilepic" src="@ViewBag.active.ProfilePic" alt=""></a></span>
     <span id="username">@ViewBag.active.FirstName</span>
        
         <ul class="nav-link">
             <li><a href="logout"><img class="icon" src="/images/logout.png" alt="logout"></a></li>
-            <li><a href="#"><img class="icon" src="/images/message.png" alt="message"></a></li>
-            <li><a href="#" class="score">155</a></li>
+            <li><a href="#"><img class="icon" src="/images/message.png" alt="message"></a>3</li>
+            <li><a href="leaderboard" class="score">155</a></li>
         </ul>
        
     </div>
    </nav>
 
-    <!-- 
-    profile pic - LINK TO PROFILE SETTINGS
-    name
-    score
-    messages icon - LINK TO MESSAGES
-    -->
-    
  <div id="ghostContent" style="display: none">
     @for(int i = 0; i < ViewBag.markers.Count; i++){
         <div id="markerLng_@i">@ViewBag.markers[i].Longitude</div>
@@ -91,11 +84,6 @@
     new event BUTTON with tokens on it - LINK TO FORM TO CREATE THE EVENT
     sleaderboard
      -->
-
-
-
-
-
 <script src="~/js/map.js"></script>
 <!-- cluster api -->
 <script src="https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/src/markerclusterer.js"></script>
