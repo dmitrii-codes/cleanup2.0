@@ -102,7 +102,10 @@ namespace Cleanup
             int? activeId = HttpContext.Session.GetInt32("activeUser");
             if(activeId != null) //Checked to make sure user is actually logged in
             {
+                ViewBag.user = _context.users.SingleOrDefault( u => u.UserId == (int)activeId);
                 ViewBag.remainingTokens = _context.users.Single( u => u.UserId == (int)activeId ).Token;
+                User active = _context.users.Single(u => u.UserId == activeId);
+                ViewBag.active = active;
                 return View();
             }
             return RedirectToAction("Index", "User");
@@ -142,6 +145,7 @@ namespace Cleanup
                 {
                     ViewBag.error = "Insufficient tokens to report trash, go and help out more!";
                 }
+                ViewBag.user = _context.users.SingleOrDefault( u => u.UserId == (int)activeId);
                 return View("NewCleanup");
             }
             return RedirectToAction("Index", "User");

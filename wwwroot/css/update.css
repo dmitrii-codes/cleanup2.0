@@ -109,7 +109,19 @@ ul.nav-link li {
     color: #6d6d6d;
     
 }
+#ghostContent {
 
+    margin-top: 75px;
+}
+.newCleanup {
+    margin: 3px auto;
+    width: 90%;
+}
+#cleanUp-btn {
+    text-align: center;
+    width: 90%;
+    margin: 0 auto;
+}
 .messages{
     padding-left: 5px;
     overflow-y: scroll;
@@ -128,4 +140,45 @@ input {
 }
 h1 {
     color: #6d6d6d;
+}
+#submit-btn {
+    background-color: #6d6d6d;
+    color: white;
+    font-weight: 600;
+}
+#addPhoto {
+    margin: 5px auto;
+    text-align: center;
+    display: block;
+    width: 120px;
+    background-color: #6d6d6d;
+    border: 1px solid #6d6d6d;
+}
+#img-photo {
+    margin-top: 95px;
+    width: 20%;
+}
+.img-photo {
+    text-align: center;
+}
+.text {
+    margin: 0px 20px;
+    text-align: center;
+    
+}
+#pickFile {
+    margin: 0 auto;
+    width: 60%;
+}
+.add-title {
+    display: inline-block;
+    vertical-align: top;
+}
+#chat-data {
+    line-height: 1.5px;
+    display: inline-block;
+    color: #6d6d6d;
+}
+.complete {
+    text-align: center;
 }

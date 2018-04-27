@@ -14,6 +14,10 @@ input {
     text-align: center;
     margin-top: 0.2em;
 }
+.reg-form {
+    margin: 0 auto;
+    width: 87%;
+}
 
 .reg-form,
 .log-form,
