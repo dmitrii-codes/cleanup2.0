@@ -1,8 +1,9 @@
-<link rel="stylesheet" href="~/css/user.css">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<script src="~/js/inbox.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/user.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="~/js/inbox.js"></script>
+    <script src="~/js/worldchat.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 
 <nav>
     <div class="userData">
@@ -34,14 +35,15 @@
                     } 
                     </div>
                 </div>
-            @ViewBag.unread
+            <span id="pend-messages" class="display-message">@ViewBag.unread</span>
             </li>
             <li>
-                <a href="#" class="score">@ViewBag.active.Score</a>
+                <a href="/leaderboard" class="score">@ViewBag.active.Score</a>
             </li>
         </ul>
     </div>
 </nav>
+
 <div class="user-data">
 
     <div class="profile-main">
@@ -90,7 +92,6 @@
             <p>None</p>
         }
     </div>
-
 </div>
 <div class="footer">
 </div>

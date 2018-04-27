@@ -8,6 +8,9 @@
 .displayChat {
     display: none;
 }
+.display-message {
+    display: inline-block;
+}
 
 .open-chat {
     width: 50%;
