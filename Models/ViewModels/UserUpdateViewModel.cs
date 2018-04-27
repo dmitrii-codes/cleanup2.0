@@ -12,10 +12,12 @@ namespace Cleanup.Models
         [Required(ErrorMessage="First name must not be blank")]
         [MinLength(2, ErrorMessage="First name must be at least 2 letters")]
         [RegularExpression(@"^([a-zA-Z \.\&\'\-]+)$", ErrorMessage="First name cannot contain numerals")]
+        [Display(Name = "First Name:")]
         public string FirstName{get;set;}
         [Required(ErrorMessage="Last name must not be blank")]
         [MinLength(2, ErrorMessage="Last name must be at least 2 letters")]
         [RegularExpression(@"^([a-zA-Z \.\&\'\-]+)$", ErrorMessage="Last name cannot contain numerals")]
+        [Display(Name = "Last Name:")]
         public string LastName{get;set;}
         [UniqueUsernameUpdate] 
         [Display(Name = "Username:")]
@@ -25,6 +27,7 @@ namespace Cleanup.Models
         public string PreviousUserName {get;set;}
         [EmailAddress]
         [UniqueEmailUpdate]
+        [Display(Name = "Email  :")]
         public string Email{get;set;}
         public string PreviousEmail {get;set;}
         [Range(0,Int32.MaxValue)]

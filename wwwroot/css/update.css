@@ -1,0 +1,131 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background: url(/images/edit_bkg.png) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.profile-pic{
+    width: 100px; 
+    height: 100px;
+    object-fit: cover;
+    border-radius: 20%;
+}
+.editInfo {
+    display: inline-block;
+    vertical-align: top;
+}
+.username {
+    display: block;
+}
+.profile-main{
+    margin-top: 100px;
+}
+.profile-details{
+    margin-top: 10px; 
+   
+}
+.update-btn {
+    margin: 5px 0px 5px 0px;
+    display: block;
+    width: 120px;
+    background-color: #6d6d6d;
+    border-radius: 5px;
+    padding: 3px 5px;
+    color: white;
+    font-weight: 600;
+
+}
+
+.footer {
+    border-top: 5px solid #555655;
+    padding: 25px 10px 0px 10px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background: url(/images/bkg.png);
+    background-size: 100%;
+    width: 100%;
+    height: 10%;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 25px 10px 0px 10px;
+    height: 90px;
+    background: url(/images/bkg.png);
+    background-size: 100%;
+    border-bottom: 5px solid #555655;
+}
+
+#capture {
+    text-align: center;
+    margin: -16px auto;
+}
+
+#profilepic {
+    position: fixed;
+    left: 7px;
+    top: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 3px solid #6d6d6d;
+}
+
+#username {
+    color: #6d6d6d;
+    font-weight: 600;
+    font-size: 20px;
+    position: fixed;
+    left: 70px;
+    top: 33px;
+}
+ul.nav-link li {
+    text-decoration: none;
+    list-style: none;
+    float:right;
+    vertical-align: top;
+    padding: 0em .5em;
+}
+.nav-link {
+    margin-right: 0px;
+}
+.icon {
+    width: 30px;
+}
+.score {
+    background-color: white;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    padding: 9px;
+    text-decoration: none;
+    font-weight: 600;
+    color: #6d6d6d;
+    
+}
+
+.messages{
+    padding-left: 5px;
+    overflow-y: scroll;
+    height: 60%; 
+}
+.user-data {
+    margin-left: 10px;
+}
+
+#user-form {
+    margin-left: 8px;
+    margin-top: 100px;
+}
+input {
+    margin: 3px 0px 0px 3px;
+}
+h1 {
+    color: #6d6d6d;
+}

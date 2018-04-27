@@ -3,30 +3,35 @@
     <link rel="stylesheet" href="~/css/map.css">
     <script src="/lib/signalr/signalr.js"></script>
     <script src="~/js/worldchat.js"></script>
+    <script src="~/js/inbox.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 </head>
    <nav>
     <div class="userData">
-    <span><a href=""><img class="rounded-circle" id="profilepic" src="@ViewBag.active.ProfilePic" alt=""></a></span>
+    <span><a href="/profile/@ViewBag.active.UserId"><img class="rounded-circle" id="profilepic" src="@ViewBag.active.ProfilePic" alt=""></a></span>
     <span id="username">@ViewBag.active.FirstName</span>
        
-        <ul class="nav-link">
+            <ul class="nav-link">
             <li><a href="logout"><img class="icon" src="/images/logout.png" alt="logout"></a></li>
-            <li><a href="#"><img class="icon" src="/images/message.png" alt="message"></a></li>
-            <li><a href="#" class="score">@ViewBag.active.Score</a></li>
+            <li><div id="msg-btn">
+                <img class="open-msg icon" src="/images/message.png" alt="messages">
+                <div class="msg-window displayMsg">
+                    <div class="msg-users"></div>
+                    @foreach(var each in ViewBag.msgUsers){
+                        <a href="/sendprivatemessage/@each.UserId">@each.FirstName</a>
+                    } 
+                    </div>
+                </div>
+            </div>
+            @ViewBag.unread
+            </li>
+            <li><a href="leaderboard" class="score">@ViewBag.active.Score</a></li>
         </ul>
        
     </div>
    </nav>
 
-    <!-- 
-    profile pic - LINK TO PROFILE SETTINGS
-    name
-    score
-    messages icon - LINK TO MESSAGES
-    -->
-    
  <div id="ghostContent" style="display: none">
     @for(int i = 0; i < ViewBag.markers.Count; i++){
         <div id="markerLng_@i">@ViewBag.markers[i].Longitude</div>
@@ -68,7 +73,9 @@
     <img class="open-chat" src="/images/chat.png" alt="chat">
     <div class="chat-window displayChat">
         <div class="messages">
-            
+            @foreach(var each in @ViewBag.liveMsg){
+                <p>@each.Messages</p>
+            }
         </div>
         <form id="send-form" action="#">
                 <table>
@@ -102,11 +109,6 @@
     new event BUTTON with tokens on it - LINK TO FORM TO CREATE THE EVENT
     sleaderboard
      -->
-
-
-
-
-
 <script src="~/js/map.js"></script>
 <!-- cluster api -->
 <script src="https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/src/markerclusterer.js"></script>

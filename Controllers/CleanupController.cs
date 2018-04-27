@@ -46,8 +46,28 @@ namespace Cleanup
                 ViewBag.markers = events;
                 ViewBag.Latitude = HttpContext.Session.GetString("latitude");
                 ViewBag.Longitude = HttpContext.Session.GetString("longitude");
-                User active = _context.users.Single(u => u.UserId == activeId);
-                ViewBag.active = active; 
+                List<Live> livemessages = _context.livemessages.OrderBy(c => c.CreatedAt).ToList();
+                ViewBag.liveMsg = livemessages; 
+                var active = _context.users.Where(u => u.UserId == activeId)
+                    .Include(u => u.SentToUser)
+                        .ThenInclude(m => m.Recipient)
+                    .Include(u => u.Received)
+                        .ThenInclude(m => m.Sender)
+                    .ToList();
+                ViewBag.active = active[0]; 
+                //messages logic
+                ViewBag.unread = _context.privatemessages.Where(m => m.RecipientId == activeId && m.ReadStatus == false).ToList().Count;
+                var inboxMsg = active[0].SentToUser.Concat(active[0].Received);
+                List<User> msgUsers = new List<User>();
+                foreach(var each in inboxMsg){
+                    if (each.RecipientId == activeId){
+                        msgUsers.Add(each.Sender);
+                    }
+                    else{
+                        msgUsers.Add(each.Recipient);
+                    }
+                }
+                ViewBag.msgUsers = msgUsers.Distinct().ToList().OrderByDescending(u => u.SentToUser.Concat(u.Received).OrderByDescending(m => m.CreatedAt).First().CreatedAt);
                 return View("Dashboard");
             }
             return RedirectToAction("Index", "User");
@@ -385,6 +405,8 @@ namespace Cleanup
             if(activeuser != null){
                 List<User> toptokens = _context.users.OrderByDescending(t => t.Token).ToList();
                 List<User> topscore = _context.users.OrderByDescending(s => s.Score).ToList();
+                User active = _context.users.Single(u => u.UserId == activeuser);
+                ViewBag.active = active;
                 ViewBag.tokens = toptokens;
                 ViewBag.score = topscore;
                 if(topscore.Count < 3){
