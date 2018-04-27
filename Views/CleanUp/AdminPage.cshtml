@@ -1,11 +1,22 @@
-<table>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/admin.css">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+<nav>
+    <div class="userData">
+        <h3 class="admin-title"><strong>Admin Page</strong></h3>
+                <a style="float:right;" href="/logout"><img class="icon" src="/images/logout.png" alt="logout"></a>
+    </div>
+</nav>
+<div id="admin-table" >
+<table class="table table-striped">
     <thead>
         <tr>
-            <th>Title</th>
-            <th>Description of trash</th>
-            <th>Username</th>
-            <th>Image</th>
-            <th>Submitted at</th>
+            <th scope="col">Title</th>
+            <th scope="col">Desc of trash</th>
+            <th scope="col">Username</th>
+            <th scope="col">Image</th>
+            <th scope="col">Submitted</th>
         </tr>
     </thead>
     <tbody>
@@ -16,10 +27,12 @@
                 <td>@cleanup.DescriptionOfTrash</td>
                 <td>@cleanup.User.UserName</td>
                 @if(@cleanup.Images.Count > 0){
-                    <td> <img src="@cleanup.Images[0].FileName" alt=""> </td>
+                    <td><img id="admin-img" src="@cleanup.Images[0].FileName" alt=""> </td>
                 }
                 <td>@cleanup.UpdatedAt</td>
             </tr>
         }
     </tbody>
 </table>
+</div>
+<div class="footer"></div>
