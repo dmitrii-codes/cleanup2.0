@@ -386,6 +386,8 @@ namespace Cleanup
             if(activeuser != null){
                 List<User> toptokens = _context.users.OrderByDescending(t => t.Token).ToList();
                 List<User> topscore = _context.users.OrderByDescending(s => s.Score).ToList();
+                User active = _context.users.Single(u => u.UserId == activeuser);
+                ViewBag.active = active;
                 ViewBag.tokens = toptokens;
                 ViewBag.score = topscore;
                 if(topscore.Count < 3){

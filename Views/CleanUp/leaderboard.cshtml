@@ -1,14 +1,40 @@
-<style>
-    .profile-pic{
-            width: 100px; 
-            height: 100px;
-            object-fit: cover;
-            border-radius: 50%;
-    }
-    div{
-        border: 2px solid black; 
-    }
-</style>
+<head>
+    <link rel="stylesheet" href="~/css/user.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+</head>
+<nav>
+    <div class="userData">
+        <span>
+            <a href="/profile/@ViewBag.active.UserId">
+                <img class="rounded-circle" id="profilepic" src="@ViewBag.active.ProfilePic" alt="">
+            </a>
+        </span>
+        <span id="username">@ViewBag.active.FirstName</span>
+
+        <ul class="nav-link">
+            <li>
+                <a href="logout">
+                    <img class="icon" src="/images/logout.png" alt="logout">
+                </a>
+            </li>
+            <li>
+                <a href="dashboard">
+                    <img class="icon" src="/images/dash.png" alt="dashboard">
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img class="icon" src="/images/message.png" alt="message">3
+                </a>
+            </li>
+            <li>
+                <a href="#" class="score">155</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 <h1>Top 3 Scores: </h1>
 <div>
     @for(int i = 0; i < @ViewBag.scorecount; i++){
@@ -31,3 +57,4 @@
         </div>
     }
 </div>
+<div class="footer"></div>
