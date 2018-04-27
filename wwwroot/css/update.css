@@ -182,3 +182,6 @@ h1 {
 .complete {
     text-align: center;
 }
+#new-wrap {
+    margin-top: 100px;
+}

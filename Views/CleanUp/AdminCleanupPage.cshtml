@@ -3,34 +3,40 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 <nav>
+
     <div class="userData">
-        <h3 class="admin-title"><strong>Admin Page</strong></h3>
-                <a style="float:right;" href="/logout"><img class="icon" src="/images/logout.png" alt="logout"></a>
+        <h3 class="admin-title"><strong>Admin CleanUp Page</strong></h3>
+        <a style="float:right;" href="/logout"><img class="icon" src="/images/logout.png" alt="logout"></a>
     </div>
 </nav>
-<div>
-    <p>@ViewBag.cleanup.Title</p>
-    <p>@ViewBag.cleanup.DescriptionOfArea</p>
-    <p>@ViewBag.cleanup.DescriptionOfTrash</p>
-    <p>@ViewBag.cleanup.Value</p>
-    <p>@ViewBag.cleanup.MaxCleaners</p>
-    <p>@ViewBag.cleanup.Address</p>
-    <p>@ViewBag.cleanup.User.UserName</p>
+
+<div id="form-data">
+    <p><strong>Title:&nbsp;</strong>@ViewBag.cleanup.Title</p>
+    <p><strong>Desc of Area:&nbsp;</strong>@ViewBag.cleanup.DescriptionOfArea</p>
+    <p><strong>Desc of Trash:&nbsp;</strong>@ViewBag.cleanup.DescriptionOfTrash</p>
+    <p><strong>Value:&nbsp;</strong>@ViewBag.cleanup.Value</p>
+    <p><strong>Max Cleaner:&nbsp;</strong>@ViewBag.cleanup.MaxCleaners</p>
+    <p><strong>Address:&nbsp;</strong>@ViewBag.cleanup.Address</p>
+    <p><strong>Username:&nbsp;</strong>@ViewBag.cleanup.User.UserName</p>
     @foreach(var image in @ViewBag.cleanup.Images)
     {
-
-        <a href="@image.FileName"><img src="@image.FileName" alt="Image Not Found"></a>
+       <div>
+        <a href="@image.FileName"><img class="admin-viewimg" src="@image.FileName" alt="Image Not Found"></a>
+        </div>
     }
     
     @if(ViewBag.cleanup.Images.Count <= 5)
     {
-        <form action="/approve/cleanup/@ViewBag.cleanup.CleanupId" method="Post">
-            <p>Max Cleaners:</p>
-            <input type="number" min="1" max="100" name="max">
-            <p>Value of Cleanup:</p>
-            <input type="number" min="10" max="100" name="value">
-            <input type="submit">
-        </form>
+        <div class="form-add">
+            <form action="/approve/cleanup/@ViewBag.cleanup.CleanupId" method="Post">
+            <p><strong>Max Cleaners:</strong></p>
+            <input class="form-control" type="number" min="1" max="100" name="max">
+            <p><strong>Value of Cleanup:</strong></p>
+            <input class="form-control" type="number" min="10" max="100" name="value">
+            <button id="approve" class="btn btn-success" type="submit">Submit</button>
+            </form>
+        </div>
+        
         <a href="/delete/cleanup/@ViewBag.cleanup.CleanupId">Delete Submission</a>
     }
     else
@@ -38,5 +44,7 @@
         <a href="/close/cleanup/@ViewBag.cleanup.CleanupId">Close event/Accept Report</a>
         <a href="">Decline report</a>
     }
+    
+
 </div>
 <div class="footer"></div>
