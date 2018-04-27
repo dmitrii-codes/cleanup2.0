@@ -78,7 +78,9 @@
     <img class="open-chat" src="/images/chat.png" alt="chat">
     <div class="chat-window displayChat">
         <div class="messages">
-            
+            @foreach(var each in @ViewBag.liveMsg){
+                <p>@each.Messages</p>
+            }
         </div>
         <form id="send-form" action="#">
                 <table>

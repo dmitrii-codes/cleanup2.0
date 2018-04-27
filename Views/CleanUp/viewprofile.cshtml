@@ -32,9 +32,11 @@
         <h2>Attending: </h2>
         @if(@ViewBag.active.CleanupEvent != null){
         <div>
-            <h4>@ViewBag.active.CleanupEvent.Title</h4>
-            <p>@ViewBag.active.CleanupEvent.DescriptionOfArea</p>
-            <p>@ViewBag.active.CleanupEvent.DescriptionOfTrash</p>
+            <h4><a href="/cleanup/@ViewBag.active.CleanupEvent.CleanupId">@ViewBag.active.CleanupEvent.Title</a></h4>
+            <p>Area: @ViewBag.active.CleanupEvent.DescriptionOfArea</p>
+            <p>Description: @ViewBag.active.CleanupEvent.DescriptionOfTrash</p>
+            <p>Adress: @ViewBag.active.CleanupEvent.Address</p>
+            <p>Value: @ViewBag.active.CleanupEvent.Value</p>
         </div>
         }
         else{
@@ -42,9 +44,15 @@
         }
         <h2>Created: </h2>
         @if(@ViewBag.active.CreatedCleanups.Count > 0){
-        <div>
-            <p>@ViewBag.active.CreatedCleanups.Count</p>
-        </div>
+            @foreach(var each in @ViewBag.active.CreatedCleanups){
+                <div>
+                    <h1><a href="/cleanup/@each.CleanupId">@each.Title</a></h1>
+                    <p>Area: @each.DescriptionOfArea</p>
+                    <p>Description: @each.DescriptionOfTrash</p>
+                    <p>Adress: @each.Address</p>
+                    <p>Value: @each.Value</p>
+                </div>
+            }
         }
         else{
             <p>None</p>
