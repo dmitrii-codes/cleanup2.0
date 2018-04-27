@@ -382,12 +382,12 @@ namespace Cleanup
         public IActionResult viewprofile(int id){
             int? activeuser = HttpContext.Session.GetInt32("activeUser");
             if(activeuser != null){
-                List<User> active = _context.users.Where(u => u.UserId == id).Include(c => c.CleanupEvent).Include(cr => cr.CreatedCleanups).ToList();;
-                if(active.Count < 1){
+                List<User> profile = _context.users.Where(u => u.UserId == id).Include(c => c.CleanupEvent).Include(cr => cr.CreatedCleanups).ToList();;
+                if(profile.Count < 1){
                     return RedirectToAction("Index", "User");
                 }
-                ViewBag.active = active[0];
-                if(active[0].UserId == activeuser){
+                ViewBag.profile = profile[0];
+                if(profile[0].UserId == activeuser){
                     ViewBag.edit = true; 
                 }
                 else{
