@@ -26,17 +26,19 @@
                 </a>
             </li>
             <li>
-            <div id="msg-btn">
-                <img class="open-msg icon" src="/images/message.png" alt="messages">
-                <div class="msg-window hide-display">
-                    <button id="close-msg">close</button>
-                    <div class="msg-users"></div>
-                    @foreach(var each in ViewBag.msgUsers){
-                        <a href="/sendprivatemessage/@each.UserId">@each.FirstName</a>
-                    } 
+            @if(@ViewBag.profile.UserId == @ViewBag.active.UserId){
+                <div id="msg-btn">
+                    <img class="open-msg icon" src="/images/message.png" alt="messages">
+                    <div class="msg-window hide-display">
+                        <button id="close-msg">close</button>
+                        <div class="msg-users"></div>
+                        @foreach(var each in @ViewBag.msgUsers){
+                            <a href="/sendprivatemessage/@each.UserId">@each.FirstName</a>
+                        } 
                     </div>
                 </div>
-            <span id="pend-messages" class="display-message">@ViewBag.unread</span>
+                <span id="pend-messages" class="display-message">@ViewBag.unread</span>
+            }
             </li>
             <li>
                 <a href="/leaderboard" class="score">@ViewBag.active.Score</a>
@@ -57,7 +59,7 @@
         </a>
         } else{
         <a href="/sendprivatemessage/@ViewBag.profile.UserId">
-            <button>Message</button>
+            <button class="btn btn-primary">Message</button>
         </a>
         <!-- add proper message route -->
         }
@@ -65,7 +67,7 @@
     <div class="profile-details">
         <h3><strong>Score:</strong> @ViewBag.profile.Score</h3>
         <h3><strong>Tokens:</strong> @ViewBag.profile.Token</h3>
-        <button id="attending-btn">Events Attending</button><button id="created-btn">Events Created</button>
+        <button id="attending-btn" class="btn btn-success toggle-btn selected-btn">Events Attending</button><button class="btn btn-success toggle-btn" id="created-btn">Events Created</button>
         <div id="attending-div">
             <h3><strong>Attending:</strong> </h3>
             @if(@ViewBag.profile.CleanupEvent != null){
@@ -91,6 +93,7 @@
                         <p>Adress: @each.Address</p>
                         <p>Value: @each.Value</p>
                     </div>
+                    <hr class="hr-break">
                 }
             }
             else{

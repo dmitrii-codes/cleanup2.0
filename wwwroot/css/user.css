@@ -154,3 +154,13 @@ h1 {
     
 }
 
+.toggle-btn{
+    font-size:18px;
+    margin: 20px 5px 10px 5px
+}
+.selected-btn{
+    background-color: rgb(21, 121, 21); 
+}
+.hr-break{
+    border-color:rgb(92, 91, 91);
+}
