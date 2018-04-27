@@ -48,7 +48,7 @@
                     <p>Creator:&nbsp<a href="/profile/@ViewBag.markers[i].UserId">@ViewBag.markers[i].User.FirstName @ViewBag.markers[i].User.LastName</a></p>
                     <p style="display: inline-block">Attendees: @ViewBag.markers[i].CleaningUsers.Count/@ViewBag.markers[i].MaxCleaners</p>&nbsp;
                     @if(ViewBag.markers[i].CleaningUsers.Count < ViewBag.markers[i].MaxCleaners){
-                        <a href="/join_event/@ViewBag.markers[i].CleanupId">Sign up</a>
+                        <a href="/join/@ViewBag.markers[i].CleanupId">Sign up</a>
                     }
                     <br>
                     <a href="/mboard/@ViewBag.markers[i].CleanupId">Message Board</a>

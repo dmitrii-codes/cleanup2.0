@@ -203,10 +203,9 @@ namespace Cleanup
                 List<CleanupEvent> possibleCleanup = _context.cleanups.Where( c => c.CleanupId == id).Include( c => c.CleaningUsers ).ToList();
                 if(possibleCleanup.Count == 1 && activeUser.UserLevel == 9) //Confirm that event exists and that user is admin
                 {
-                    int scoreEarned = (possibleCleanup[0].Value/possibleCleanup[0].CleaningUsers.Count);
                     foreach(User cleaninguser in possibleCleanup[0].CleaningUsers)
                     {
-                        cleaninguser.Score = scoreEarned;
+                        cleaninguser.Score += possibleCleanup[0].Value;
                         cleaninguser.Token += 1;
                         return RedirectToAction("DeleteCleanup", new { id = possibleCleanup[0].CleanupId});
                     }
@@ -221,9 +220,19 @@ namespace Cleanup
             int? activeId = HttpContext.Session.GetInt32("activeUser");
             if(activeId != null) //Checked to make sure user is actually logged in
             {
-                List<CleanupEvent> possibleCleanup = _context.cleanups.Where( c => c.CleanupId == id).Include( c => c.Images ).ToList();
+                List<CleanupEvent> possibleCleanup = _context.cleanups.Where( c => c.CleanupId == id).Include( c => c.CleaningUsers ).Include( c => c.Images ).ToList();
                 if(possibleCleanup.Count == 1)
                 {
+                    bool ActiveUserAttending = false;
+                    foreach(var user in possibleCleanup[0].CleaningUsers)
+                    {
+                        if ((int)activeId == user.UserId)
+                        {
+                            ActiveUserAttending = true;
+                            break;
+                        }
+                    }
+                    ViewBag.Attending = ActiveUserAttending;
                     ViewBag.Cleanup = possibleCleanup[0];
                     return View();
                 }
@@ -399,6 +408,24 @@ namespace Cleanup
         [Route("logout")]
         public IActionResult logout(){
             HttpContext.Session.Clear();
+            return RedirectToAction("Index", "User");
+        }
+        [HttpGet]
+        [Route("join/{id}")]
+        public IActionResult Join(int id)
+        {
+            int? activeuser = HttpContext.Session.GetInt32("activeUser");
+            if(activeuser != null)
+            {
+                List<CleanupEvent> possibleCleanup = _context.cleanups.Where( c => c.CleanupId == id).Include( c => c.CleaningUsers ).ToList();
+                if(possibleCleanup.Count == 1 && possibleCleanup[0].CleaningUsers.Count < possibleCleanup[0].MaxCleaners)
+                {
+                    User joiningUser = _context.users.Single( u => u.UserId == (int)activeuser);
+                    joiningUser.CleanupEventId = possibleCleanup[0].CleanupId;
+                    _context.SaveChanges();
+                    return RedirectToAction("ViewCleanup", new { id = possibleCleanup[0].CleanupId });
+                }
+            }
             return RedirectToAction("Index", "User");
         }
 
