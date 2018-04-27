@@ -1,9 +1,5 @@
 $(document).ready(function(){
     var remainingTokens = document.getElementById("remainingTokens").innerHTML;
-    if (remainingTokens <= 0)
-    {
-        alert("Insufficient tokens to report trash, go and help out more!");
-    }
     $('#newcleanup').submit(function(event) {
         event.preventDefault();
         if (remainingTokens <= 0)

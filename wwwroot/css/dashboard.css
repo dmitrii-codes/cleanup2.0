@@ -160,4 +160,8 @@ ul.nav-link li {
     right: 92px;
     color: white;
 }
+.LiveMsg{
+    padding: 5px; 
+    background-color: aqua; 
+}
 

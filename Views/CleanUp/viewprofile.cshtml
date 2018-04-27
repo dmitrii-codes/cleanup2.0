@@ -2,7 +2,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="~/js/inbox.js"></script>
-    <script src="~/js/worldchat.js"></script>
+    <script src="~/js/leaderboard_profile.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 
 <nav>
@@ -65,33 +65,38 @@
     <div class="profile-details">
         <h3><strong>Score:</strong> @ViewBag.profile.Score</h3>
         <h3><strong>Tokens:</strong> @ViewBag.profile.Token</h3>
-        <h3><strong>Attending:</strong> </h3>
-        @if(@ViewBag.profile.CleanupEvent != null){
-        <div>
-            <h4><a href="/cleanup/@ViewBag.profile.CleanupEvent.CleanupId">@ViewBag.profile.CleanupEvent.Title</a></h4>
-            <p>Area: @ViewBag.profile.CleanupEvent.DescriptionOfArea</p>
-            <p>Description: @ViewBag.profile.CleanupEvent.DescriptionOfTrash</p>
-            <p>Adress: @ViewBag.profile.CleanupEvent.Address</p>
-            <p>Value: @ViewBag.profile.CleanupEvent.Value</p>
-        </div>
-        } else{
-        <p>None</p>
-        }
-        <h3><strong>Created:</strong> </h3>
-        @if(@ViewBag.profile.CreatedCleanups.Count > 0){
-            @foreach(var each in @ViewBag.profile.CreatedCleanups){
-                <div>
-                    <h1><a href="/cleanup/@each.CleanupId">@each.Title</a></h1>
-                    <p>Area: @each.DescriptionOfArea</p>
-                    <p>Description: @each.DescriptionOfTrash</p>
-                    <p>Adress: @each.Address</p>
-                    <p>Value: @each.Value</p>
-                </div>
-            }
-        }
-        else{
+        <button id="attending-btn">Events Attending</button><button id="created-btn">Events Created</button>
+        <div id="attending-div">
+            <h3><strong>Attending:</strong> </h3>
+            @if(@ViewBag.profile.CleanupEvent != null){
+            <div>
+                <h4><a href="/cleanup/@ViewBag.profile.CleanupEvent.CleanupId">@ViewBag.profile.CleanupEvent.Title</a></h4>
+                <p>Area: @ViewBag.profile.CleanupEvent.DescriptionOfArea</p>
+                <p>Description: @ViewBag.profile.CleanupEvent.DescriptionOfTrash</p>
+                <p>Adress: @ViewBag.profile.CleanupEvent.Address</p>
+                <p>Value: @ViewBag.profile.CleanupEvent.Value</p>
+            </div>
+            } else{
             <p>None</p>
-        }
+            }
+        </div>
+        <div id="created-div" class="hide-display">
+            <h3><strong>Created:</strong> </h3>
+            @if(@ViewBag.profile.CreatedCleanups.Count > 0){
+                @foreach(var each in @ViewBag.profile.CreatedCleanups){
+                    <div>
+                        <h1><a href="/cleanup/@each.CleanupId">@each.Title</a></h1>
+                        <p>Area: @each.DescriptionOfArea</p>
+                        <p>Description: @each.DescriptionOfTrash</p>
+                        <p>Adress: @each.Address</p>
+                        <p>Value: @each.Value</p>
+                    </div>
+                }
+            }
+            else{
+                <p>None</p>
+            }
+        </div>
     </div>
 </div>
 <div class="footer">

@@ -85,7 +85,7 @@
     <div class="chat-window displayChat">
         <div class="messages">
             @foreach(var each in @ViewBag.liveMsg){
-            <p>@each.Messages</p>
+            <div class='LiveMsg'><p>@each.Messages</p></div>
             }
         </div>
         <form id="send-form" action="#" onsubmit="return false">
