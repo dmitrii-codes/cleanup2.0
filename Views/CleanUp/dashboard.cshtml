@@ -3,6 +3,7 @@
     <link rel="stylesheet" href="~/css/map.css">
     <script src="/lib/signalr/signalr.js"></script>
     <script src="~/js/worldchat.js"></script>
+    <script src="~/js/inbox.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 </head>
@@ -11,9 +12,21 @@
     <span><a href=""><img class="rounded-circle" id="profilepic" src="@ViewBag.active.ProfilePic" alt=""></a></span>
     <span id="username">@ViewBag.active.FirstName</span>
        
-        <ul class="nav-link">
+            <ul class="nav-link">
             <li><a href="logout"><img class="icon" src="/images/logout.png" alt="logout"></a></li>
-            <li><a href="#"><img class="icon" src="/images/message.png" alt="message"></a></li>
+            <li><div id="msg-btn">
+                <img class="open-msg icon" src="/images/message.png" alt="messages">
+                <div class="msg-window displayMsg">
+                    <div class="msg-users"></div>
+                    @foreach(var each in ViewBag.msgUsers){
+                        <a href="/sendprivatemessage/@each.UserId">@each.FirstName</a>
+                    } 
+                    </div>
+                </div>
+            </div>
+            @ViewBag.unread
+            </li>
+
             <li><a href="#" class="score">155</a></li>
         </ul>
        

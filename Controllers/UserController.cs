@@ -168,7 +168,7 @@ namespace Cleanup
             if(activeId != null) //Checked to make sure user is actually logged in
                 {
                     ViewBag.recipient = _context.users.Where(u => u.UserId == id).Single();
-                    var messages = _context.privatemessages.Where(m => m.SenderId == activeId && m.RecipientId == id).OrderBy(m => m.CreatedAt).Include(m => m.Sender).Include(m => m.Recipient).ToList();
+                    var messages = _context.privatemessages.Where(m => (m.SenderId == activeId && m.RecipientId == id) || (m.SenderId == id && m.RecipientId == activeId)).OrderBy(m => m.CreatedAt).Include(m => m.Sender).Include(m => m.Recipient).ToList();
                     var unread = messages.Where(m => m.RecipientId == activeId && m.ReadStatus == false).ToList();
                     foreach(var msg in unread){
                         msg.ReadStatus = true;

@@ -46,8 +46,26 @@ namespace Cleanup
                 ViewBag.markers = events;
                 ViewBag.Latitude = HttpContext.Session.GetString("latitude");
                 ViewBag.Longitude = HttpContext.Session.GetString("longitude");
-                User active = _context.users.Single(u => u.UserId == activeId);
-                ViewBag.active = active; 
+                var active = _context.users.Where(u => u.UserId == activeId)
+                    .Include(u => u.SentToUser)
+                        .ThenInclude(m => m.Recipient)
+                    .Include(u => u.Received)
+                        .ThenInclude(m => m.Sender)
+                    .ToList();
+                ViewBag.active = active[0]; 
+                //messages logic
+                ViewBag.unread = _context.privatemessages.Where(m => m.RecipientId == activeId && m.ReadStatus == false).ToList().Count;
+                var inboxMsg = active[0].SentToUser.Concat(active[0].Received);
+                List<User> msgUsers = new List<User>();
+                foreach(var each in inboxMsg){
+                    if (each.RecipientId == activeId){
+                        msgUsers.Add(each.Sender);
+                    }
+                    else{
+                        msgUsers.Add(each.Recipient);
+                    }
+                }
+                ViewBag.msgUsers = msgUsers.Distinct().ToList().OrderByDescending(u => u.SentToUser.Concat(u.Received).OrderByDescending(m => m.CreatedAt).First().CreatedAt);
                 return View("Dashboard");
             }
             return RedirectToAction("Index", "User");
@@ -113,7 +131,7 @@ namespace Cleanup
                         _context.Add(newCleanup);
                         activeUser.Token-=1;
                         _context.SaveChanges();
-                        CleanupEvent freshCleanup = _context.cleanups.OrderBy( c => c.CreatedAt ).Reverse().First();
+                        CleanupEvent freshCleanup = _context.cleanups.OrderByDescending( c => c.CreatedAt ).First();
                         return RedirectToAction("AddPhoto", new { id = freshCleanup.CleanupId});
                     }
                 }
