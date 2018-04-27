@@ -382,18 +382,34 @@ namespace Cleanup
         public IActionResult viewprofile(int id){
             int? activeuser = HttpContext.Session.GetInt32("activeUser");
             if(activeuser != null){
-                List<User> active = _context.users.Where(u => u.UserId == id).Include(c => c.CleanupEvent).Include(cr => cr.CreatedCleanups).ToList();;
+                List<User> active = _context.users.Where(u => u.UserId == id).Include(c => c.CleanupEvent).Include(cr => cr.CreatedCleanups)
+                    .Include(u => u.SentToUser)
+                        .ThenInclude(m => m.Recipient)
+                    .Include(u => u.Received)
+                        .ThenInclude(m => m.Sender)
+                    .ToList();
                 if(active.Count < 1){
                     return RedirectToAction("Index", "User");
                 }
                 ViewBag.active = active[0];
                 if(active[0].UserId == activeuser){
                     ViewBag.edit = true; 
+                    ViewBag.unread = _context.privatemessages.Where(m => m.RecipientId == id && m.ReadStatus == false).ToList().Count;
+                    var inboxMsg = active[0].SentToUser.Concat(active[0].Received);
+                    List<User> msgUsers = new List<User>();
+                    foreach(var each in inboxMsg){
+                    if (each.RecipientId == active[0].UserId){
+                        msgUsers.Add(each.Sender);
+                    }
+                    else{
+                        msgUsers.Add(each.Recipient);
+                    }
+                }
+                ViewBag.msgUsers = msgUsers.Distinct().ToList().OrderByDescending(u => u.SentToUser.Concat(u.Received).OrderByDescending(m => m.CreatedAt).First().CreatedAt);
                 }
                 else{
                     ViewBag.edit = false; 
                 }
-                ViewBag.unread = _context.privatemessages.Where(m => m.RecipientId == id && m.ReadStatus == false).ToList().Count;
                 return View();
             }
             return RedirectToAction("Index", "User");
