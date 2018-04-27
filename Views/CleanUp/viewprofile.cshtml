@@ -8,11 +8,11 @@
 <nav>
     <div class="userData">
         <span>
-            <a href="/profile/@ViewBag.active.UserId">
-                <img class="rounded-circle" id="profilepic" src="@ViewBag.active.ProfilePic" alt="">
+            <a href="/profile/@ViewBag.profile.UserId">
+                <img class="rounded-circle" id="profilepic" src="@ViewBag.profile.ProfilePic" alt="">
             </a>
         </span>
-        <span id="username">@ViewBag.active.FirstName</span>
+        <span id="username">@ViewBag.profile.FirstName</span>
 
         <ul class="nav-link">
             <li>
@@ -47,38 +47,38 @@
 <div class="user-data">
 
     <div class="profile-main">
-        <img class="profile-pic" src="@ViewBag.active.ProfilePic" alt="">
-        <h3 style="margin-left: 10px;" class="editInfo">@ViewBag.active.FirstName @ViewBag.active.LastName</h3>
-        <h3 class="username"><strong>@ViewBag.active.UserName</strong></h3>
+        <img class="profile-pic" src="@ViewBag.profile.ProfilePic" alt="">
+        <h3 style="margin-left: 10px;" class="editInfo">@ViewBag.profile.FirstName @ViewBag.profile.LastName</h3>
+        <h3 class="username"><strong>@ViewBag.profile.UserName</strong></h3>
         @if(ViewBag.edit == true){
-        <a href="/update/user/@ViewBag.active.UserId">
+        <a href="/update/user/@ViewBag.profile.UserId">
             <button class="edit-btn">Edit</button>
         </a>
         } else{
-        <a href="/message">
+        <a href="/sendprivatemessage/@ViewBag.profile.UserId">
             <button>Message</button>
         </a>
         <!-- add proper message route -->
         }
     </div>
     <div class="profile-details">
-        <h3><strong>Score:</strong> @ViewBag.active.Score</h3>
-        <h3><strong>Tokens:</strong> @ViewBag.active.Token</h3>
+        <h3><strong>Score:</strong> @ViewBag.profile.Score</h3>
+        <h3><strong>Tokens:</strong> @ViewBag.profile.Token</h3>
         <h3><strong>Attending:</strong> </h3>
-        @if(@ViewBag.active.CleanupEvent != null){
+        @if(@ViewBag.profile.CleanupEvent != null){
         <div>
-            <h4><a href="/cleanup/@ViewBag.active.CleanupEvent.CleanupId">@ViewBag.active.CleanupEvent.Title</a></h4>
-            <p>Area: @ViewBag.active.CleanupEvent.DescriptionOfArea</p>
-            <p>Description: @ViewBag.active.CleanupEvent.DescriptionOfTrash</p>
-            <p>Adress: @ViewBag.active.CleanupEvent.Address</p>
-            <p>Value: @ViewBag.active.CleanupEvent.Value</p>
+            <h4><a href="/cleanup/@ViewBag.profile.CleanupEvent.CleanupId">@ViewBag.profile.CleanupEvent.Title</a></h4>
+            <p>Area: @ViewBag.profile.CleanupEvent.DescriptionOfArea</p>
+            <p>Description: @ViewBag.profile.CleanupEvent.DescriptionOfTrash</p>
+            <p>Adress: @ViewBag.profile.CleanupEvent.Address</p>
+            <p>Value: @ViewBag.profile.CleanupEvent.Value</p>
         </div>
         } else{
         <p>None</p>
         }
         <h3><strong>Created:</strong> </h3>
-        @if(@ViewBag.active.CreatedCleanups.Count > 0){
-            @foreach(var each in @ViewBag.active.CreatedCleanups){
+        @if(@ViewBag.profile.CreatedCleanups.Count > 0){
+            @foreach(var each in @ViewBag.profile.CreatedCleanups){
                 <div>
                     <h1><a href="/cleanup/@each.CleanupId">@each.Title</a></h1>
                     <p>Area: @each.DescriptionOfArea</p>

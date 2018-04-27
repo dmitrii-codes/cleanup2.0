@@ -2,15 +2,14 @@ $(document).ready(function(){
     $(".open-chat").click(function(){
         $(".chat-window").removeClass("displayChat");
         $(".open-chat").addClass("displayChat");
+        $(".messages").scrollTop($(".messages")[0].scrollHeight);
         //when a new connection is made, this will send a new message to hub with the connected user
-        connection.start()
-            .then(() => connection.send("send", User + " connected"));
+        connection.start();
     });
     $("#message-close").click(function(){
         $(".open-chat").removeClass("displayChat");
         $(".chat-window").addClass("displayChat");
-        connection.send("send", User + " disconnected")
-            .then(() => connection.stop());
+        connection.stop();
     });
     //when the send button is clicked, run this function to send the message to the hub conection
     $(".send-btn").click(function(){

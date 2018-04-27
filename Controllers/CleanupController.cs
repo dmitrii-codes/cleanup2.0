@@ -384,17 +384,17 @@ namespace Cleanup
         public IActionResult viewprofile(int id){
             int? activeuser = HttpContext.Session.GetInt32("activeUser");
             if(activeuser != null){
-                List<User> active = _context.users.Where(u => u.UserId == id).Include(c => c.CleanupEvent).Include(cr => cr.CreatedCleanups)
+                    List<User> profile = _context.users.Where(u => u.UserId == id).Include(c => c.CleanupEvent).Include(cr => cr.CreatedCleanups)
                     .Include(u => u.SentToUser)
                         .ThenInclude(m => m.Recipient)
                     .Include(u => u.Received)
                         .ThenInclude(m => m.Sender)
                     .ToList();
-                if(active.Count < 1){
+                if(profile.Count < 1){
                     return RedirectToAction("Index", "User");
                 }
-                ViewBag.active = active[0];
-                if(active[0].UserId == activeuser){
+                ViewBag.profile = profile[0];
+                if(profile[0].UserId == activeuser){
                     ViewBag.edit = true; 
                     ViewBag.unread = _context.privatemessages.Where(m => m.RecipientId == id && m.ReadStatus == false).ToList().Count;
                     var inboxMsg = active[0].SentToUser.Concat(active[0].Received);

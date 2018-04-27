@@ -26,7 +26,7 @@ namespace Cleanup.Hubs
             }; 
             _context.Add(newmsg);
             _context.SaveChanges();
-            List<Live> allmsgs = _context.livemessages.OrderBy(m => m.CreatedAt).ToList();
+            List<Live> allmsgs = _context.livemessages.OrderByDescending(m => m.CreatedAt).ToList();
             if(allmsgs.Count > 20){
                 _context.livemessages.Remove(allmsgs.Last());
                 _context.SaveChanges();

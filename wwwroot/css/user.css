@@ -140,3 +140,8 @@ h1 {
     color: white;
 }
 
+.hide-display{
+    display: none; 
+}
+
+

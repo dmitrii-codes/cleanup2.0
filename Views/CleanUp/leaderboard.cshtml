@@ -3,6 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <script src="~/js/leaderboard.js"></script>
 </head>
 <nav>
     <div class="userData">
@@ -34,25 +35,33 @@
 <div class="user-data">
 <h1>Top 3 Scores: </h1>
 <div>
-    @for(int i = 0; i < @ViewBag.scorecount; i++){
+    <button id="scorer-btn">Top Scorers</button><button id="token-btn">Most Tokens</button>
+    <div class="scores-leaders">
+        <h1>Top 3 Scores: </h1>
         <div>
-            <a href="/profile/@ViewBag.score[i].UserId"><img class="profile-pic" src="@ViewBag.score[i].ProfilePic" alt=""></a>
-            <h3>@ViewBag.score[i].FirstName @ViewBag.score[i].LastName</h3>
-            <h3>@ViewBag.score[i].UserName</h3>
-            <h3>Score: @ViewBag.score[i].Score</h3>
+            @for(int i = 0; i < @ViewBag.scorecount; i++){
+                <div>
+                    <a href="/profile/@ViewBag.score[i].UserId"><img class="profile-pic" src="@ViewBag.score[i].ProfilePic" alt=""></a>
+                    <h3>@ViewBag.score[i].FirstName @ViewBag.score[i].LastName</h3>
+                    <h3>@ViewBag.score[i].UserName</h3>
+                    <h3>Score: @ViewBag.score[i].Score</h3>
+                </div>
+            }
         </div>
-    }
-</div>
-<h1>Top 3 Tokens</h1>
-<div>
-    @for(int j = 0; j < @ViewBag.tokencount; j++){
+    </div>
+    <div class="token-leaders hide-display">
+        <h1>Top 3 Tokens</h1>
         <div>
-            <a href="/profile/@ViewBag.tokens[j].UserId"><img class="profile-pic" src="@ViewBag.tokens[j].ProfilePic" alt=""></a>
-            <h3>@ViewBag.tokens[j].FirstName @ViewBag.tokens[j].LastName</h3>
-            <h3>@ViewBag.tokens[j].UserName</h3>
-            <h3>Tokens: @ViewBag.tokens[j].Token</h3>
+            @for(int j = 0; j < @ViewBag.tokencount; j++){
+                <div>
+                    <a href="/profile/@ViewBag.tokens[j].UserId"><img class="profile-pic" src="@ViewBag.tokens[j].ProfilePic" alt=""></a>
+                    <h3>@ViewBag.tokens[j].FirstName @ViewBag.tokens[j].LastName</h3>
+                    <h3>@ViewBag.tokens[j].UserName</h3>
+                    <h3>Tokens: @ViewBag.tokens[j].Token</h3>
+                </div>
+            }
         </div>
-    }
+    </div>
 </div>
 </div>
 <div class="footer"></div>

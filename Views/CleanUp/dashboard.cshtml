@@ -88,11 +88,11 @@
             <p>@each.Messages</p>
             }
         </div>
-        <form id="send-form" action="#">
-            <table>
-                <tr>
-                    <td>
-                        <input class="form-control form-control-sm" type="text" id="message-textbox" />
+        <form id="send-form" action="#" onsubmit="return false">
+                <table>
+                    <tr>  
+                        <td>
+                        <input class="form-control form-control-sm" type="text" id="message-textbox"/>
                         <button id="message-send" class="send-btn btn btn-success" type="submit">Send</button>
                         <img id="message-close" src="/images/close.png" alt="close chat">
                     </td>
