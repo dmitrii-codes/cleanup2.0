@@ -14,14 +14,16 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach(var event in ViewBag.allCleanups)
+                @foreach(var cleanup in @ViewBag.allCleanups)
                 {
                     <tr>
-                        <td><a href="/admin/cleanup/@event.CleanupId">@event.Title</a></td>
-                        <td>@event.DescriptionOfTrash</td>
-                        <td>@event.User.Username</td>
-                        <td>@event.Images[0].FileName</td>
-                        <td>@event.UpdatedAt</td>
+                        <td><a href="/admin/cleanup/@cleanup.CleanupId">@cleanup.Title</a></td>
+                        <td>@cleanup.DescriptionOfTrash</td>
+                        <td>@cleanup.User.UserName</td>
+                        @if(@cleanup.Images.Count > 0){
+                            <td> <img src="@cleanup.Images[0].FileName" alt=""> </td>
+                        }
+                        <td>@cleanup.UpdatedAt</td>
                     </tr>
                 }
             </tbody>
