@@ -1,10 +1,10 @@
 $(document).ready(function(){
     $(".open-msg").click(function(){
-        $(".msg-window").removeClass("displayMsg");
-        $(".open-msg").addClass("displayMsg");
+        $(".msg-window").removeClass("hide-display");
+        $(".open-msg").addClass("hide-display");
     });
     $("#close-msg").click(function(){
-        $(".open-msg").removeClass("displayChat");
-        $(".msg-window").addClass("displayChat");
+        $(".open-msg").removeClass("hide-display");
+        $(".msg-window").addClass("hide-display");
     });
 });
