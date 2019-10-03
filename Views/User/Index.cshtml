@@ -4,39 +4,38 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="~/css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-    <title>Document</title>
 </head>
 <body>
-
-    @if(ViewBag.reg == null && ViewBag.log == null){
-    <div>
-    <div class="logo-wrap">
-    <img class="logo" src="/images/logo_shadow.png" alt="cleanup logo">
-    </div>
-    <div class="rotate">
-    <image class="rotating" src="/images/recycle.png" alt="rotate"></image>
-    </div>
-    <div class="welcome">
-    <h2>Welcome to <strong>CleanUp</strong>!</h2>
-    <i>Your way to a cleaner community.</i>
-    </div>
-    <div class="sign-btn">
-    <a style="width: 14em; margin: 0.3em;" href="signup" class="btn btn-success">Sign Up</a>
-    <a style="width: 14em; margin: 0.3em;" href="signin" class="btn btn-success">Sign In</a>
-    </div>
-    </div>
-
-}
-else if (ViewBag.log == null){
-    <div id="reg-form">
-    @Html.Partial("RegistrationPartial")
-    </div>
-}
-else{
-    <div id="log-form">
-    @Html.Partial("LoginPartial")
-    </div>
-}
-
+    @if(ViewBag.reg == null && ViewBag.log == null)
+    {
+        <div>
+            <div class="logo-wrap">
+                <img class="logo" src="/images/logo_shadow.png" alt="cleanup logo">
+            </div>
+            <div class="rotate">
+                <img class="rotating" src="/images/recycle.png" alt="rotate">
+            </div>
+            <div class="welcome">
+                <h2>Welcome to <strong>CleanUp</strong>!</h2>
+                <i>Your way to a cleaner community.</i>
+            </div>
+            <div class="sign-btn">
+                <a style="width: 14em; margin: 0.3em;" href="signup" class="btn btn-success">Sign Up</a>
+                <a style="width: 14em; margin: 0.3em;" href="signin" class="btn btn-success">Sign In</a>
+            </div>
+        </div>
+    }
+    else if (ViewBag.log == null)
+    {
+        <div id="reg-form">
+            @Html.Partial("RegistrationPartial")
+        </div>
+    }
+    else
+    {
+        <div id="log-form">
+            @Html.Partial("LoginPartial")
+        </div>
+    }
 </body>
 </html>

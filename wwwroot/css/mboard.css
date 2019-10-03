@@ -1,22 +1,22 @@
-*{
+* {
     padding: 0px;
     margin: 0px;
 }
-header{
+header {
     position: absolute;
     height: 10%;
     width: 100%;
     padding: 15px;
     background-color: rgb(10, 200, 40);
 }
-header h2{
+header h2 {
     display: inline-block;
     margin-right: 60%;
 }
-header a{
+header a {
     font-size: 20px;
 }
-#board{
+#board {
     position: absolute;
     height: 80%;
     width: 100%;
@@ -24,7 +24,7 @@ header a{
     padding: 20px;
     overflow-y: auto;
 }
-footer{
+footer {
     position: absolute;
     height: 10%;
     width: 100%;
@@ -32,14 +32,14 @@ footer{
     padding: 20px;
     background-color: rgb(10, 200, 40);
 }
-fieldset{
+fieldset {
     border: 1px black solid;
 }
-.post img, .post p{
+.post img, .post p {
     margin: 5px;
     display: inline-block;
 }
-legend{
+legend {
     font-size: 15px;
     margin-bottom: 3px;
 }
@@ -96,7 +96,6 @@ ul.nav-link li {
     text-decoration: none;
     font-weight: 600;
     color: #6d6d6d;
-    
 }
 #chat-data {
     line-height: 1.5px;

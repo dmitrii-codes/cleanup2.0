@@ -6,78 +6,81 @@
     <link rel="stylesheet" href="~/css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
     <script src="~/js/location.js"></script>
-    
-    <title>Document</title>
 </head>
 <div>
     <div class="logo-wrap">
-    <img class="logo" src="/images/logo_shadow.png" alt="cleanup logo">
+        <img class="logo" src="/images/logo_shadow.png" alt="cleanup logo">
     </div>
     <div class="rotate">
-    <image class="rotating" src="/images/recycle.png" alt="rotate"></image>
+        <img class="rotating" src="/images/recycle.png" alt="rotate">
     </div>
-<h1>Registration</h1>
-<div>
-                <span class="block" asp-validation-for="FirstName"></span>
-                <span class="block" asp-validation-for="LastName"></span>
-                <span class="block" asp-validation-for="UserName"></span>
-                <span class="block" asp-validation-for="Email"></span>
-                <span class="block" asp-validation-for="ProfilePic"></span>
-                <span class="block" asp-validation-for="Password"></span>
-                <span class="block" asp-validation-for="PasswordConfirmation"></span>
+    <h1>Registration</h1>
+    <div>
+        <span class="block" asp-validation-for="FirstName"></span>
+        <span class="block" asp-validation-for="LastName"></span>
+        <span class="block" asp-validation-for="UserName"></span>
+        <span class="block" asp-validation-for="Email"></span>
+        <span class="block" asp-validation-for="ProfilePic"></span>
+        <span class="block" asp-validation-for="Password"></span>
+        <span class="block" asp-validation-for="PasswordConfirmation"></span>
+    </div>
+    <div class="reg-form">
+        <form asp-controller="User" asp-action="Register" method="POST" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td></td>
+                    <td><input  class="form-control" asp-for="FirstName" placeholder="First Name"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input class="form-control" asp-for="LastName" placeholder="Last Name"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input class="form-control" asp-for="UserName" placeholder="User Name"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input class="form-control" asp-for="Email" placeholder="Email"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input class="form-control" type="file" name="ProfilePic" placeholder="Profile Pic"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input class="form-control" type="password" asp-for="Password" placeholder="Password"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input class="form-control" type="password" asp-for="PasswordConfirmation" placeholder="Confirm Password"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><input type="hidden" id="Lat" name="Latitude"></td>
+                    <td><input type="hidden" id="Lng" name="Longitude"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button style="width: 12em; margin: 0.3em;" class="btn btn-success" type="submit" class="btn btn-default">Sign Up</button>
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <p>
+        Already registered?
+        <a href="signin">Sign in</a>
+    </p>
 </div>
-<div class="reg-form">
-    <form asp-controller="User" asp-action="Register" method="POST" enctype="multipart/form-data">
-        <table>
-            <tr>
-                <td></td>
-                <td><input  class="form-control" asp-for="FirstName" placeholder="First Name"></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input class="form-control" asp-for="LastName" placeholder="Last Name"></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input class="form-control" asp-for="UserName" placeholder="User Name"></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input class="form-control" asp-for="Email" placeholder="Email"></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input class="form-control" type="file" name="ProfilePic" placeholder="Profile Pic"></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input class="form-control" type="password" asp-for="Password" placeholder="Password"></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input class="form-control" type="password" asp-for="PasswordConfirmation" placeholder="Confirm Password"></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><input type="hidden" id="Lat" name="Latitude"></td>
-                <td><input type="hidden" id="Lng" name="Longitude"></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><button style="width: 12em; margin: 0.3em;" class="btn btn-success" type="submit" class="btn btn-default">Sign Up</button></td>
-                <td></td>
-            </tr>
-        </table>
-    </form>
-    
-    <p>Already registered? <a href="signin">Sign in</a></p>
-    </div>
 
 
 

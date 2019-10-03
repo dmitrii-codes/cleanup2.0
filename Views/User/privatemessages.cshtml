@@ -1,26 +1,27 @@
 <script src="~/js/mboard.js"></script>
 <link rel="stylesheet" href="~/css/mboard.css">
 
-
 <nav>
     <div class="userData">
-<h5 id="chat-data"><strong>Chat with @ViewBag.recipient.UserName (@ViewBag.recipient.FirstName @ViewBag.recipient.LastName)</strong></h5>
-<a href="/user/@ViewBag.recipient.UserId"><img class="icon" src="/images/logout.png" alt="back"></a>
-<a href="/dashboard"><img class="icon" src="/images/dash.png" alt="dashboard"></a>
-
+        <h5 id="chat-data"><strong>Chat with @ViewBag.recipient.UserName (@ViewBag.recipient.FirstName @ViewBag.recipient.LastName)</strong></h5>
+        <a href="/user/@ViewBag.recipient.UserId"><img class="icon" src="/images/logout.png" alt="back"></a>
+        <a href="/dashboard"><img class="icon" src="/images/dash.png" alt="dashboard"></a>
     </div>
 </nav>
 <div id="board">
-    @foreach(var each in ViewBag.messages){
+    @foreach(var each in ViewBag.messages)
+    {
         <div class="post">
             <fieldset>
-                <legend style="padding: 0.2em 0.3em "><i>@each.Sender.UserName wrote at @each.CreatedAt.ToString("hh:mm tt on MMM dd, yyyy")</i></legend>
-                <img src=@each.Sender.ProfilePic width="50px" height="50px"><p>@each.Content</p>
+                <legend style="padding: 0.2em 0.3em ">
+                    <i>@each.Sender.UserName wrote at @each.CreatedAt.ToString("hh:mm tt on MMM dd, yyyy")</i>
+                </legend>
+                <img src=@each.Sender.ProfilePic width="50px" height="50px">
+                <p>@each.Content</p>
             </fieldset>
         </div>
     }
 </div>
-
 <div class="footer">
     <form action="/postprivatemessage/@ViewBag.recipient.UserId" method="post">
         <textarea id="textarea" class="form-control" name="content" cols="50" rows="2" placeholder="@ViewBag.error"></textarea>
@@ -28,6 +29,5 @@
             <button id="post" type="submit" class="btn btn-success">Post</button>
             <a id="refresh" href="/sendprivatemessage/@ViewBag.recipient.UserId" class="btn btn-warning">Refresh</a>
         </div>
-        
     </form>
 </div>

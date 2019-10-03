@@ -1,7 +1,6 @@
 * {
     font-family: 'Roboto', sans-serif;
 }
-
 body {
     background: url(/images/bkg.png) no-repeat center center fixed;
     -webkit-background-size: cover;
@@ -9,7 +8,6 @@ body {
     -o-background-size: cover;
     background-size: cover;
 }
-
 input {
     text-align: center;
     margin-top: 0.2em;
@@ -18,50 +16,40 @@ input {
     margin: 0 auto;
     width: 87%;
 }
-
 .reg-form,
 .log-form,
 .reg-form,
 h1 {
     text-align: center;
 }
-
 form {
     display: inline-block;
 }
-
 .logo {
     width: 75%;
 }
-
 .logo-wrap {
     text-align: center;
 }
-
 .btn {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-
 .welcome {
     text-align: center;
     margin-bottom: 2em;
 }
-
 .sign-btn {
     text-align: center;
 }
-
 .rotate {
     text-align: center;
 }
-
 .block {
     color: red;
     font-size: 1em;
     text-align: center;
     display: block;
 }
-
 .rotating {
     position: absolute;
     top: 0%;
@@ -80,8 +68,8 @@ form {
       -o-transform: rotate(360deg);
       transform: rotate(360deg);
     }
-  }
-  @keyframes rotating {
+}
+@keyframes rotating {
     from {
       -ms-transform: rotate(0deg);
       -moz-transform: rotate(0deg);
@@ -96,11 +84,11 @@ form {
       -o-transform: rotate(360deg);
       transform: rotate(360deg);
     }
-  }
-  .rotating {
+}
+.rotating {
     -webkit-animation: rotating 25s linear infinite;
     -moz-animation: rotating 25s linear infinite;
     -ms-animation: rotating 25s linear infinite;
     -o-animation: rotating 25s linear infinite;
     animation: rotating 25s linear infinite;
-  }
+}

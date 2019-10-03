@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Cleanup.Models
 {
-    public class PrivateMessage : BaseEntity
+    public class PrivateMessage: BaseEntity
     {
         [Key]
         public int PrivateMessageId { get; set; }

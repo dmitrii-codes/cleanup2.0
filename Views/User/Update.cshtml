@@ -1,7 +1,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="~/css/update.css">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="~/css/update.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 <nav>
     <div class="userData">
@@ -10,89 +10,89 @@
                 <img class="rounded-circle" id="profilepic" src="@ViewBag.user.ProfilePic" alt="">
             </a>
         </span>
-        <span id="username">@ViewBag.user.FirstName</span>
-
+        <span id="username">
+            @ViewBag.user.FirstName
+        </span>
         <ul class="nav-link">
             <li>
                 <a href="logout">
                     <img class="icon" src="/images/logout.png" alt="logout">
                 </a>
             </li>
-             <li>
+            <li>
                 <a href="/dashboard">
                     <img class="icon" src="/images/dash.png" alt="dashboard">
                 </a>
             </li>
-           
             <li>
                 <a href="/leaderboard" class="score">@ViewBag.user.Score</a>
             </li>
         </ul>
     </div>
 </nav>
-    @model Cleanup.Models.UserUpdateViewModel
-    <div id="user-form">
-        <h1><strong>Update</strong></h1>
-        <form asp-controller="User" asp-action="ProcessUpdateUser" asp-route-id="@ViewBag.user.UserId" method="POST">
-            <table>
+@model Cleanup.Models.UserUpdateViewModel
+<div id="user-form">
+    <h1><strong>Update</strong></h1>
+    <form asp-controller="User" asp-action="ProcessUpdateUser" asp-route-id="@ViewBag.user.UserId" method="POST">
+        <table>
+            <tr>
+                <td><label asp-for="FirstName"></label></td>
+                <td><input class="form-control form-control-lg" asp-for="FirstName" value="@ViewBag.user.FirstName"></td>
+                <td><span asp-validation-for="FirstName"></span></td>
+            </tr>
+            <tr>
+                <td><label asp-for="LastName"></label></td>
+                <td><input class="form-control form-control-lg"  asp-for="LastName" value="@ViewBag.user.LastName"></td>
+                <td><span asp-validation-for="LastName"></span></td>
+            </tr>
+            <tr>
+                <td><label asp-for="UserName"></label></td>
+                <td><input class="form-control form-control-lg"  asp-for="UserName" value="@ViewBag.user.UserName"></td>
+                <td><span asp-validation-for="UserName"></span></td>
+                <td><input type="hidden" asp-for="PreviousUserName" value="@ViewBag.user.UserName"></td>
+            </tr>
+            <tr>
+                <td><label asp-for="Email"></label></td>
+                <td><input class="form-control form-control-lg"  asp-for="Email" value="@ViewBag.user.Email"></td>
+                <td><span asp-validation-for="Email"></span></td>
+                <td><input type="hidden" asp-for="PreviousEmail" value="@ViewBag.user.Email"></td>
+            </tr>
+            <!--
+            <tr>
+                <td><label asp-for="ProfilePic"></label></td>
+                <td><input class="form-control form-control-lg"  asp-for="ProfilePic" value="@ViewBag.user.ProfilePic"></td>
+                <td><span asp-validation-for="ProfilePic"></span></td>
+            </tr>
+            <tr>
+                <td><label asp-for="Password"></label></td>
+                <td><input type="password" asp-for="Password" value="@ViewBag.user.Password"></td>
+                <td><span asp-validation-for="Password"></span></td>
+            </tr>
+            -->
+            @if(ViewBag.userLevel == 9)
+            {
                 <tr>
-                    <td><label asp-for="FirstName"></label></td>
-                    <td><input class="form-control form-control-lg" asp-for="FirstName" value="@ViewBag.user.FirstName"></td>
-                    <td><span asp-validation-for="FirstName"></span></td>
+                    <td><label asp-for="Score"></label></td>
+                    <td><input asp-for="Score" value="@ViewBag.user.Score"></td>
+                    <td><span asp-validation-for="Score"></span></td>
                 </tr>
                 <tr>
-                    <td><label asp-for="LastName"></label></td>
-                    <td><input class="form-control form-control-lg"  asp-for="LastName" value="@ViewBag.user.LastName"></td>
-                    <td><span asp-validation-for="LastName"></span></td>
+                    <td><label asp-for="Token"></label></td>
+                    <td><input asp-for="Token" value="@ViewBag.user.Token"></td>
+                    <td><span asp-validation-for="Token"></span></td>
                 </tr>
                 <tr>
-                    <td><label asp-for="UserName"></label></td>
-                    <td><input class="form-control form-control-lg"  asp-for="UserName" value="@ViewBag.user.UserName"></td>
-                    <td><span asp-validation-for="UserName"></span></td>
-                    <td><input type="hidden" asp-for="PreviousUserName" value="@ViewBag.user.UserName"></td>
+                    <td><label asp-for="UserLevel"></label></td>
+                    <td><input asp-for="UserLevel" value="@ViewBag.user.UserLevel"></td>
+                    <td><span asp-validation-for="UserLevel"></span></td>
                 </tr>
-                <tr>
-                    <td><label asp-for="Email"></label></td>
-                    <td><input class="form-control form-control-lg"  asp-for="Email" value="@ViewBag.user.Email"></td>
-                    <td><span asp-validation-for="Email"></span></td>
-                    <td><input type="hidden" asp-for="PreviousEmail" value="@ViewBag.user.Email"></td>
-                </tr>
-                <!-- <tr>
-                    <td><label asp-for="ProfilePic"></label></td>
-                    <td><input class="form-control form-control-lg"  asp-for="ProfilePic" value="@ViewBag.user.ProfilePic"></td>
-                    <td><span asp-validation-for="ProfilePic"></span></td>
-                </tr> -->
-                <!-- <tr>
-                    <td><label asp-for="Password"></label></td>
-                    <td><input type="password" asp-for="Password" value="@ViewBag.user.Password"></td>
-                    <td><span asp-validation-for="Password"></span></td>
-                </tr>
-                -->
-                @if(ViewBag.userLevel == 9)
-                {
-                    <tr>
-                        <td><label asp-for="Score"></label></td>
-                        <td><input asp-for="Score" value="@ViewBag.user.Score"></td>
-                        <td><span asp-validation-for="Score"></span></td>
-                    </tr>
-                    <tr>
-                        <td><label asp-for="Token"></label></td>
-                        <td><input asp-for="Token" value="@ViewBag.user.Token"></td>
-                        <td><span asp-validation-for="Token"></span></td>
-                    </tr>
-                    <tr>
-                        <td><label asp-for="UserLevel"></label></td>
-                        <td><input asp-for="UserLevel" value="@ViewBag.user.UserLevel"></td>
-                        <td><span asp-validation-for="UserLevel"></span></td>
-                    </tr>
-                }
-                <tr>
-                    <td></td>
-                    <td><input style="float: right;" class="update-btn" type="submit" value="Update"></td>
-                    
-                    <td></td>
-                </tr>
-            </table>
-        </form>
-    </div>
+            }
+            <tr>
+                <td></td>
+                <td><input style="float: right;" class="update-btn" type="submit" value="Update"></td>
+                <td></td>
+            </tr>
+        </table>
+    </form>
+</div>
 <div class="footer"></div>

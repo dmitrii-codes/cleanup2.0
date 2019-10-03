@@ -6,7 +6,6 @@ ul.nav-link li {
     padding: 0em .5em;
 
 }
-
 .icon {
     margin-top: 20px;
     width: 30px;
@@ -22,7 +21,6 @@ ul.nav-link li {
     width: 100%;
     height: 10%;
 }
-
 nav {
     position: fixed;
     top: 0;
@@ -45,17 +43,13 @@ nav {
     margin-top: 30px;
     line-height: 1.5px;
     display: inline-block;
-  
-
 }
 .user-data{
     margin-left: 10px;
 }
-
 .img-file {
     width: 80%;
     text-align: center;
-    
 }
 #approve {
     margin: 5px auto;
@@ -64,18 +58,14 @@ nav {
     width: 120px;
     background-color: #6d6d6d;
     border: 1px solid #6d6d6d;
-
 }
 .admin-viewimg {
-   
     width: 60%;
 }
-
 .userData {
     margin-left: 10px;
 }
 #form-data {
-    
     overflow-y: scroll;
     padding-bottom: 75px;
     margin-top: 100px;

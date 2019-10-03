@@ -4,14 +4,12 @@
     width: 100%;
     z-index: -1;
 }
-
 .displayChat {
     display: none;
 }
 .display-message {
     display: inline-block;
 }
-
 .open-chat {
     width: 50%;
 }
@@ -26,7 +24,6 @@
     width: 100%;
     height: 10%;
 }
-
 nav {
     position: fixed;
     top: 0;
@@ -37,31 +34,25 @@ nav {
     background-size: 100%;
     border-bottom: 5px solid #555655;
 }
-
 #capture {
     text-align: center;
     margin: -16px auto;
 }
-
 #camera {
     display: block;
     height: auto;
     margin: 0 auto;
     max-width: 100%;
 }
-
 #chat-btn {
     position: fixed;
     left: 1%;
     bottom: 15%;
 }
-
-#message-textbox,
-#message-send {
+#message-textbox, #message-send {
     display: inline-block;
     vertical-align: top;
 }
-
 #message-textbox {
     display: inline-block;
     vertical-align: top;
@@ -71,12 +62,10 @@ nav {
     width: 60%;
     border-radius: 5px 0px 0px 5px;
 }
-
 #message-send {
     display: inline-block;
     vertical-align: top;
     margin-top: 5px;
-    
     border-radius: 0px 5px 5px 0px;
 }
 #message-close {
@@ -85,9 +74,7 @@ nav {
     width: 11%;
     padding-left: 5px;
     padding-bottom: 5px;
-   
 }
-
 #profilepic {
     position: fixed;
     left: 7px;
@@ -97,7 +84,6 @@ nav {
     border-radius: 50%;
     border: 3px solid #6d6d6d;
 }
-
 #username {
     color: #6d6d6d;
     font-weight: 600;
@@ -128,7 +114,6 @@ ul.nav-link li {
     text-decoration: none;
     font-weight: 600;
     color: #6d6d6d;
-    
 }
 .chat-window {
     border-top: 5px solid #6d6d6d;
@@ -137,21 +122,20 @@ ul.nav-link li {
     position: fixed;
     bottom: 70px;
     left: 0;
-    background-color: white;    
-    
+    background-color: white;
 }
 .messages{
     padding-left: 5px;
     overflow-y: scroll;
-    height: 60%; 
+    height: 60%;
 }
 .msg-users{
     padding-left: 5px;
     overflow-y: scroll;
-    height: 60%; 
+    height: 60%;
     width: 20%;
 }
-.displayMsg {
+.hide-display {
     display: none;
 }
 #pend-messages {
@@ -161,6 +145,22 @@ ul.nav-link li {
     color: white;
 }
 .LiveMsg{
-    margin-left: 10px; 
+    margin-left: 10px;
 }
-
+.msg-user img{
+    width: 30px;
+    height: 30px;
+    border-radius: 20%;
+    margin-right: 10px;
+}
+.msg-users{
+    width: 300px;
+    height: 100%;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    z-index: 1000;
+    border-bottom-left-radius: 10px;
+}

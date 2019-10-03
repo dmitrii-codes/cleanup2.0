@@ -5,7 +5,7 @@ $(document).ready(function() {
     $("#pend-messages").click(function() {
         $(".msg-window").removeClass("hide-display");
     });
-    $(".user-data").click(function() {
+    $("#map").click(function() {
         $(".msg-window").addClass("hide-display");
     });
 });

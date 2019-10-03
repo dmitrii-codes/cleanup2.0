@@ -1,11 +1,10 @@
-
-    <link rel="stylesheet" href="~/css/dashboard.css">
-    <link rel="stylesheet" href="~/css/map.css">
-    <script src="/lib/signalr/signalr.js"></script>
-    <script src="~/js/worldchat.js"></script>
-    <script src="~/js/inbox.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="~/css/dashboard.css">
+<link rel="stylesheet" href="~/css/map.css">
+<script src="/lib/signalr/signalr.js"></script>
+<script src="~/js/worldchat.js"></script>
+<script src="~/js/inboxdash.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
 
 <nav>
     <div class="userData">
@@ -14,8 +13,9 @@
                 <img class="rounded-circle" id="profilepic" src="@ViewBag.active.ProfilePic" alt="">
             </a>
         </span>
-        <span id="username">@ViewBag.active.FirstName</span>
-
+        <span id="username">
+            @ViewBag.active.FirstName
+        </span>
         <ul class="nav-link">
             <li>
                 <a href="logout">
@@ -25,74 +25,89 @@
             <li>
                 <div id="msg-btn">
                     <img class="open-msg icon" src="/images/message.png" alt="messages">
-                    <div class="msg-window displayMsg">
-                        <div class="msg-users"></div>
-                        @foreach(var each in ViewBag.msgUsers){
-                        <a href="/sendprivatemessage/@each.UserId">@each.FirstName</a>
+                    <div class="msg-window hide-display">
+                        <div class="msg-users">
+                        @foreach(var each in ViewBag.msgUsers)
+                        {
+                            <div class="msg-user">
+                                <img class="rounded-circle" src="@each.ProfilePic" alt="">
+                                <a href="/sendprivatemessage/@each.UserId">@each.FirstName @each.LastName</a>
+                            </div>
                         }
+                        </div>
                     </div>
                 </div>
-    <span id="pend-messages" class="display-message">@ViewBag.unread</span>
-    </li>
-    <li>
-        <a href="leaderboard" class="score">@ViewBag.active.Score</a>
-    </li>
-    </ul>
+                <span id="pend-messages">@ViewBag.unread</span>
+            </li>
+            <li>
+                <a href="leaderboard" class="score">@ViewBag.active.Score</a>
+            </li>
+        </ul>
     </div>
 </nav>
 
 <div id="ghostContent" style="display: none">
-    @for(int i = 0; i
-    < ViewBag.markers.Count; i++){ <div id="markerLng_@i">@ViewBag.markers[i].Longitude</div>
-<div id="markerLat_@i">@ViewBag.markers[i].Latitude</div>
-<div id="markerTitle_@i">@ViewBag.markers[i].Title</div>
-<div id="markerContent_@i">
-    <div id="iw-container">
-        <div class="iw-title">
-            <a href="cleanup/@ViewBag.markers[i].CleanupId">@ViewBag.markers[i].Title</a>
+    @for(int i = 0; i < ViewBag.markers.Count; i++)
+    {
+        <div id="markerLng_@i">@ViewBag.markers[i].Longitude</div>
+        <div id="markerLat_@i">@ViewBag.markers[i].Latitude</div>
+        <div id="markerTitle_@i">@ViewBag.markers[i].Title</div>
+        <div id="markerContent_@i">
+            <div id="iw-container">
+                <div class="iw-title">
+                    <a href="cleanup/@ViewBag.markers[i].CleanupId">@ViewBag.markers[i].Title</a>
+                </div>
+                <div class="iw-content">
+                    <div class="iw-subTitle"></div>
+                    @if(@ViewBag.markers[i].Images.Count >0 )
+                    {
+                        <a href="cleanup/@ViewBag.markers[i].CleanupId">
+                            <img src="@ViewBag.markers[i].Images[0].FileName" alt="Porcelain Factory of Vista Alegre" height="115" width="83">
+                        </a>
+                    }
+                    <div class="iw-subTitle">Rewards: @ViewBag.markers[i].Value</div>
+                    <p>@ViewBag.markers[i].Address</p>
+                    <p>Where: @ViewBag.markers[i].DescriptionOfArea</p>
+                    <p>What: @ViewBag.markers[i].DescriptionOfTrash</p>
+                    <p>
+                        Creator:&nbsp;
+                        <a href="/profile/@ViewBag.markers[i].UserId">@ViewBag.markers[i].User.FirstName @ViewBag.markers[i].User.LastName</a>
+                    </p>
+                    <p style="display: inline-block">
+                        Attendees: @ViewBag.markers[i].CleaningUsers.Count/@ViewBag.markers[i].MaxCleaners
+                    </p>&nbsp;
+                    @if(ViewBag.markers[i].CleaningUsers.Count < ViewBag.markers[i].MaxCleaners)
+                    {
+                        <a href="/join/@ViewBag.markers[i].CleanupId">Sign up</a>
+                    }
+                    <br>
+                    <a href="/mboard/@ViewBag.markers[i].CleanupId">Message Board</a>
+                    <br><br>
+                </div>
+                <div class="iw-bottom-gradient"></div>
+            </div>
         </div>
-        <div class="iw-content">
-            <div class="iw-subTitle"></div>
-            @if(@ViewBag.markers[i].Images.Count >0 ) {
-             <a href="cleanup/@ViewBag.markers[i].CleanupId"><img src="@ViewBag.markers[i].Images[0].FileName" alt="Porcelain Factory of Vista Alegre" height="115" width="83"></a>}
-            <div class="iw-subTitle">Rewards: @ViewBag.markers[i].Value</div>
-            <p>@ViewBag.markers[i].Address</p>
-            <p>Where: @ViewBag.markers[i].DescriptionOfArea</p>
-            <p>What: @ViewBag.markers[i].DescriptionOfTrash</p>
-            <p>Creator:&nbsp
-                <a href="/profile/@ViewBag.markers[i].UserId">@ViewBag.markers[i].User.FirstName @ViewBag.markers[i].User.LastName</a>
-            </p>
-            <p style="display: inline-block">Attendees: @ViewBag.markers[i].CleaningUsers.Count/@ViewBag.markers[i].MaxCleaners</p>&nbsp; @if(ViewBag.markers[i].CleaningUsers.Count
-            < ViewBag.markers[i].MaxCleaners){ <a href="/join/@ViewBag.markers[i].CleanupId">Sign up</a>
-                }
-                <br>
-                <a href="/mboard/@ViewBag.markers[i].CleanupId">Message Board</a>
-                <br>
-                <br>
-                
-        </div>
-        <div class="iw-bottom-gradient"></div>
-    </div>
-</div>
-}
-<div id="Latitude">@ViewBag.Latitude</div>
-<div id="Longitude">@ViewBag.Longitude</div>
-<div id="markersCount">@ViewBag.markers.Count</div>
+    }
+    <div id="Latitude">@ViewBag.Latitude</div>
+    <div id="Longitude">@ViewBag.Longitude</div>
+    <div id="markersCount">@ViewBag.markers.Count</div>
 </div>
 <div id="map"></div>
-
 <div id="chat-btn">
     <img class="open-chat" src="/images/chat.png" alt="chat">
     <div class="chat-window displayChat">
         <div class="messages">
-            @foreach(var each in @ViewBag.liveMsg){
-            <div class='LiveMsg'><p>@each.Messages</p></div>
+            @foreach(var each in @ViewBag.liveMsg)
+            {
+                <div class='LiveMsg'>
+                    <p>@each.Messages</p>
+                </div>
             }
         </div>
         <form id="send-form" action="#" onsubmit="return false">
-                <table>
-                    <tr>  
-                        <td>
+            <table>
+                <tr>
+                    <td>
                         <input class="form-control form-control-sm" type="text" id="message-textbox"/>
                         <button id="message-send" class="send-btn btn btn-success" type="submit">Send</button>
                         <img id="message-close" src="/images/close.png" alt="close chat">
@@ -111,20 +126,17 @@
         else if(ViewBag.active.UserLevel == 9)
         {
             <a href="/admin/page"><img id="camera" class="rounded-circle" src="/images/cog.png" alt="camera button"></a>
-
         }
-
     </div>
-
 </div>
-<!-- 
+<!--
+    TODOs:
     chat button
     new event BUTTON with tokens on it - LINK TO FORM TO CREATE THE EVENT
-    sleaderboard
-     -->
+    leaderboard
+-->
 <script src="~/js/map.js"></script>
 <!-- cluster api -->
 <script src="https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/src/markerclusterer.js"></script>
 <!-- maps api -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDTyblNr_Q6boR90WUWLlbhPVlc2u_6h8&callback=initMap" async
-    defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDTyblNr_Q6boR90WUWLlbhPVlc2u_6h8&callback=initMap" async defer></script>

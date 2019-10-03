@@ -1,38 +1,38 @@
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="~/css/admin.css">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="~/css/admin.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 <nav>
     <div class="userData">
         <h3 class="admin-title"><strong>Admin Page</strong></h3>
-                <a style="float:right;" href="/logout"><img class="icon" src="/images/logout.png" alt="logout"></a>
+        <a style="float:right;" href="/logout"><img class="icon" src="/images/logout.png" alt="logout"></a>
     </div>
 </nav>
 <div id="admin-table" >
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Desc of trash</th>
-            <th scope="col">Username</th>
-            <th scope="col">Image</th>
-            <th scope="col">Submitted</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var cleanup in @ViewBag.allCleanups)
-        {
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td><a href="/admin/cleanup/@cleanup.CleanupId">@cleanup.Title</a></td>
-                <td>@cleanup.DescriptionOfTrash</td>
-                <td>@cleanup.User.UserName</td>
-                @if(@cleanup.Images.Count > 0){
-                    <td><img id="admin-img" src="@cleanup.Images[0].FileName" alt=""> </td>
-                }
-                <td>@cleanup.UpdatedAt</td>
+                <th scope="col">Title</th>
+                <th scope="col">Desc of trash</th>
+                <th scope="col">Username</th>
+                <th scope="col">Image</th>
+                <th scope="col">Submitted</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach(var cleanup in @ViewBag.allCleanups)
+            {
+                <tr>
+                    <td><a href="/admin/cleanup/@cleanup.CleanupId">@cleanup.Title</a></td>
+                    <td>@cleanup.DescriptionOfTrash</td>
+                    <td>@cleanup.User.UserName</td>
+                    @if(@cleanup.Images.Count > 0){
+                        <td><img id="admin-img" src="@cleanup.Images[0].FileName" alt=""></td>
+                    }
+                    <td>@cleanup.UpdatedAt</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 <div class="footer"></div>

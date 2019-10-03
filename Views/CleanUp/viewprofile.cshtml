@@ -1,9 +1,9 @@
-    <link rel="stylesheet" href="~/css/user.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="~/js/inbox.js"></script>
-    <script src="~/js/leaderboard_profile.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="~/css/user.css">
+<script src="~/js/inbox.js"></script>
+<script src="~/js/leaderboard_profile.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 
 <nav>
     <div class="userData">
@@ -13,7 +13,6 @@
             </a>
         </span>
         <span id="username">@ViewBag.active.FirstName</span>
-
         <ul class="nav-link">
             <li>
                 <a href="logout">
@@ -26,19 +25,24 @@
                 </a>
             </li>
             <li>
-            @if(@ViewBag.profile.UserId == @ViewBag.active.UserId){
-                <div id="msg-btn">
-                    <img class="open-msg icon" src="/images/message.png" alt="messages">
-                    <div class="msg-window hide-display">
-                        <button id="close-msg">close</button>
-                        <div class="msg-users"></div>
-                        @foreach(var each in @ViewBag.msgUsers){
-                            <a href="/sendprivatemessage/@each.UserId">@each.FirstName</a>
-                        } 
+                @if(@ViewBag.profile.UserId == @ViewBag.active.UserId)
+                {
+                    <div id="msg-btn">
+                        <img class="open-msg icon" src="/images/message.png" alt="messages">
+                        <div class="msg-window hide-display">
+                            <div class="msg-users">
+                                @foreach(var each in ViewBag.msgUsers)
+                                {
+                                    <div class="msg-user">
+                                        <img class="rounded-circle" src="@each.ProfilePic" alt="">
+                                        <a href="/sendprivatemessage/@each.UserId">@each.FirstName @each.LastName</a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <span id="pend-messages" class="display-message">@ViewBag.unread</span>
-            }
+                    <span id="pend-messages" class="display-message">@ViewBag.unread</span>
+                }
             </li>
             <li>
                 <a href="/leaderboard" class="score">@ViewBag.active.Score</a>
@@ -48,44 +52,51 @@
 </nav>
 
 <div class="user-data">
-
     <div class="profile-main">
         <img class="profile-pic" src="@ViewBag.profile.ProfilePic" alt="">
         <h3 style="margin-left: 10px;" class="editInfo">@ViewBag.profile.FirstName @ViewBag.profile.LastName</h3>
         <h3 class="username"><strong>@ViewBag.profile.UserName</strong></h3>
-        @if(ViewBag.edit == true){
-        <a href="/update/user/@ViewBag.profile.UserId">
-            <button class="edit-btn">Edit</button>
-        </a>
-        } else{
-        <a href="/sendprivatemessage/@ViewBag.profile.UserId">
-            <button class="btn btn-primary">Message</button>
-        </a>
-        <!-- add proper message route -->
+        @if(ViewBag.edit == true)
+        {
+            <a href="/update/user/@ViewBag.profile.UserId">
+                <button class="edit-btn">Edit</button>
+            </a>
+        } else
+        {
+            <a href="/sendprivatemessage/@ViewBag.profile.UserId">
+                <button class="btn btn-primary">Message</button>
+            </a>
+            <!-- add proper message route -->
         }
     </div>
     <div class="profile-details">
         <h3><strong>Score:</strong> @ViewBag.profile.Score</h3>
         <h3><strong>Tokens:</strong> @ViewBag.profile.Token</h3>
-        <button id="attending-btn" class="btn btn-success toggle-btn selected-btn">Events Attending</button><button class="btn btn-success toggle-btn" id="created-btn">Events Created</button>
+        <button id="attending-btn" class="btn btn-success toggle-btn selected-btn">Events Attending</button>
+        <button class="btn btn-success toggle-btn" id="created-btn">Events Created</button>
         <div id="attending-div">
-            <h3><strong>Attending:</strong> </h3>
-            @if(@ViewBag.profile.CleanupEvent != null){
-            <div>
-                <h4><a href="/cleanup/@ViewBag.profile.CleanupEvent.CleanupId">@ViewBag.profile.CleanupEvent.Title</a></h4>
-                <p>Area: @ViewBag.profile.CleanupEvent.DescriptionOfArea</p>
-                <p>Description: @ViewBag.profile.CleanupEvent.DescriptionOfTrash</p>
-                <p>Adress: @ViewBag.profile.CleanupEvent.Address</p>
-                <p>Value: @ViewBag.profile.CleanupEvent.Value</p>
-            </div>
-            } else{
-            <p>None</p>
+            <h3><strong>Attending:</strong></h3>
+            @if(@ViewBag.profile.CleanupEvent != null)
+            {
+                <div>
+                    <h4><a href="/cleanup/@ViewBag.profile.CleanupEvent.CleanupId">@ViewBag.profile.CleanupEvent.Title</a></h4>
+                    <p>Area: @ViewBag.profile.CleanupEvent.DescriptionOfArea</p>
+                    <p>Description: @ViewBag.profile.CleanupEvent.DescriptionOfTrash</p>
+                    <p>Adress: @ViewBag.profile.CleanupEvent.Address</p>
+                    <p>Value: @ViewBag.profile.CleanupEvent.Value</p>
+                </div>
+            }
+            else
+            {
+                <p>None</p>
             }
         </div>
         <div id="created-div" class="hide-display">
-            <h3><strong>Created:</strong> </h3>
-            @if(@ViewBag.profile.CreatedCleanups.Count > 0){
-                @foreach(var each in @ViewBag.profile.CreatedCleanups){
+            <h3><strong>Created:</strong></h3>
+            @if(@ViewBag.profile.CreatedCleanups.Count > 0)
+            {
+                @foreach(var each in @ViewBag.profile.CreatedCleanups)
+                {
                     <div>
                         <h1><a href="/cleanup/@each.CleanupId">@each.Title</a></h1>
                         <p>Area: @each.DescriptionOfArea</p>
@@ -96,11 +107,11 @@
                     <hr class="hr-break">
                 }
             }
-            else{
+            else
+            {
                 <p>None</p>
             }
         </div>
     </div>
 </div>
-<div class="footer">
-</div>
+<div class="footer"></div>

@@ -1,12 +1,13 @@
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="~/css/admin.css">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="~/css/admin.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 <nav>
-
     <div class="userData">
         <h3 class="admin-title"><strong>Admin CleanUp Page</strong></h3>
-        <a style="float:right;" href="/logout"><img class="icon" src="/images/logout.png" alt="logout"></a>
+        <a style="float:right;" href="/logout">
+            <img class="icon" src="/images/logout.png" alt="logout">
+        </a>
     </div>
 </nav>
 
@@ -20,23 +21,21 @@
     <p><strong>Username:&nbsp;</strong>@ViewBag.cleanup.User.UserName</p>
     @foreach(var image in @ViewBag.cleanup.Images)
     {
-       <div>
-        <a href="@image.FileName"><img class="admin-viewimg" src="@image.FileName" alt="Image Not Found"></a>
+        <div>
+            <a href="@image.FileName"><img class="admin-viewimg" src="@image.FileName" alt="Image Not Found"></a>
         </div>
     }
-    
     @if(ViewBag.cleanup.Images.Count <= 5)
     {
         <div class="form-add">
             <form action="/approve/cleanup/@ViewBag.cleanup.CleanupId" method="Post">
-            <p><strong>Max Cleaners:</strong></p>
-            <input class="form-control" type="number" min="1" max="100" name="max">
-            <p><strong>Value of Cleanup:</strong></p>
-            <input class="form-control" type="number" min="10" max="100" name="value">
-            <button id="approve" class="btn btn-success" type="submit">Submit</button>
+                <p><strong>Max Cleaners:</strong></p>
+                <input class="form-control" type="number" min="1" max="100" name="max">
+                <p><strong>Value of Cleanup:</strong></p>
+                <input class="form-control" type="number" min="10" max="100" name="value">
+                <button id="approve" class="btn btn-success" type="submit">Submit</button>
             </form>
         </div>
-        
         <a href="/delete/cleanup/@ViewBag.cleanup.CleanupId">Delete Submission</a>
     }
     else
@@ -44,7 +43,5 @@
         <a href="/close/cleanup/@ViewBag.cleanup.CleanupId">Close event/Accept Report</a>
         <a href="">Decline report</a>
     }
-    
-
 </div>
 <div class="footer"></div>

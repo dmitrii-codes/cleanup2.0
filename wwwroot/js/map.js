@@ -1,52 +1,63 @@
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: parseFloat($("#Latitude").html()), lng: parseFloat($("#Longitude").html()) },
+        center: {
+            lat: parseFloat($("#Latitude").html()),
+            lng: parseFloat($("#Longitude").html())
+        },
         zoom: 10,
         styles: mapStyle,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         disableDefaultUI: true
     });
-    //infoWindow init
-    map.addListener('click', function(){
+    // infoWindow init
+    map.addListener('click', function() {
         infoWindow.close();
     });
     const infoWindow = new google.maps.InfoWindow();
     infoWindow.setOptions({ pixelOffset: new google.maps.Size(0, -30) })
-    //markers init
+    // markers init
     var locations = []
     var ids = []
-    for (var i = 0; i < $("#markersCount").html(); i++) { //iterate through activities
-            locations.push({ lat: parseFloat($("#markerLat_" + i).html()), lng: parseFloat($("#markerLng_" + i).html()) })
-            ids.push(i)
+    // iterate through activities
+    for (var i = 0; i < $("#markersCount").html(); i++) {
+        locations.push({ lat: parseFloat($("#markerLat_" + i).html()), lng: parseFloat($("#markerLng_" + i).html()) })
+        ids.push(i)
     }
-    //markers creation
-    var markers = locations.map(function (location, id) {
+    // markers creation
+    var markers = locations.map(function(location, id) {
         var markers_id = ids[id % ids.length]
         var marker = new google.maps.Marker({
             position: location,
             icon: "https://image.ibb.co/bsqxwx/pin.png",
             title: $("#markerTitle_" + markers_id).html()
         });
-        //show the info when clicked
+        // show the info when clicked
         marker.addListener('click', function() {
-        const content = $("#markerContent_" + markers_id).html()
-        infoWindow.setContent(content);
-        infoWindow.setPosition(location);
-        infoWindow.open(map);
+            const content = $("#markerContent_" + markers_id).html()
+            infoWindow.setContent(content);
+            infoWindow.setPosition(location);
+            infoWindow.open(map);
         });
-        return marker
+        return marker;
     });
-    //clusters
-    var markerCluster = new MarkerClusterer(map, markers, { imagePath: 'https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/images/m' });
-    //infoWindow styling
+    // clusters
+    var markerCluster = new MarkerClusterer(
+        map,
+        markers,
+        {
+            imagePath: 'https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/images/m'
+        }
+    );
+    // infoWindow styling
     infoWindow.addListener('domready', function() {
         // Reference to the DIV that wraps the bottom of infowindow
         var iwOuter = $('.gm-style-iw');
-        iwOuter.children(':nth-child(1)').css({ 'display' : 'unset'});
-        /* Since this div is in a position prior to .gm-div style-iw.
+        iwOuter.children(':nth-child(1)').css({ 'display' : 'unset' });
+        /*
+         * Since this div is in a position prior to .gm-div style-iw.
          * We use jQuery and create a iwBackground variable,
          * and took advantage of the existing reference .gm-style-iw for the previous div with .prev().
-        */        
+        */
         var iwBackground = iwOuter.prev();
         // Removes background shadow DIV
         iwBackground.children(':nth-child(2)').css({'display' : 'none'});
@@ -63,144 +74,146 @@ function initMap() {
         // if($('.iw-content').height() < 140){
         //   $('.iw-bottom-gradient').css({display: 'none'});
         // }
-        // // The API automatically applies 0.7 opacity to the button after the mouseout event. This function reverses this event to the desired value.
-        iwCloseBtn.mouseout(function(){
-          $(this).css({opacity: '1'});
+        // The API automatically applies 0.7 opacity to the button after the mouseout event.
+        // This function reverses this event to the desired value.
+        iwCloseBtn.mouseout(function() {
+            $(this).css({opacity: '1'});
         });
     });
 }
+
 // Style credit: https://snazzymaps.com/style/47/nature
 const mapStyle = [
-{
-    "featureType": "landscape",
-    "stylers": [
-        {
-            "hue": "#FFA800"
-        },
-        {
-            "saturation": 0
-        },
-        {
-            "lightness": 0
-        },
-        {
-            "gamma": 1
-        }
-    ]
-},
-{
-    "featureType": "road.highway",
-    "stylers": [
-        {
-            "hue": "#53FF00"
-        },
-        {
-            "saturation": -73
-        },
-        {
-            "lightness": 40
-        },
-        {
-            "gamma": 1
-        }
-    ]
-},
-{
-    "featureType": "road.arterial",
-    "stylers": [
-        {
-            "hue": "#FBFF00"
-        },
-        {
-            "saturation": 0
-        },
-        {
-            "lightness": 0
-        },
-        {
-            "gamma": 1
-        }
-    ]
-},
-{
-    "featureType": "road.local",
-    "stylers": [
-        {
-            "hue": "#00FFFD"
-        },
-        {
-            "saturation": 0
-        },
-        {
-            "lightness": 30
-        },
-        {
-            "gamma": 1
-        }
-    ]
-},
-{
-    "featureType": "water",
-    "stylers": [
-        {
-            "hue": "#00BFFF"
-        },
-        {
-            "saturation": 6
-        },
-        {
-            "lightness": 8
-        },
-        {
-            "gamma": 1
-        }
-    ]
-},
-{
-    "featureType": "poi",
-    "stylers": [
-        {
-            "hue": "#679714"
-        },
-        {
-            "saturation": 33.4
-        },
-        {
-            "lightness": -25.4
-        },
-        {
-            "gamma": 1
-        }
-    ]
-},
-{ 
-    "featureType": "poi", 
-    "elementType": "labels", 
-    "stylers": 
-    [ 
-        { 
-            "visibility": "off" 
-        } 
-    ] 
-},
-{ 
-    "featureType": "landscape", 
-    "elementType": "labels", 
-    "stylers": 
-    [ 
-        { 
-            "visibility": "off" 
-        } 
-    ] 
-}, 
-{ 
-    "featureType": "transit", 
-    "elementType": "labels", 
-    "stylers": 
-    [ 
-        { 
-            "visibility": "off" 
-        } 
-    ] 
-}
+    {
+        "featureType": "landscape",
+        "stylers": [
+            {
+                "hue": "#FFA800"
+            },
+            {
+                "saturation": 0
+            },
+            {
+                "lightness": 0
+            },
+            {
+                "gamma": 1
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "stylers": [
+            {
+                "hue": "#53FF00"
+            },
+            {
+                "saturation": -73
+            },
+            {
+                "lightness": 40
+            },
+            {
+                "gamma": 1
+            }
+        ]
+    },
+    {
+        "featureType": "road.arterial",
+        "stylers": [
+            {
+                "hue": "#FBFF00"
+            },
+            {
+                "saturation": 0
+            },
+            {
+                "lightness": 0
+            },
+            {
+                "gamma": 1
+            }
+        ]
+    },
+    {
+        "featureType": "road.local",
+        "stylers": [
+            {
+                "hue": "#00FFFD"
+            },
+            {
+                "saturation": 0
+            },
+            {
+                "lightness": 30
+            },
+            {
+                "gamma": 1
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "stylers": [
+            {
+                "hue": "#00BFFF"
+            },
+            {
+                "saturation": 6
+            },
+            {
+                "lightness": 8
+            },
+            {
+                "gamma": 1
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "stylers": [
+            {
+                "hue": "#679714"
+            },
+            {
+                "saturation": 33.4
+            },
+            {
+                "lightness": -25.4
+            },
+            {
+                "gamma": 1
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "labels",
+        "stylers":
+        [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape",
+        "elementType": "labels",
+        "stylers":
+        [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "transit",
+        "elementType": "labels",
+        "stylers":
+        [
+            {
+                "visibility": "off"
+            }
+        ]
+    }
 ]

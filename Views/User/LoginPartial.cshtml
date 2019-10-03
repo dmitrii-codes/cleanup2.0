@@ -6,39 +6,41 @@
     <link rel="stylesheet" href="~/css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
     <script src="~/js/location.js"></script>
-    <title>Document</title>
 </head>
 <div class="log-form">
     <div class="logo-wrap">
-    <img class="logo" src="/images/logo_shadow.png" alt="cleanup logo">
+        <img class="logo" src="/images/logo_shadow.png" alt="cleanup logo">
     </div>
     <div class="rotate">
-    <image class="rotating" src="/images/recycle.png" alt="rotate"></image>
+        <img class="rotating" src="/images/recycle.png" alt="rotate">
     </div>
-<h1>Login</h1>
-<div>
-@if (ViewBag.error != null){
-        <span class="block">@ViewBag.error</span>
+    <h1>Login</h1>
+    <div>
+    @if(ViewBag.error != null)
+    {
+        <span class="block">
+            @ViewBag.error
+        </span>
     }
-</div>
-<form asp-controller="User" asp-action="Login" method="POST">
-    <table>
-        <tr> 
-            <td><input class="form-control"  asp-for="UserNameLogin" placeholder="Username"></td>
-        </tr>
-        <tr>
-            <td><input class="form-control"  asp-for="PasswordLogin" placeholder="Password"></td>
-        </tr>
-        <tr>
+    </div>
+    <form asp-controller="User" asp-action="Login" method="POST">
+        <table>
+            <tr>
+                <td><input class="form-control"  asp-for="UserNameLogin" placeholder="Username"></td>
+            </tr>
+            <tr>
+                <td><input class="form-control"  asp-for="PasswordLogin" placeholder="Password"></td>
+            </tr>
+            <tr>
                 <td><input type="hidden" id="Lat" name="Latitude"></td>
                 <td><input type="hidden" id="Lng" name="Longitude"></td>
-        </tr>
-        <tr>
-            
-            <td><button style="width: 12em; margin: 0.3em;" type="submit" class="btn btn-success">Sign In</button></td>
-        </tr>
-    </table>
-</form>
-
-<p>Don't have the account? <a href="signup">Register</a></p>
+            </tr>
+            <tr>
+                <td>
+                    <button style="width: 12em; margin: 0.3em;" type="submit" class="btn btn-success">Sign In</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <p>Don't have the account? <a href="signup">Register</a></p>
 </div>
